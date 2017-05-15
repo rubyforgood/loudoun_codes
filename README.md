@@ -47,11 +47,11 @@ Check out the Docker container for Jenkins.  A really complex tool is wrapped in
 
 Other Resources
 ---------------
-[UVA High School Programming Contest](http://acm.cs.virginia.edu/hspc.php)
-[UofMD HSPC](http://www.cs.umd.edu/Outreach/hsContest.shtml)
-[VCU HSPC](http://www.egr.vcu.edu/departments/computer/about/high-school-programming-contest/)
-[Virginia Tech HSPC](https://icpc.cs.vt.edu/#/hscontest)
-[PC Squared Software](https://pc2.ecs.csus.edu/)
+- [UVA High School Programming Contest](http://acm.cs.virginia.edu/hspc.php)
+- [UofMD HSPC](http://www.cs.umd.edu/Outreach/hsContest.shtml)
+- [VCU HSPC](http://www.egr.vcu.edu/departments/computer/about/high-school-programming-contest/)
+- [Virginia Tech HSPC](https://icpc.cs.vt.edu/#/hscontest)
+- [PC Squared Software](https://pc2.ecs.csus.edu/)
 
 
 Contest Format
