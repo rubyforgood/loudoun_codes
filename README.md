@@ -52,7 +52,8 @@ Other Resources
 - [VCU HSPC](http://www.egr.vcu.edu/departments/computer/about/high-school-programming-contest/)
 - [Virginia Tech HSPC](https://icpc.cs.vt.edu/#/hscontest)
 - [PC Squared Software](https://pc2.ecs.csus.edu/)
-
+- [codewars-runner-cli](https://github.com/Codewars/codewars-runner-cli)
+- [Jenkins Docker Container](https://hub.docker.com/_/jenkins/)
 
 Contest Format
 --------------
