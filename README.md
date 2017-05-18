@@ -5,7 +5,7 @@ Every year, colleges across the country participate in the International Collegi
 
 Problem Definition
 ------------------
-I'll describe more about these contests below, but first I'd like to define the problem I'd like to solve...  The software that dirves these competitions is called PC Squared, and it is horrible.  This year alone I saw one contest delayed because of the difficulty configuring it, and another contest where things failed in sich a way that later-submitting students were able to game the system for a better score.  One high school teacher I work with said, "I've never seen this software work correctly".
+I'll describe more about these contests below, but first I'd like to define the problem I'd like to solve...  The software that drives these competitions is called PC Squared, and it is horrible.  This year alone I saw one contest delayed because of the difficulty configuring it, and another contest where things failed in such a way that later-submitting students were able to game the system for a better score.  One high school teacher I work with said, "I've never seen this software work correctly".
 
 Besides the contest-day logistical problems, the software has other issues:
 
@@ -30,7 +30,7 @@ Challenges
 ----------
 There are several challenges, but already some thoughts about mitigating them.
 
-- The contests are often run on a netowkr isolated from the internet
+- The contests are often run on a network isolated from the internet
 This means that the server will not be able to make calls outside, will not be able to rely on DNS, etc.
 
 - There are security concerns with students uploading code.
