@@ -9,8 +9,9 @@ This project was born as a project at RubyforGood 2017.
 Contributors
 ------------
 
-David Bock (dbock@loudouncodes.org, @bokmann), Team Lead
-(contributors, please add your information here.)
+* David Bock (dbock@loudouncodes.org, @bokmann), Team Lead
+* Daniel P. Clark (6ftdan@gmail.com, @danielpclark)
+* (contributors, please add your information here.)
 
 
 This README would normally document whatever steps are necessary to get the
