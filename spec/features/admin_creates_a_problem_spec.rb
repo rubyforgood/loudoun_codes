@@ -1,6 +1,7 @@
 require 'rails_helper'
 
 RSpec.feature 'Admin create problems', type: :feature do
+  include_context "a configured contest"
   #include_context "an authorized admin"
 
   scenario 'An admin can create a problem with attached inputs and solutions' do
