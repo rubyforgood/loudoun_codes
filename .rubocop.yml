@@ -10,3 +10,6 @@ Style/Documentation:
 
 Style/StringLiterals:
   Enabled: false
+
+Lint/EnforcedStyleAlignWith:
+  Enabled: false
