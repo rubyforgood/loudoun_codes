@@ -1,5 +1,17 @@
 class Attachment < ApplicationRecord
   belongs_to :attachable, polymorphic: true
+
+  def path
+    dir = attachable && attachable.uploaded_files_dir
+
+    Pathname.new(dir.to_s) + original_filename
+  end
+
+  def with_file(mode)
+    File.open(path, mode) do |file|
+      yield file
+    end
+  end
 end
 
 # == Schema Information
