@@ -1,3 +1,8 @@
+class Problem < ApplicationRecord
+  has_many :submissions
+  belongs_to :contest
+end
+
 # == Schema Information
 #
 # Table name: problems
@@ -9,8 +14,3 @@
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
 #
-
-class Problem < ApplicationRecord
-  has_many :submissions
-  belongs_to :contest
-end

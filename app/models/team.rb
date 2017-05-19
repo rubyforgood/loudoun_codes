@@ -1,3 +1,8 @@
+class Team < ApplicationRecord
+  belongs_to :contest
+  has_many :submissions
+end
+
 # == Schema Information
 #
 # Table name: teams
@@ -10,8 +15,3 @@
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
-
-class Team < ApplicationRecord
-  belongs_to :contest
-  has_many :submissions
-end

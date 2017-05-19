@@ -1,3 +1,8 @@
+class Contest < ApplicationRecord
+  has_many :problems
+  has_many :teams
+end
+
 # == Schema Information
 #
 # Table name: contests
@@ -7,8 +12,3 @@
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
-
-class Contest < ApplicationRecord
-  has_many :problems
-  has_many :teams
-end

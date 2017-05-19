@@ -1,3 +1,7 @@
+class SubmissionResult < ApplicationRecord
+  belongs_to :submission
+end
+
 # == Schema Information
 #
 # Table name: submission_results
@@ -8,7 +12,3 @@
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null
 #
-
-class SubmissionResult < ApplicationRecord
-  belongs_to :submission
-end
