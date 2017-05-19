@@ -2,7 +2,7 @@
 
 ```bash
 git clone git@github.com:Codewars/codewars-runner-cli.git
-cd codewars-runner-clie
+cd codewars-runner-cli
 docker pull codewars/base-runner
 docker pull codewars/jvm-runner
 make jvm
