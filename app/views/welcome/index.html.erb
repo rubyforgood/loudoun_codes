@@ -1,0 +1,18 @@
+<% flash.each do |key, value| %>
+  <div class="<%= flash_class(key) %>">
+    <%= value %>
+  </div>
+<% end %>
+
+<%= @current_admin %>
+<%= form_for(:session, url: admin_login_path) do |f| %>
+  <%= f.label :username %>
+  <%= f.text_field :username, class: 'form-control' %>
+
+  <%= f.label :password %>
+  <%= f.password_field :password, class: 'form-control' %>
+
+  <%= f.submit "Log in", class: "btn btn-primary" %>
+<% end %>
+
+<%= link_to('Logout', admin_logout_path, :method => :delete, class: "btn btn-primary")%>
