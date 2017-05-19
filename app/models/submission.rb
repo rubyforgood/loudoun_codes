@@ -4,6 +4,6 @@ class Submission < ApplicationRecord
   belongs_to :problem
 
   def uploaded_files_dir
-    self.class.files_base/"submissions/#{id}"
+    self.class.files_base.join("submissions/#{id}")
   end
 end

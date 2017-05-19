@@ -3,6 +3,6 @@ class Problem < ApplicationRecord
   belongs_to :contest
 
   def uploaded_files_dir
-    self.class.files_base/"problems/#{id}"
+    self.class.files_base.join("problems/#{id}")
   end
 end
