@@ -25,7 +25,8 @@ Brandon Rice (brandon@blrice.net, @brandonlrice)
 
 If you are running the application for an actual competition, you probably want to use `RAILS_ENV=production bundle exec foreman start` in step 7.
 
-After starting the application, you will see this line in your output:
-```14:25:13 web.1     | * Listening on tcp://0.0.0.0:5100```
+After starting the application, you will see this line (or something similar) in your output:
+
+`14:25:13 web.1     | * Listening on tcp://0.0.0.0:5100`
 
 Browse to the provided address and you will see the web application. Browse to `/sidekiq` to see statistics about currently running jobs.
