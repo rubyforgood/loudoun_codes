@@ -11,28 +11,24 @@ Contributors
 
 * David Bock (dbock@loudouncodes.org, @bokmann), Team Lead
 * Daniel P. Clark (6ftdan@gmail.com, @danielpclark)
-* (contributors, please add your information here.)
+* Brandon Rice (brandon@blrice.net, @brandonlrice)
 
+(contributors, please add your information here.)
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+# Getting Started
 
-Things you may want to cover:
+1. Install [Ruby v2.4.1](https://www.ruby-lang.org/en/downloads)
+2. Install (and start) [Redis](https://redis.io)
+3. `git clone https://github.com/rubyforgood/loudoun_codes.git`
+4. `cd loudoun_codes`
+5. `bundle install`
+6. `bundle exec rake db:setup`
+7. `bundle exec foreman start`
 
-* Ruby version
+If you are running the application for an actual competition, you probably want to use `RAILS_ENV=production bundle exec foreman start` in step 7.
 
-* System dependencies
+After starting the application, you will see this line (or something similar) in your output:
 
-* Configuration
+`14:25:13 web.1     | * Listening on tcp://0.0.0.0:5100`
 
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+Browse to the provided address and you will see the web application. Browse to `/sidekiq` to see statistics about currently running jobs.

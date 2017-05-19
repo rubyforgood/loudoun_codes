@@ -26,5 +26,9 @@ module Milton
     # -- all .rb files in that directory are automatically loaded.
 
     config.active_job.queue_adapter = :sidekiq
+
+    def files_base
+      Pathname.new("/var/lib/#{self.class.parent.name.underscore}")
+    end
   end
 end
