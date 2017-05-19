@@ -36,7 +36,10 @@ This means that the server will not be able to make calls outside, will not be a
 - There are security concerns with students uploading code.
 This is also why the original contest code is not open source.  Since students can upload code that is run on the server, a smart student could simply say "email me the directories that contain all the contest solutions you use for judging".  Securing against this simpy becomes an arms race.  We need a better solution.
 
-Thankfully, one exists.  We had considered the possibility of using docker containers to run student submitted code in isolation - the container sunning the code would be terminated after the run, so anything nefarious would be isolated and then garbage collected.  In prepping this document, RubyForGood attendee Daniel P. Clark turned us onto the [codewars-runner-cli](https://github.com/Codewars/codewars-runner-cli), which already does exactly this:
+We briefly considered using [codewars-runner-cli](https://github.com/Codewars/codewars-runner-cli) as a submission scorer for this, given how closely it mimicks our original plan, but chose against it for the following reasons:
+
+- The docker containers that project has contain far more complexity than is needed for the simple single-file solutions students will submit.  The project as a whole will be more understandable with our own lightweight containers and a diff check on output (see the VCU contest readme for a manual example of this project).
+- It is released under the Affero GPL license.  Wince we are releasing under MIT, this doesn't mix.  The thought of changing our license in order to use complexity we don't need to avoid writing a trivial docker container that would be fun and educational in and of itself makes no sense.
 
 
 - Supporting multiple languages
