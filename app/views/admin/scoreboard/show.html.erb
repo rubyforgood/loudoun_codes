@@ -1,0 +1,14 @@
+<table class='table table-striped'>
+  <thead>
+    <tr>
+      <th>Team</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @teams.each do |team| %>
+      <tr>
+        <td><%= team.name %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
