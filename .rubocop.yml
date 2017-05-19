@@ -12,4 +12,4 @@ Style/StringLiterals:
   Enabled: false
 
 Lint/EndAlignment:
-  EnforcedStyleAlignWith: false
+  EnforcedStyleAlignWith: variable
