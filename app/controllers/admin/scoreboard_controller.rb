@@ -1,9 +1,6 @@
 module Admin
-  class ScoreboardController < ApplicationController
-    before_action :require_admin
-
+  class ScoreboardController < AdminController
     def show
-
       contest = Contest.find(scoreboard_params[:contest_id])
       @teams = ActiveTeamsService.new(contest: contest, teams: contest.teams).call
     end
