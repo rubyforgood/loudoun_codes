@@ -41,6 +41,9 @@ GEM
       tzinfo (~> 1.1)
     addressable (2.5.1)
       public_suffix (~> 2.0, >= 2.0.2)
+    annotate (2.6.5)
+      activerecord (>= 2.3.0)
+      rake (>= 0.8.7)
     arel (8.0.0)
     ast (2.3.0)
     autoprefixer-rails (7.1.1)
@@ -68,6 +71,8 @@ GEM
     erubi (1.6.0)
     execjs (2.7.0)
     ffi (1.9.18)
+    foreman (0.84.0)
+      thor (~> 0.19.1)
     globalid (0.4.0)
       activesupport (>= 4.2.0)
     i18n (0.8.1)
@@ -229,9 +234,11 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  annotate
   bootstrap (~> 4.0.0.alpha6)
   byebug
   capybara (~> 2.13)
+  foreman
   jbuilder (~> 2.5)
   jquery-rails
   listen (>= 3.0.5, < 3.2)

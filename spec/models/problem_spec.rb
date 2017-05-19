@@ -13,3 +13,15 @@ RSpec.describe Problem, type: :model do
     end
   end
 end
+
+# == Schema Information
+#
+# Table name: problems
+#
+#  id          :integer          not null, primary key
+#  name        :string
+#  description :text
+#  contest_id  :integer
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#
