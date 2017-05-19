@@ -14,3 +14,5 @@ Style/Documentation:
 Style/StringLiterals:
   Enabled: false
 
+Style/BracesAroundHashParameters:
+  Enabled: false
