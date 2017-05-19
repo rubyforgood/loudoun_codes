@@ -33,4 +33,8 @@ RSpec.feature 'Admin scoreboard', type: :feature do
 
     expect(page).to have_text('Team 1')
   end
+
+  scenario 'teams are ranked by current score' do
+    team = Team.create!(contest: contest)
+  end
 end
