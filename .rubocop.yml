@@ -16,3 +16,8 @@ Style/StringLiterals:
 
 Style/BracesAroundHashParameters:
   Enabled: false
+
+Metrics/LineLength:
+  Max: 120
+  AllowHereDoc: true
+  AllowURI: true
