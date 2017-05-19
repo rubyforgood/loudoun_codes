@@ -33,4 +33,17 @@ RSpec.feature 'Admin scoreboard', type: :feature do
 
     expect(page).to have_text('Team 1')
   end
+
+  scenario 'teams are ranked by current score' do
+    team_1 = Team.create!(contest: contest, name: 'Team 1')
+    team_2 = Team.create!(contest: contest, name: 'Team 2')
+    problem = Problem.create!(contest: contest)
+
+    Submission.create!(problem: problem, team: team_1, passed: false)
+    Submission.create!(problem: problem, team: team_2, passed: true)
+
+    visit admin_contest_scoreboard_path(contest, logged_in: true)
+
+    expect(page).to have_text(/Team 2.*Team 1/)
+  end
 end
