@@ -10,6 +10,7 @@ Contributors
 ------------
 
 * David Bock (dbock@loudouncodes.org, @bokmann), Team Lead
+* Daniel P. Clark (6ftdan@gmail.com, @danielpclark)
 * Brandon Rice (brandon@blrice.net, @brandonlrice)
 
 (contributors, please add your information here.)
