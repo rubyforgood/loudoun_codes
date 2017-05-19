@@ -3,7 +3,7 @@ class Problem < ApplicationRecord
   belongs_to :contest
 
   WHITESPACE_RULES = ["plain diff", "ignore all whitespace", "ignore leading whitespace", "ignore trailing whitespace"]
-  
+
   def uploaded_files_dir
     self.class.files_base.join("problems/#{id}")
   end
