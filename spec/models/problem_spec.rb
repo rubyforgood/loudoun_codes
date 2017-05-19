@@ -1,5 +1,27 @@
 require 'rails_helper'
 
 RSpec.describe Problem, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  describe "#uploaded_files_dir" do
+    let(:problem) do
+      Problem.create!({
+        contest: Contest.create!
+      })
+    end
+
+    it 'includes the record id' do
+      expect(problem.uploaded_files_dir.to_s).to include(problem.id.to_s)
+    end
+  end
 end
+
+# == Schema Information
+#
+# Table name: problems
+#
+#  id          :integer          not null, primary key
+#  name        :string
+#  description :text
+#  contest_id  :integer
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#

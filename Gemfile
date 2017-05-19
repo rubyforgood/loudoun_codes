@@ -28,6 +28,9 @@ gem 'jbuilder', '~> 2.5'
 
 # password generator
 gem 'token_phrase'
+
+gem 'simple_form'
+
 gem 'sidekiq'
 
 gem 'bootstrap', '~> 4.0.0.alpha6'
@@ -52,4 +55,5 @@ group :development do
   gem 'rubocop-rails'
   gem 'pry-byebug', '~> 3.4'
   gem 'foreman'
+  gem 'annotate'
 end
