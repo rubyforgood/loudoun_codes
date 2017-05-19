@@ -9,8 +9,9 @@ This project was born as a project at RubyforGood 2017.
 Contributors
 ------------
 
-David Bock (dbock@loudouncodes.org, @bokmann), Team Lead
-Brandon Rice (brandon@blrice.net, @brandonlrice)
+* David Bock (dbock@loudouncodes.org, @bokmann), Team Lead
+* Brandon Rice (brandon@blrice.net, @brandonlrice)
+
 (contributors, please add your information here.)
 
 # Getting Started
