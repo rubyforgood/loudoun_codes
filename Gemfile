@@ -54,4 +54,5 @@ group :development do
   gem 'listen', '>= 3.0.5', '< 3.2'
   gem 'rubocop-rails'
   gem 'pry-byebug', '~> 3.4'
+  gem 'annotate'
 end
