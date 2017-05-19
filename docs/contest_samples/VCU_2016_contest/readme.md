@@ -25,13 +25,13 @@ Of course, you can do that for ProblemB, ProblemC, etc.
 
 check out the contents of the build directory.  Congratulations!  You just compiled java from the commmand line.  Now we're going to run it on the sample data provided by the contest:
 
-    java -cp build ProblemB < inputs/ProblemA.in 
+    java -cp build ProblemA < inputs/ProblemA.in 
 
 That will generate some output.  That output looks remarkably like the expected output in the file at outputs/ProblemA.out.  The '<' above means that the contents of that file will be fed to the running program as if someone typed it from the keyboard.
 
 Lets make the computer check that output for us:
 
-    java -cp build ProblemB < inputs/ProblemB.in | diff -w outputs/ProblemA.out -
+    java -cp build ProblemA < inputs/ProblemA.in | diff -w outputs/ProblemA.out -
 
 There's a lot going on there, so let's unpack it.  The first part runs the program.  We saw that immediately before.  the '|' symbol means "capture the output and feed it to the next process".  This is called the 'pipe' symbol, and is one of the reasons the unix culture and command line ecosystem is awesome.
 
