@@ -1,6 +1,9 @@
+inherit_gem:
+  rubocop-rails:
+    - config/rails.yml
+
 AllCops:
-  Exclude:
-    - 'db/schema.rb'
+  TargetRubyVersion: 2.4
 
 inherit_from:
   - .rubocop_todo.yml
