@@ -1,4 +1,5 @@
 class Problem < ApplicationRecord
+  has_many :attachments, as: :attachable
   has_many :submissions
   belongs_to :contest
 
