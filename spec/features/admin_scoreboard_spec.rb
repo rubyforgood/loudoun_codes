@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.feature 'Admin scoreboard', :type => :feature do
+RSpec.feature 'Admin scoreboard', type: :feature do
   scenario 'admin scoreboard is accessible to admins' do
     # TODO Update when authorization is in place
     visit admin_scoreboard_path(logged_in: true)
