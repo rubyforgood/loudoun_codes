@@ -1,3 +1,10 @@
+inherit_gem:
+  rubocop-rails:
+    - config/rails.yml
+
+AllCops:
+  TargetRubyVersion: 2.4
+
 inherit_from:
   - .rubocop_todo.yml
 
