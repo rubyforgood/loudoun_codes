@@ -1,0 +1,10 @@
+<%= simple_form_for [:admin, @problem] do |form| %>
+  <div class="form-controls">
+    <%= form.input :name %>
+    <%= form.input :description, type: :text %>
+  </div>
+
+  <div class="form-actions">
+    <%= form.button :submit %>
+  </div>
+<% end %>
