@@ -11,5 +11,3 @@ Style/Documentation:
 Style/StringLiterals:
   Enabled: false
 
-Lint/EndAlignment:
-  Enabled: false
