@@ -19,6 +19,16 @@ ActiveRecord::Schema.define(version: 20170519202331) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "attachments", force: :cascade do |t|
+    t.string "original_filename"
+    t.string "content_type"
+    t.integer "attachable_id"
+    t.string "attachable_type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["attachable_type", "attachable_id"], name: "index_attachments_on_attachable_type_and_attachable_id"
+  end
+
   create_table "contests", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
