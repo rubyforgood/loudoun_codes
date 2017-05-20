@@ -24,5 +24,5 @@ end
 #  has_input       :boolean
 #  auto_judge      :boolean
 #  ignore_case     :boolean
-#  whitespace_rule :string
+#  whitespace_rule :string           default("plain diff")
 #

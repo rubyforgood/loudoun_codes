@@ -11,6 +11,12 @@
 
     <%= form.input :whitespace_rule, as: :select,
       collection: Problem::WHITESPACE_RULES %>
+
+    <% @attachments.each do |attachment| %>
+      <%= form.simple_fields_for(attachment) do |a| %>
+        <%= a.input attachment.attachment_type, as: :file %>
+      <% end %>
+    <% end %>
   </div>
 
   <div class="form-actions">
