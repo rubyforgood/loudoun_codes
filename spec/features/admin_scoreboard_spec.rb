@@ -26,12 +26,13 @@ RSpec.feature 'Admin scoreboard', type: :feature do
       expect(current_path).to eq(admin_contest_scoreboard_path(contest))
     end
 
-    scenario 'a team without activity is not shown', :include_contest do
+
+    scenario 'a team without activity is shown', :include_contest do
       team = Team.create!(contest: contest, name: 'Team 1')
 
       visit admin_contest_scoreboard_path(contest)
 
-      expect(page).to_not have_text('Team 1')
+      expect(page).to have_text('Team 1')
     end
 
     scenario 'a team with activity is shown' do

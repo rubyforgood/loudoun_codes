@@ -9,14 +9,28 @@ class TeamTimeService
     if submissions.any?
       submissions.first.created_at - @contest.started_at + time_penalty
     else
-      Float::INFINITY
+      0
     end
   end
 
   private
 
   def submissions
-    @team.submissions.where(problem: @contest.problems)
+    @submissions ||= @team.submissions.where(problem: @contest.problems)
+  end
+
+  def passed_submissions
+    submissions.where(status: 'passed')
+  end
+
+  def first_passed_submission
+    passed_submissions.first
+  end
+
+  def submissions_time
+    submissions.map do |submission|
+      submission.created_at - @contest.started_at
+    end.reduce(0, :+)
   end
 
   def time_penalty

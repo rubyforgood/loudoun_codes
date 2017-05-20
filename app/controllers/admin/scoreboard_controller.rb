@@ -7,8 +7,12 @@ module Admin
 
     private
 
-    def active_teams
-      ActiveTeamsService.new(contest: @contest, teams: @contest.teams).call
-    end
+      def scoreboard_params
+        params.permit(:contest_id, :logged_in)
+      end
+
+      def active_teams
+        @contest.teams
+      end
   end
 end
