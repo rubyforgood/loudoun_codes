@@ -25,12 +25,12 @@ module Docker
           }
     end
 
-    def run(entry, input, output)
+    def run(entry, input = nil, output = nil)
       raise 'Docker::Entry required' unless entry.is_a? Docker::Entry
-      raise 'Docker::Input required' unless input.is_a? Docker::Input
-      raise 'Docker::Output required' unless output.is_a? Docker::Output
-      @input = input
-      @output = output
+      raise 'Docker::Input required' unless input && input.is_a?(Docker::Input)
+      raise 'Docker::Output required' unless output && output.is_a?(Docker::Output)
+      @input ||= input
+      @output ||= output
       command.call(entry)
     end
 
