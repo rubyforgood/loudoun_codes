@@ -12,6 +12,8 @@ RSpec.describe 'OmniBuilder with Ruby', type: :docker do
           output = Docker::Output.create(File.join(dir, 'ProblemA.out'), out_file)
           good_entry = Docker::Entry.create(File.join(dir, 'ProblemA.rb'), good_entry_file)
 
+          expect(File.exist? input.path).to be_truthy
+          expect(File.exist? output.path).to be_truthy
           expect(File.exist? good_entry.path).to be_truthy
 
           builder = Docker::RubyBuilder.new(dir)
@@ -31,6 +33,8 @@ RSpec.describe 'OmniBuilder with Ruby', type: :docker do
           output = Docker::Output.create(File.join(dir, 'ProblemA.out'), out_file)
           bad_entry = Docker::Entry.create(File.join(dir, 'ProblemB.rb'), bad_entry_file)
 
+          expect(File.exist? input.path).to be_truthy
+          expect(File.exist? output.path).to be_truthy
           expect(File.exist? bad_entry.path).to be_truthy
 
           builder = Docker::RubyBuilder.new(dir)
