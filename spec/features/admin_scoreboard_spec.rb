@@ -45,7 +45,7 @@ RSpec.feature 'Admin scoreboard', type: :feature do
       Submission.create!(problem: problem, team: team_1, status: 'failed')
       Submission.create!(problem: problem, team: team_2, status: 'passed')
 
-      visit admin_contest_scoreboard_path(contest, logged_in: true)
+      visit admin_contest_scoreboard_path(contest)
 
       expect(page).to have_text(/Team 2.*Team 1/)
     end
@@ -58,7 +58,7 @@ RSpec.feature 'Admin scoreboard', type: :feature do
       submission_1 = Submission.create!(problem: problem, team: team_2, status: 'passed')
       submission_2 = Submission.create!(problem: problem, team: team_1, status: 'passed')
 
-      visit admin_contest_scoreboard_path(contest, logged_in: true)
+      visit admin_contest_scoreboard_path(contest)
 
       expect(page).to have_text(/Team 2.*Team 1/)
     end
