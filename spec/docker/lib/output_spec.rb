@@ -9,10 +9,6 @@ RSpec.describe Docker::Output, type: :docker do
       expect(Docker::Output).to_not be_nil
     end
 
-    it 'has a docker path' do
-      expect(output.docker_path).to eq('/outputs/ProblemA.rb')
-    end
-
     it 'has a system path' do
       expect(output.path).to eq(Pathname.new('ProblemA.rb').to_s)
     end

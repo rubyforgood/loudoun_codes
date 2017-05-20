@@ -16,18 +16,8 @@ module Docker
       @path = path.to_s
     end
 
-    def docker_path
-      raise "not implemented"
-    end
-
     def path
       @path
-    end
-
-    def docker_map
-      local = path.rpartition('/').shift(2).join
-      docker = docker_path.rpartition('/').shift(2).join
-      "#{local}:#{docker}"
     end
   end
 end

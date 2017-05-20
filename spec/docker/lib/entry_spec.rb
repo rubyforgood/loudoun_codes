@@ -9,10 +9,6 @@ RSpec.describe Docker::Entry, type: :docker do
       expect(Docker::Entry).to_not be_nil
     end
 
-    it 'has a docker path' do
-      expect(entry.docker_path).to eq('/solution/ProblemA.rb')
-    end
-
     it 'has a system path' do
       expect(entry.path).to eq(Pathname.new('ProblemA.rb').to_s)
     end

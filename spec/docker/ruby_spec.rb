@@ -1,9 +1,5 @@
 require 'rails_helper'
 
-# 
-# SOLUTION_FOLDER=$(pwd)
-# docker run -v SOLUTION_FOLDER:/solution -ti lcsi/ruby /execute_problem.sh /solution/ProblemA.rb
-
 in_file = <<-INFILE
 meow
 meow
