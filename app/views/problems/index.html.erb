@@ -1,0 +1,33 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Problems</h1>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">Name</th>
+      <th scope="col">Timeout</th>
+      <th scope="col">Has Input?</th>
+      <th scope="col">Auto Judge?</th>
+      <th scope="col">Ignore Case?</th>
+      <th scope="col">Whitespace Handling</th>
+			<th class="actions" scope="col" colspan="3">Actions</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @problems.each do |problem| %>
+      <tr>
+        <th scope="row"><%= problem.name %></th>
+        <td><%= problem.timeout %></td>
+        <td><%= problem.has_input %></td>
+        <td><%= problem.auto_judge %></td>
+        <td><%= problem.ignore_case %></td>
+        <td><%= problem.whitespace_rule %></td>
+        <td><%= link_to 'Show', problem %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>

@@ -15,6 +15,10 @@ Rails.application.routes.draw do
     resources :problems
   end
 
+  resources :problems, only: [:index, :show]
+
+  resources :attachments, only: [:show]
+
   get "/admin" => redirect("/admin/contest")
 
   root to: 'welcome#index'
