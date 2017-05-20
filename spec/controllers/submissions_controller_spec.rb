@@ -70,7 +70,12 @@ RSpec.describe SubmissionsController, type: :controller do
         expect(attachment.with_file('r') { |f| f.read }).to eq fixture.read
       end
 
-      it 'queues submission to be run'
+      it 'queues submission to be run' do
+        expect {
+          post :create, params: valid_params
+        }.to have_enqueued_job(RunSubmissionJob)
+      end
+
       it 'uses current team'
     end
   end

@@ -25,7 +25,7 @@ class SubmissionsController < ApplicationController
           file.write submission[:attachment].read
         end
 
-        # TODO: Queue job
+        RunSubmissionJob.perform_later @submission.id
 
         redirect_to @submission
       else
