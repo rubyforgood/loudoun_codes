@@ -14,6 +14,14 @@
   def problem_input_file
     uploaded_files_dir.join("Input")
   end
+
+  def problem_timeout
+    30.seconds
+  end
+
+  def id
+    1
+  end
 end
 
 (CompilesDoesntRun = Object.new).instance_exec do
@@ -32,6 +40,14 @@ end
   def problem_input_file
     uploaded_files_dir.join("Input")
   end
+
+  def problem_timeout
+    30.seconds
+  end
+
+  def id
+    1
+  end
 end
 
 (CompilesAndRuns = Object.new).instance_exec do
@@ -49,5 +65,13 @@ end
 
   def problem_input_file
     uploaded_files_dir.join("Input")
+  end
+
+  def problem_timeout
+    30.seconds
+  end
+
+  def id
+    1
   end
 end

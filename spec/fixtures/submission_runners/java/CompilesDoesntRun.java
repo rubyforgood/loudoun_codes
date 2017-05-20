@@ -10,7 +10,7 @@ import java.util.Scanner;
 public class CompilesAndRuns {
 
 	public static void main(String[] args) {
-            throw new java.lang.RuntimeException("Hullo! I'm an error.")
+            throw new java.lang.RuntimeException("Hullo! I'm an error.");
 
 		Scanner sc = new Scanner(System.in);
 		int knownObjects   = sc.nextInt();
