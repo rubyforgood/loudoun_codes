@@ -3,8 +3,7 @@
   <%= f.input :username, :required =>false, :label => 'Username',:placeholder => 'Username' %>
   <%= f.input :password, :required =>false, :label => 'Password',:placeholder => 'Password' %>
 
-
-  <%= f.button :submit, "Log in", class: "btn btn-primary" %>
+  <%= f.button :submit, "Log in", class: "btn-primary" %>
 <% end %>
 
-<%= link_to('Logout', admin_logout_path, :method => :delete, class: "btn btn-primary")%>
+<%= link_to('Logout', admin_logout_path, :method => :delete)%>
