@@ -3,13 +3,6 @@ require 'rails_helper'
 RSpec.feature 'Admin scoreboard', type: :feature do
   let(:contest) { Contest.create!(started_at: Time.now) }
 
-  scenario 'admin scoreboard is accessible to admins' do
-    # TODO Update when authorization is in place
-    visit admin_contest_scoreboard_path(contest, logged_in: true)
-
-    expect(current_path).to eq(admin_contest_scoreboard_path(contest))
-  end
-
   scenario 'admin scoreboard is not accessible to participants' do
     visit admin_contest_scoreboard_path(contest)
 
@@ -25,7 +18,6 @@ RSpec.feature 'Admin scoreboard', type: :feature do
 
       expect(current_path).to eq(admin_contest_scoreboard_path(contest))
     end
-
 
     scenario 'a team without activity is shown', :include_contest do
       team = Team.create!(contest: contest, name: 'Team 1')
@@ -63,8 +55,8 @@ RSpec.feature 'Admin scoreboard', type: :feature do
       team_2 = Team.create!(contest: contest, name: 'Team 2')
       problem = Problem.create!(contest: contest)
 
-      Submission.create!(problem: problem, team: team_2, status: 'passed')
-      Submission.create!(problem: problem, team: team_1, status: 'passed')
+      submission_1 = Submission.create!(problem: problem, team: team_2, status: 'passed')
+      submission_2 = Submission.create!(problem: problem, team: team_1, status: 'passed')
 
       visit admin_contest_scoreboard_path(contest, logged_in: true)
 

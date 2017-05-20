@@ -15,7 +15,7 @@ RSpec.describe TeamTimeService, type: :model do
           problem = Problem.create!(contest: contest)
           Submission.create!(problem: problem, team: team, status: 'failed')
 
-          expect(TeamTimeService.new(contest: contest, team: team).call).to eq(0)
+          expect(TeamTimeService.new(contest: contest).call(team: team)).to eq(0)
         end
       end
     end
@@ -38,7 +38,6 @@ RSpec.describe TeamTimeService, type: :model do
         submission_1 = Submission.create!(problem: problem, team: team, status: 'failed')
         submission_2 = Submission.create!(problem: problem, team: team, status: 'passed')
 
-        problem.reload
         submission_1.reload
         submission_2.reload
 
@@ -46,7 +45,7 @@ RSpec.describe TeamTimeService, type: :model do
           (submission_2.created_at - contest.started_at) +
           Rails.configuration.failed_submission_time_penalty
 
-        expect(TeamTimeService.new(contest: contest, team: team).call).to eq(expected_time)
+        expect(TeamTimeService.new(contest: contest).call(team: team)).to eq(expected_time)
       end
 
       # it 'accounts for multiple failed submissions' do
