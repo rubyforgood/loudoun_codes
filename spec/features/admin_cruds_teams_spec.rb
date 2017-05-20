@@ -15,11 +15,11 @@ RSpec.feature 'administrator can create teams', type: :feature do
              { name: "Move fast and break things", username: "hare" },
              { name: "Slow and steady", username: "tortise" }]
 
-    teams.each do |name, user|
+    teams.each do |t|
       click_on "Add New Team"
 
-      fill_in "Name", with: "A quick and speedy team"
-      fill_in "username", with: "roadrunner"
+      fill_in "Name", with: t[:name]
+      fill_in "Username", with: t[:user]
 
       click_on "Create Team"
     end
