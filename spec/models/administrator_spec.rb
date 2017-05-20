@@ -1,7 +1,12 @@
 require 'rails_helper'
 
 RSpec.describe Administrator, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  it "returns administrator when authentication is successful" do
+    Administrator.create(username: "admin", password: "admin")
+    expect(Administrator.authenticate("admin", "admin")).to be_instance_of Administrator
+
+  end
+
 end
 
 # == Schema Information
