@@ -1,5 +1,5 @@
 module Docker
-  class OmniRunner
+  class OmniBuilder
     def initialize(workdir)
       @workdir = Pathname.new workdir
       @command = ->entry {
@@ -25,7 +25,7 @@ module Docker
           }
     end
 
-    def run(entry, input = nil, output = nil)
+    def build(entry, input = nil, output = nil)
       raise 'Docker::Entry required' unless entry.is_a? Docker::Entry
       raise 'Docker::Input required' unless input && input.is_a?(Docker::Input)
       raise 'Docker::Output required' unless output && output.is_a?(Docker::Output)

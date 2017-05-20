@@ -2,7 +2,7 @@ require 'rails_helper'
 require_relative '../support/docker/ruby'
 include Support::Docker::Ruby
 
-RSpec.describe 'OmniRunner with Ruby', type: :docker do
+RSpec.describe 'OmniBuilder with Ruby', type: :docker do
   describe 'It works with docker command and barebone ruby image' do
     it 'the big picture result here' do
       Dir.mktmpdir { |dir|
@@ -17,14 +17,14 @@ RSpec.describe 'OmniRunner with Ruby', type: :docker do
           expect(File.exist? good_entry.path).to be_truthy
           expect(File.exist? bad_entry.path).to be_truthy
 
-          runner = Docker::RubyRunner.new(dir)
+          builder = Docker::RubyBuilder.new(dir)
 
-          sys_exec(runner.run(good_entry, input, output))
+          sys_exec(builder.build(good_entry, input, output))
           expect(out).to eq('')
           expect(err).to eq('')
           expect(@exitstatus).to eq(0)
 
-          sys_exec(runner.run(bad_entry, input, output))
+          sys_exec(builder.build(bad_entry, input, output))
           expect(out).to_not eq('')
           expect(err).to eq('')
           expect(@exitstatus).to_not eq(0)

@@ -1,7 +1,7 @@
-require_relative 'omni_runner'
+require_relative 'omni_builder'
 
 module Docker
-  class RubyRunner < OmniRunner
+  class RubyBuilder < OmniBuilder
     def initialize(workdir)
       @language_executable = '/usr/local/bin/ruby'
       @docker_image = 'ruby'
