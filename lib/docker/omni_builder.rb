@@ -9,7 +9,7 @@ module Docker
               '-a stdin',
               '-a stdout',
               '-a stderr',
-              "-v '#{workdir()}:#{workdir()}' -w '#{workdir()}'", # obligatory method call
+              "-v \"#{workdir()}:#{workdir()}\" -w \"#{workdir()}\"", # obligatory method call
               '-i',
               docker_image,
               language_executable,
