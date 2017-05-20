@@ -13,6 +13,17 @@ class Submission < ApplicationRecord
   def uploaded_files_dir
     self.class.files_base.join("submissions/#{id}")
   end
+
+  def source_file
+    Pathname.new(attachment.path)
+  end
+
+  def problem_name
+    problem.name
+  end
+
+  # def problem_input_file
+  # end
 end
 
 # == Schema Information
