@@ -10,6 +10,10 @@ RSpec.feature 'Admin create problems', type: :feature do
     click_on "Create Problem"
     fill_in "Name", with: "Shortest Path"
     fill_in "Description", with: "Find the shortest paths between the given points"
+    fill_in "Timeout", with: 30
+
+    check "Ignore case"
+    select "ignore trailing whitespace", from: "Whitespace rule"
 
     click_on "Create Problem"
 
