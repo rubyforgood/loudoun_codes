@@ -21,7 +21,13 @@ module Admin
       @problem = Problem.find_by_id(params[:id])
 
       @problem.update_attributes(problem_parameters)
-      
+
+      if params[:problem][:attachment]
+        ATTACHMENT_TYPES.each do |type|
+          add_attachment(params[:problem][:attachment][type], type)
+        end
+      end
+
       redirect_to @problem, notice: 'Problem updated'
     end
 
