@@ -1,5 +1,9 @@
 module Admin
   class SessionsController < ApplicationController
+
+    def new
+    end
+
     def create
       admin = Administrator.authenticate(params[:session][:username], params[:session][:password])
       if admin
