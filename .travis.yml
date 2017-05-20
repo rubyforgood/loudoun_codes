@@ -10,5 +10,10 @@ notifications:
 services:
   - docker
 before_install:
+<<<<<<< HEAD
   - docker pull python
   - docker pull ruby
+=======
+  - docker pull ruby:2.4.1
+  - docker pull python:3.6.1
+>>>>>>> 136609dd3e4de2499b15476b9ed8fe675189bcb6
