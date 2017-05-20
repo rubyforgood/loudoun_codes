@@ -1,11 +1,6 @@
 class Administrator < ApplicationRecord
-  def self.authenticate(username, password)
-    admin = Administrator.find_by(username: username)
-    if admin.nil?
-      false
-    else
-      admin.password == password
-    end
+  def self.authenticate(username, token)
+    Administrator.find_by(username: username, password: token)
   end
 end
 
