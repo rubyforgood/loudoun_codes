@@ -11,7 +11,12 @@
   <body>
     <%= render 'layouts/navbar' %>
 
+
     <section class=container>
+      <% flash.each do |key, value| -%>
+      <%= content_tag :div, value, class: flash_class(key) %>
+      <% end -%>
+
       <%= yield %>
     </section>
   </body>
