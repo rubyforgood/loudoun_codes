@@ -1,8 +1,9 @@
 module Admin
   class SessionsController < ApplicationController
     def create
-      if Administrator.authenticate(params[:session][:username], params[:session][:password])
-        session[:current_admin_id] = Administrator.find_by(username: params[:session][:username]).id
+      admin = Administrator.authenticate(params[:session][:username], params[:session][:password])
+      if admin
+        session[:current_admin_id] = admin.id
         flash[:notice] = "You have successfully logged in."
         redirect_to root_url
       else
