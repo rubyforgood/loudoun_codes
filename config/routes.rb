@@ -1,17 +1,22 @@
 require 'sidekiq/web'
 
 Rails.application.routes.draw do
-  mount Sidekiq::Web => '/sidekiq'
+  get 'sessions/new'
 
-  scope module: 'admin' do
-    get 'admin/contests/:contest_id/scoreboard' => 'scoreboard#show', as: :admin_contest_scoreboard
-  end
+  mount Sidekiq::Web => '/sidekiq'
 
   namespace 'admin' do
     get 'contest' => 'contests#show'
+    get 'scoreboard' => 'scoreboard#show', as: :contest_scoreboard
+
+    get    'login',  to: 'sessions#new'
+    post   'login',  to: 'sessions#create'
+    delete 'logout', to: 'sessions#destroy'
 
     resources :problems
   end
+
+  get "/admin" => redirect("/admin/contest")
 
   root to: 'welcome#index'
 end

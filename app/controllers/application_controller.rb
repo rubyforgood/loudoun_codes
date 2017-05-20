@@ -3,7 +3,11 @@ class ApplicationController < ActionController::Base
 
   def require_admin
     # TODO Update when authorization is in place
+    redirect_to root_path unless current_admin
+  end
 
-    redirect_to root_path unless params[:logged_in]
+  def current_admin
+    @current_admin ||= session[:current_admin_id] &&
+      Administrator.find_by(id: session[:current_admin_id])
   end
 end
