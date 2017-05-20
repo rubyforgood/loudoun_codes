@@ -5,8 +5,6 @@ RSpec.feature 'administrator can create teams', type: :feature do
   include_context "an authorized admin"
 
   scenario "an admin can create new teams" do
-    pending
-
     visit admin_contest_path
 
     click_on "Manage Teams"
