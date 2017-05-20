@@ -3,6 +3,8 @@ require 'sidekiq/web'
 Rails.application.routes.draw do
   get 'sessions/new'
 
+  resources :submissions
+
   mount Sidekiq::Web => '/sidekiq'
 
   namespace 'admin' do
