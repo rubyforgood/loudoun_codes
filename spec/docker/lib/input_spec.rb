@@ -3,7 +3,7 @@ require 'fileutils'
 
 RSpec.describe Docker::Input, type: :docker do
   describe 'input for entry' do
-    let(:input) { Docker::Input.new(Pathname.new('ProblemA.rb'))}
+    let(:input) { Docker::Input.new(Pathname.new('ProblemA.rb')) }
 
     it 'exists' do
       expect(Docker::Input).to_not be_nil
@@ -14,7 +14,7 @@ RSpec.describe Docker::Input, type: :docker do
     end
 
     it 'can create the file with create' do
-      Dir.mktmpdir {|dir|
+      Dir.mktmpdir { |dir|
         Dir.chdir(dir) {
           file = Docker::Input.create("#{dir}/ProblemX.in", 'meow\nmeow')
           expect(file).to be_kind_of(Docker::Input)

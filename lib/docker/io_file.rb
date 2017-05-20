@@ -5,7 +5,7 @@ module Docker
       raise 'Absolute path require for file' unless abs_path_file.to_s[0..0] == '/'
       dir, * = abs_path_file.rpartition('/')
       FileUtils.mkdir_p dir
-      File.open(abs_path_file, 'w') {|file| file.write(source) }
+      File.open(abs_path_file, 'w') { |file| file.write(source) }
       new Pathname.new(abs_path_file)
     end
 

@@ -5,7 +5,7 @@ include Support::Docker::Ruby
 RSpec.describe 'OmniRunner with Ruby', type: :docker do
   describe 'It works with docker command and barebone ruby image' do
     it 'the big picture result here' do
-      Dir.mktmpdir {|dir|
+      Dir.mktmpdir { |dir|
         Dir.chdir(dir) {
           input = Docker::Input.create(File.join(dir, 'ProblemA.in'), in_file)
           output = Docker::Output.create(File.join(dir, 'ProblemA.out'), out_file)

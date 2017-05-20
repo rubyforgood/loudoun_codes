@@ -2,7 +2,7 @@ module Docker
   class OmniRunner
     def initialize(workdir)
       @workdir = Pathname.new workdir
-      @command = ->entry{
+      @command = ->entry {
             [
               'docker',
               'run',
@@ -23,10 +23,9 @@ module Docker
               '-'
             ].join(' ')
           }
-
     end
 
-    def run entry, input, output
+    def run(entry, input, output)
       raise 'Docker::Entry required' unless entry.is_a? Docker::Entry
       raise 'Docker::Input required' unless input.is_a? Docker::Input
       raise 'Docker::Output required' unless output.is_a? Docker::Output
@@ -38,11 +37,11 @@ module Docker
     private def input
       @input
     end
-    
+
     private def output
       @output
     end
-    
+
     def docker_image
       raise "#{self} - #{__method__} not implemented"
     end
