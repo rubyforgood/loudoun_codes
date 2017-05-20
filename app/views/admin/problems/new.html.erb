@@ -2,20 +2,12 @@
   <div class="form-controls">
     <%= form.input :name %>
     <%= form.input :description, type: :text %>
-    <%= form.association(:attachments,
-                         as: :file,
-                         label: 'Handout',
-                         input_html: { name: 'problem[handout]' }) %>
 
-    <%= form.association(:attachments,
-                         as: :file,
-                         label: 'Sample Input',
-                         input_html: { name: 'problem[sample_in]' }) %>
-
-    <%= form.association(:attachments,
-                         as: :file,
-                         label: 'Sample Output',
-                         input_html: { name: 'problem[sample_out]' }) %>
+    <% @attachments.each do |attachment| %>
+      <%= form.simple_fields_for(attachment) do |a| %>
+        <%= a.input attachment.attachment_type, as: :file %>
+      <% end %>
+    <% end %>
   </div>
 
   <div class="form-actions">

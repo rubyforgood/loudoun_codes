@@ -1,8 +1,14 @@
 module Admin
   class ProblemsController < ApplicationController
+    ATTACHMENT_TYPES = %w(handout sample_in sample_out)
+
     def new
       @contest = Contest.instance
       @problem = @contest.problems.build
+
+      @attachments = ATTACHMENT_TYPES.map do |type|
+        Attachment.new(attachment_type: type)
+      end
     end
 
     def create
@@ -10,9 +16,9 @@ module Admin
       @problem = @contest.problems.build problem_parameters
 
       if @problem.save
-        add_attachment(params[:problem][:handout], 'handout')
-        add_attachment(params[:problem][:sample_in], 'sample_in')
-        add_attachment(params[:problem][:sample_out], 'sample_out')
+        ATTACHMENT_TYPES.each do |type|
+          add_attachment(params[:problem][:attachment][type], type)
+        end
 
         redirect_to admin_problem_path @problem
       else
@@ -30,13 +36,15 @@ module Admin
     def add_attachment(io, label)
       return unless io
 
-      attachment = @problem.attachments.create(original_filename: io.original_filename,
-                                               content_type:      io.content_type,
-                                               attachment_type:   label)
+      attachment = @problem.attachments.build(original_filename: io.original_filename,
+                                              content_type:      io.content_type,
+                                              attachment_type:   label)
 
       attachment.with_file('w') do |file|
         file.write(io.read)
       end
+
+      attachment.save # save after writing in case something goes wrong
     end
 
     def problem_parameters
