@@ -20,7 +20,7 @@ class ProblemPresenter < SimpleDelegator
 
   def timeout
     if problem.timeout
-      "#{(problem.timeout / 60)}m"
+      "#{problem.timeout}m"
     else
       'N/A'
     end

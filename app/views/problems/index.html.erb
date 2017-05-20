@@ -1,10 +1,9 @@
-<p id="notice"><%= notice %></p>
-
 <h1>Problems</h1>
 
 <table class="table table-striped">
   <thead>
     <tr>
+      <th scope="col">ID</th>
       <th scope="col">Name</th>
       <th scope="col">Timeout</th>
       <th scope="col">Has Input?</th>
@@ -18,6 +17,7 @@
   <tbody>
     <% @problems.each do |problem| %>
       <tr>
+        <td><%= problem.id %></td>
         <th scope="row"><%= problem.name %></th>
         <td><%= problem.timeout %></td>
         <td><%= problem.has_input %></td>
@@ -25,9 +25,16 @@
         <td><%= problem.ignore_case %></td>
         <td><%= problem.whitespace_rule %></td>
         <td><%= link_to 'Show', problem %></td>
+        <td><%= link_to 'Edit', edit_admin_problem_path(problem) %></td>
+        <td><%= link_to 'Delete', 
+                        admin_problem_path(problem), 
+                        method: :delete, 
+                        data: { confirm: 'Are you sure?' } %>
+        </td>
       </tr>
     <% end %>
   </tbody>
 </table>
-
 <br>
+
+<%= link_to 'New Problem', new_admin_problem_path %>

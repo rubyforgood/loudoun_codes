@@ -13,7 +13,7 @@ Rails.application.routes.draw do
     post   'login',  to: 'sessions#create'
     delete 'logout', to: 'sessions#destroy'
 
-    resources :problems
+    resources :problems, only: [:create, :new, :edit, :update, :destroy]
   end
 
   resources :problems, only: [:index, :show]
