@@ -8,7 +8,7 @@ module Admin
     def create
       @contest    = Contest.instance
       @problem    = @contest.problems.create problem_parameters
-      uploaded_io = params[:problem][:attachment_ids]
+      uploaded_io = params[:problem][:attachment]
 
       if uploaded_io
         attachment = @problem.attachments.create(original_filename: uploaded_io.original_filename,
