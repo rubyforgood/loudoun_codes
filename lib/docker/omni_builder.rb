@@ -1,6 +1,6 @@
 module Docker
   class OmniBuilder
-    def initialize(workdir)
+    def initialize(workdir, debug = false)
       @workdir = Pathname.new workdir
       @command = ->entry {
             [
@@ -9,19 +9,16 @@ module Docker
               '-a stdin',
               '-a stdout',
               '-a stderr',
-              "-v #{workdir()}:#{workdir()} -w #{workdir()}", # obligatory method call
+              "-v \"#{workdir()}:#{workdir()}\" -w \"#{workdir()}\"", # obligatory method call
               '-i',
               docker_image,
               language_executable,
               entry.path,
               '<',
               input.path,
-              '|',
-              'diff',
-              '-w',
-              output.path,
-              '-'
-            ].join(' ')
+            ].tap { |cmd|
+              cmd.concat(['| diff -w', output.path, '-']) unless debug
+            }.join(' ')
           }
     end
 
