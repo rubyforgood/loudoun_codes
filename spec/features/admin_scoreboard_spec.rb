@@ -62,5 +62,15 @@ RSpec.feature 'Admin scoreboard', type: :feature do
 
       expect(page).to have_text(/Team 2.*Team 1/)
     end
+
+    scenario 'problems are shown in the table header' do
+      8.times { Problem.create!(contest: contest) }
+
+      visit admin_contest_scoreboard_path(contest)
+
+      8.times do |index|
+        expect(page).to have_text(index + 1)
+      end
+    end
   end
 end

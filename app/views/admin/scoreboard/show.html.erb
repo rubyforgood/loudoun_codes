@@ -2,6 +2,9 @@
   <thead>
     <tr>
       <th>Team</th>
+      <% @problems.each.with_index do |problem, index| %>
+        <th><%= index + 1 %></th>
+      <% end %>
     </tr>
   </thead>
   <tbody>
