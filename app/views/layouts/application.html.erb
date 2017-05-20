@@ -14,7 +14,7 @@
 
     <section class=container>
       <% flash.each do |key, value| -%>
-      <%= content_tag :div, value, class: flash_class(key) %>
+        <%= content_tag :div, value, class: "alert alert-#{flash_category(key)}" %>
       <% end -%>
 
       <%= yield %>
