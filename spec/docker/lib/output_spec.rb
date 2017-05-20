@@ -3,14 +3,14 @@ require 'fileutils'
 
 RSpec.describe Docker::Output, type: :docker do
   describe 'output for entry' do
-    let(:output) { Docker::Output.new(Pathname.new('ProblemA.rb')) }
+    let(:output) { Docker::Output.new(Pathname.new('ProblemA.out')) }
 
     it 'exists' do
       expect(Docker::Output).to_not be_nil
     end
 
     it 'has a system path' do
-      expect(output.path).to eq(Pathname.new('ProblemA.rb').to_s)
+      expect(output.path).to eq(Pathname.new('ProblemA.out').to_s)
     end
 
     it 'can create the file with create' do
