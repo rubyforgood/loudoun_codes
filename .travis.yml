@@ -12,4 +12,5 @@ services:
 before_install:
   - docker pull java:8
   - docker pull ruby
-  - chmod -R 777 spec/fixtures/submission_runners
+before_script:
+  - chmod -R 0777 spec/fixtures/submission_runners
