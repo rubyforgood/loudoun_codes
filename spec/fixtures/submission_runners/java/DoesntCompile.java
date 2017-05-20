@@ -9,7 +9,7 @@ import java.util.Scanner;
 
 def thingy; end
 
-public class CompilesAndRuns {
+public class DoesntCompile {
 
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);

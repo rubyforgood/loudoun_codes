@@ -20,7 +20,7 @@ RSpec.describe SubmissionRunners::Java do
       end
     end
 
-    context "java code that will generate compiler errors" do
+    xcontext "java code that will generate compiler errors" do
       let(:submission) { DoesntCompile }
 
       it "has errors" do
@@ -28,12 +28,12 @@ RSpec.describe SubmissionRunners::Java do
       end
     end
 
-    context "java code that will generate runtime errors" do
+    xcontext "java code that will generate runtime errors" do
       let(:submission) { CompilesDoesntRun }
 
       it "has errors" do
         expect(runner.errors).to_not be_empty
       end
-    end    
+    end
   end
 end

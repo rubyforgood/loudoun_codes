@@ -17,7 +17,6 @@ class Submission < ApplicationRecord
   end
 
   # def problem_input_file
-    
   # end
 end
 

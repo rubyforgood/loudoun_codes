@@ -16,7 +16,7 @@ module SubmissionRunners
     private
 
     def build
-      `chmod -R 0777 #{submission_dir.to_s}`
+      `chmod -R 0755 #{submission_dir.to_s}`
 
       options = [
         "--name #{build_container}",
