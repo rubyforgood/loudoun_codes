@@ -10,11 +10,14 @@ module Admin
       @problem = @contest.problems.create problem_parameters
 
       uploaded_io = params[:problem][:attachment_ids]
-      attachment  = @problem.attachments.create(original_filename: uploaded_io.original_filename,
-                                                content_type:      uploaded_io.content_type)
 
-      attachment.with_file('w') do |file|
-        file.write(uploaded_io.read)
+      if uploaded_io
+        attachment = @problem.attachments.create(original_filename: uploaded_io.original_filename,
+                                                  content_type:      uploaded_io.content_type)
+
+        attachment.with_file('w') do |file|
+          file.write(uploaded_io.read)
+        end
       end
 
       if @problem.valid?
