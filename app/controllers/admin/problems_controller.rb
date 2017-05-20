@@ -42,7 +42,7 @@ module Admin
           end
         end
 
-        redirect_to admin_problem_path @problem
+        redirect_to problem_path @problem
       else
         render action: 'new'
       end
@@ -76,12 +76,12 @@ module Admin
     end
 
     def problem_parameters
-      params.require(:problem).permit(:name, 
-                                      :description, 
-                                      :timeout, 
-                                      :has_input, 
-                                      :auto_judge, 
-                                      :ignore_case, 
+      params.require(:problem).permit(:name,
+                                      :description,
+                                      :timeout,
+                                      :has_input,
+                                      :auto_judge,
+                                      :ignore_case,
                                       :whitespace_rule)
     end
   end
