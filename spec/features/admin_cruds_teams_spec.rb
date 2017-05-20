@@ -9,7 +9,7 @@ RSpec.feature 'administrator can create teams', type: :feature do
 
     visit admin_contest_path
 
-    click_on "Teams"
+    click_on "Manage Teams"
 
     teams = [{ name: "A quick and speedy team", username: "roadrunner" },
              { name: "Move fast and break things", username: "hare" },

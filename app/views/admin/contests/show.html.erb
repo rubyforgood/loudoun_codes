@@ -6,4 +6,6 @@
   <li><%= link_to("#{Submission.count} Submissions", '#') %></li>
 </ul>
 
-<%= link_to 'Create Problem', new_admin_problem_path(logged_in: true) %>
+<%= link_to 'Create Problem', new_admin_problem_path %>
+
+<%= link_to 'Manage Teams', admin_teams_path %>
