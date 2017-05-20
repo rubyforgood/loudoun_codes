@@ -1,9 +1,3 @@
-<% flash.each do |key, value| %>
-  <div class="<%= flash_class(key) %>">
-    <%= value %>
-  </div>
-<% end %>
-
 <%= @current_admin %>
 <%= simple_form_for :session, url: admin_login_path do |f| %>
   <%= f.input :username, :required =>false, :label => 'Username',:placeholder => 'Username' %>
