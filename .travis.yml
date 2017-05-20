@@ -11,3 +11,4 @@ services:
   - docker
 before_install:
   - docker pull java:8
+  - docker pull ruby

@@ -1,0 +1,62 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Problem <%= @problem.id %></h1>
+
+<p>
+  <strong>Name:</strong>
+  <%= @problem.name %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @problem.description %>
+</p>
+
+<p>
+  <strong>Timeout:</strong>
+  <%= @problem.timeout %>
+</p>
+
+<p>
+  <strong>Has Input?</strong>
+  <%= @problem.has_input %>
+</p>
+
+<p>
+  <strong>Auto Judge?</strong>
+  <%= @problem.auto_judge %>
+</p>
+
+<p>
+  <strong>Ignore Case?</strong>
+  <%= @problem.ignore_case %>
+</p>
+
+<p>
+  <strong>Whitespace Rule:</strong>
+  <%= @problem.whitespace_rule %>
+</p>
+
+<table class="table table-striped">
+  <caption>Attachments</caption>
+  <thead>
+    <tr>
+      <th scope="col">Filename</th>
+      <th scope="col">Type</th>
+      <th scope="col">Content Type</th>
+      <th class="actions" scope="col" colspan="3">Actions</th>
+    </tr>
+  </thead>
+
+  <% @problem.attachments.each do |attachment| %>
+      <tbody>
+        <tr>
+          <th scope="row"><%= attachment.original_filename %></th>
+          <td><%= attachment.attachment_type %></td>
+          <td><%= attachment.content_type %></td>
+          <td><%= link_to 'Download', attachment %></td>
+        </tr>
+      </tbody>
+    <br>
+  <% end %>
+</table>
