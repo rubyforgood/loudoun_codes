@@ -7,8 +7,8 @@ module Admin
 
     private
 
-      def active_teams
-        ActiveTeamsService.new(contest: @contest, teams: @contest.teams).call
-      end
+    def active_teams
+      ActiveTeamsService.new(contest: @contest, teams: @contest.teams).call
+    end
   end
 end

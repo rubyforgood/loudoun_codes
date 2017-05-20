@@ -20,3 +20,6 @@ Style/BracesAroundHashParameters:
 Metrics/LineLength:
   Max: 120
   AllowURI: true
+
+Style/IndentationConsistency:
+  EnforcedStyle: normal
