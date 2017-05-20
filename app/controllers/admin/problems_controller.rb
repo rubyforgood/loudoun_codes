@@ -16,8 +16,10 @@ module Admin
       @problem = @contest.problems.build problem_parameters
 
       if @problem.save
-        ATTACHMENT_TYPES.each do |type|
-          add_attachment(params[:problem][:attachment][type], type)
+        if params[:problem][:attachment]
+          ATTACHMENT_TYPES.each do |type|
+            add_attachment(params[:problem][:attachment][type], type)
+          end
         end
 
         redirect_to admin_problem_path @problem
