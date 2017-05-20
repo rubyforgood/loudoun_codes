@@ -32,3 +32,7 @@ After starting the application, you will see this line (or something similar) in
 `14:25:13 web.1     | * Listening on tcp://0.0.0.0:5100`
 
 Browse to the provided address and you will see the web application. Browse to `/sidekiq` to see statistics about currently running jobs.
+
+#Future Deployment
+
+The 'getting started' instructions are above are while this project is in active development.  A near-future goal of this project is to make deployment as brain-dead simple as possible.  We may, for instance, wrap this code in a mini custom linux distribution so it could be put on a thumb drive and take over a machine for the purpose of the running content.  We had previously considered a docker container mimicking the setup of the jenkins docker container, but considering our use of docker containers for the submission judging, we believe the inception scenario there would hurt our heads too much.
