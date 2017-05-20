@@ -14,7 +14,9 @@ module Admin
     def edit
       @contest     = Contest.instance
       @problem     = Problem.find_by_id(params[:id])
-      @attachments = @problem.attachments
+      @attachments = ATTACHMENT_TYPES.map do |type|
+        Attachment.new(attachment_type: type)
+      end
     end
 
     def update
