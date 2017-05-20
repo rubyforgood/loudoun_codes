@@ -16,7 +16,9 @@ module SubmissionRunners
     private
 
     def build
-      submission_dir.chmod(0755)
+      submission_dir.chmod(0777)
+
+      puts "mode of #{submission_dir.to_s}: #{submission_dir.stat.mode.to_s(8)}"
 
       options = [
         "--name #{build_container}",
