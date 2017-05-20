@@ -6,7 +6,7 @@ RSpec.describe TeamTimeService, type: :model do
 
   describe '#call' do
     context 'without submissions' do
-      it { expect(TeamTimeService.new(contest: contest).call(team: team)).to eq(Float::INFINITY) }
+      it { expect(TeamTimeService.new(contest: contest).call(team: team)).to eq(0) }
     end
 
     context 'with failed submissions' do
