@@ -11,6 +11,8 @@ class Attachment < ApplicationRecord
   end
 
   def with_file(mode)
+    FileUtils.mkdir_p(path.dirname) unless path.dirname.exist?
+
     File.open(path, mode) do |file|
       yield file
     end

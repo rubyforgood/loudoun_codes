@@ -2,6 +2,7 @@
   <div class="form-controls">
     <%= form.input :name %>
     <%= form.input :description, type: :text %>
+    <%= form.association :attachments, as: :file, label: 'Source file' %>
   </div>
 
   <div class="form-actions">
