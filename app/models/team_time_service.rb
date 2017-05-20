@@ -35,7 +35,7 @@ class TeamTimeService
 
   def time_penalty
     submissions.select do |submission|
-      submission.status == 'failed'
+      submission.status == 'failed' && submission.created_at < first_passed_submission.created_at
     end.map do |submission|
       Rails.configuration.failed_submission_time_penalty
     end.reduce(0, :+)

@@ -48,36 +48,46 @@ RSpec.describe TeamTimeService, type: :model do
         expect(TeamTimeService.new(contest: contest).call(team: team)).to eq(expected_time)
       end
 
-      # it 'accounts for multiple failed submissions' do
-      #   problem = Problem.create!(contest: contest)
-      #   submission_1 = Submission.create!(problem: problem, team: team, status: 'failed')
-      #   submission_2 = Submission.create!(problem: problem, team: team, status: 'failed')
-      #   submission_3 = Submission.create!(problem: problem, team: team, status: 'passed')
+      it 'accounts for multiple failed submissions' do
+        problem = Problem.create!(contest: contest)
+        submission_1 = Submission.create!(problem: problem, team: team, status: 'failed')
+        submission_2 = Submission.create!(problem: problem, team: team, status: 'failed')
+        submission_3 = Submission.create!(problem: problem, team: team, status: 'passed')
 
-      #   problem.reload
-      #   submission_1.reload
-      #   submission_2.reload
-      #   submission_3.reload
+        submission_1.reload
+        submission_2.reload
+        submission_3.reload
 
-      #   expected_time =
-      #     (submission_1.created_at - contest.started_at) +
-      #     (submission_2.created_at - contest.started_at) +
-      #     (submission_3.created_at - contest.started_at) +
-      #     2 * Rails.configuration.failed_submission_time_penalty
+        expected_time =
+          (submission_3.created_at - contest.started_at) +
+          2 * Rails.configuration.failed_submission_time_penalty
 
-      #   expect(TeamTimeService.new(contest: contest, team: team).call).to eq(expected_time)
-      # end
+        expect(TeamTimeService.new(contest: contest).call(team: team)).to eq(expected_time)
+      end
 
-      # it 'calculates the time from the first passing submission' do
-      #   problem = Problem.create!(contest: contest)
-      #   submission = Submission.create!(problem: problem, team: team, status: 'passed')
+      it 'calculates the time from the first passing submission' do
+        problem = Problem.create!(contest: contest)
+        submission_1 = Submission.create!(problem: problem, team: team, status: 'passed')
+        submission_2 = Submission.create!(problem: problem, team: team, status: 'passed')
 
-      #   problem.reload
-      #   submission.reload
+        submission_1.reload
+        submission_2.reload
 
-      #   expected_time = submission.created_at - contest.started_at
-      #   expect(TeamTimeService.new(contest: contest, team: team).call).to eq(expected_time)
-      # end
+        expected_time = submission_1.created_at - contest.started_at
+        expect(TeamTimeService.new(contest: contest).call(team: team)).to eq(expected_time)
+      end
+
+      it 'ignores failures after passed runs' do
+        problem = Problem.create!(contest: contest)
+        submission_1 = Submission.create!(problem: problem, team: team, status: 'passed')
+        submission_2 = Submission.create!(problem: problem, team: team, status: 'failed')
+
+        submission_1.reload
+        submission_2.reload
+
+        expected_time = submission_1.created_at - contest.started_at
+        expect(TeamTimeService.new(contest: contest).call(team: team)).to eq(expected_time)
+      end
     end
   end
 end
