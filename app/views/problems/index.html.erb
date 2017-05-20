@@ -26,9 +26,9 @@
         <td><%= problem.whitespace_rule %></td>
         <td><%= link_to 'Show', problem %></td>
         <td><%= link_to 'Edit', edit_admin_problem_path(problem) %></td>
-        <td><%= link_to 'Delete', 
-                        admin_problem_path(problem), 
-                        method: :delete, 
+        <td><%= link_to 'Delete',
+                        admin_problem_path(problem),
+                        method: :delete,
                         data: { confirm: 'Are you sure?' } %>
         </td>
       </tr>
