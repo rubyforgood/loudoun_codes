@@ -27,12 +27,6 @@ class TeamTimeService
     passed_submissions.first
   end
 
-  def submissions_time
-    submissions.map do |submission|
-      submission.created_at - @contest.started_at
-    end.reduce(0, :+)
-  end
-
   def time_penalty
     submissions.select do |submission|
       submission.status == 'failed' && submission.created_at < first_passed_submission.created_at
