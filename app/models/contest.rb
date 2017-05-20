@@ -1,6 +1,10 @@
 class Contest < ApplicationRecord
   has_many :problems
   has_many :teams
+
+  def self.instance
+    order(:created_at).reverse.first
+  end
 end
 
 # == Schema Information

@@ -32,5 +32,7 @@ module Milton
     def files_base
       Pathname.new("/var/lib/#{self.class.parent.name.underscore}")
     end
+
+    config.failed_submission_time_penalty = 20.minutes
   end
 end

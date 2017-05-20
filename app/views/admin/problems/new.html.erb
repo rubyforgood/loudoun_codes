@@ -1,0 +1,25 @@
+<%= simple_form_for [:admin, @problem] do |form| %>
+  <div class="form-controls">
+    <%= form.input :name %>
+    <%= form.input :description, type: :text %>
+
+    <%= form.input :timeout, as: :integer %>
+
+    <%= form.input :has_input %>
+    <%= form.input :auto_judge %>
+    <%= form.input :ignore_case %>
+
+    <%= form.input :whitespace_rule, as: :select,
+      collection: Problem::WHITESPACE_RULES %>
+
+    <% @attachments.each do |attachment| %>
+      <%= form.simple_fields_for(attachment) do |a| %>
+        <%= a.input attachment.attachment_type, as: :file %>
+      <% end %>
+    <% end %>
+  </div>
+
+  <div class="form-actions">
+    <%= form.button :submit %>
+  </div>
+<% end %>

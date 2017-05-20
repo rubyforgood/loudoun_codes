@@ -1,7 +1,15 @@
 require 'rails_helper'
 
 RSpec.describe Team, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  it 'it has many submissions' do
+    contest = Contest.create!(name: "contest")
+    problem = Problem.create!(contest: contest)
+    team = Team.create!(contest: contest)
+    submission = problem.submissions.create!(team: team)
+    submission = problem.submissions.create!(team: team)
+    expect(team.submissions.count).to be 2
+  end
+
 end
 
 # == Schema Information
