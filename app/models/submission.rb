@@ -5,7 +5,7 @@ class Submission < ApplicationRecord
   belongs_to :problem
 
   validate do
-    if attachment and attachment.attachment_type != 'solution'
+    if attachment && attachment.attachment_type != 'solution'
       errors.add :attachment, 'Must be a solution'
     end
   end
