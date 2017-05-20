@@ -1,10 +1,11 @@
 class TeamTimeService
-  def initialize(contest:, team:)
+  def initialize(contest:)
     @contest = contest
-    @team = team
   end
 
-  def call
+  def call(team:)
+    @team = team
+
     if submissions.any?
       submissions.first.created_at - @contest.started_at + time_penalty
     else

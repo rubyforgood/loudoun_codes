@@ -6,7 +6,7 @@ RSpec.describe TeamScoreService, type: :model do
 
   describe '#call' do
     context 'without submissions' do
-      it { expect(TeamScoreService.new(contest: contest, team: team).call).to eq(0) }
+      it { expect(TeamScoreService.new(contest: contest).call(team: team)).to eq(0) }
     end
 
     context 'with correct submissions' do
@@ -15,7 +15,7 @@ RSpec.describe TeamScoreService, type: :model do
 
         4.times { Submission.create!(problem: problem, team: team, status: 'passed') }
 
-        expect(TeamScoreService.new(contest: contest, team: team).call).to eq(4)
+        expect(TeamScoreService.new(contest: contest).call(team: team)).to eq(4)
       end
     end
 
@@ -26,7 +26,7 @@ RSpec.describe TeamScoreService, type: :model do
         4.times {  Submission.create!(problem: problem, team: team, status: 'passed') }
         4.times {  Submission.create!(problem: problem, team: team, status: 'failed') }
 
-        expect(TeamScoreService.new(contest: contest, team: team).call).to eq(4)
+        expect(TeamScoreService.new(contest: contest).call(team: team)).to eq(4)
       end
     end
 
@@ -40,7 +40,7 @@ RSpec.describe TeamScoreService, type: :model do
         4.times {  Submission.create!(problem: problem, team: team, status: 'passed') }
         4.times {  Submission.create!(problem: other_problem, team: team, status: 'failed') }
 
-        expect(TeamScoreService.new(contest: contest, team: team).call).to eq(4)
+        expect(TeamScoreService.new(contest: contest).call(team: team)).to eq(4)
       end
     end
   end
