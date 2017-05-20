@@ -7,3 +7,7 @@ script:
   - bundle exec rubocop
 notifications:
   slack: rubyforgood:Z8KxX1B7VPwG7MJFRch66746
+services:
+  - docker
+before_install:
+  - docker pull java:8
