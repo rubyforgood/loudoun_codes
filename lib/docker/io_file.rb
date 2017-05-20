@@ -9,11 +9,12 @@ module Docker
       new Pathname.new(abs_path_file)
     end
 
-    attr_reader :basename
+    attr_reader :basename, :dirname
     def initialize(path)
-      raise "Pathname object expected" unless path.is_a? Pathname # enforce type
-      @basename = path.basename(path.extname).to_s
-      @path = path.to_s
+      path = Pathname.new path
+      @basename = path.basename(path.extname).to_path
+      @dirname = path.dirname.to_path
+      @path = path.to_path
     end
 
     def path

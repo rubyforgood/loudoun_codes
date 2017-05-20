@@ -1,27 +1,6 @@
 require 'rails_helper'
-
-in_file = <<-INFILE
-meow
-meow
-INFILE
-
-out_file = <<-OUTFILE
-eowmay
-eowmay
-OUTFILE
-
-good_entry_file = <<-'GOODENTRYFILE'
-ARGF.each do |line|
-  puts "#{line[1..-1].chomp}#{line[0...1]}ay"
-end
-GOODENTRYFILE
-
-bad_entry_file = <<-'BADENTRYFILE'
-ARGF.each do |line|
-  puts "a#{line[1..-1].chomp}#{line[0...1]}ay"
-end
-BADENTRYFILE
-
+require_relative '../support/docker/ruby'
+include Support::Docker::Ruby
 
 RSpec.describe 'OmniRunner with Ruby', type: :docker do
   describe 'It works with docker command and barebone ruby image' do
@@ -38,39 +17,17 @@ RSpec.describe 'OmniRunner with Ruby', type: :docker do
           expect(File.exist? good_entry.path).to be_truthy
           expect(File.exist? bad_entry.path).to be_truthy
 
-          docker_image = 'ruby'
-          language_executable = '/usr/bin/env ruby'
-          command = ->entry{
-            [
-              'docker',
-              'run',
-              '-a stdin',
-              '-a stdout',
-              '-a stderr',
-              "-v #{Dir.pwd}:#{Dir.pwd} -w #{Dir.pwd}",
-              '-i',
-              docker_image,
-              language_executable,
-              entry.path,
-              '<',
-              input.path,
-              '|',
-              'diff',
-              '-w',
-              output.path,
-              '-'
-            ].join(' ')
-          }
+          runner = Docker::RubyRunner.new(dir)
 
-          sys_exec(command.call(good_entry))
-          expect(@exitstatus).to eq(0)
+          sys_exec(runner.run(good_entry, input, output))
           expect(out).to eq('')
           expect(err).to eq('')
+          expect(@exitstatus).to eq(0)
 
-          sys_exec(command.call(bad_entry))
-          expect(@exitstatus).to_not eq(0)
+          sys_exec(runner.run(bad_entry, input, output))
           expect(out).to_not eq('')
           expect(err).to eq('')
+          expect(@exitstatus).to_not eq(0)
         }
       }
     end
