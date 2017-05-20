@@ -20,6 +20,10 @@ Rails.application.routes.draw do
 
   resources :attachments, only: [:show]
 
+  get    'login',  to: 'sessions#new'
+  post   'login',  to: 'sessions#create'
+  delete 'logout', to: 'sessions#destroy'
+
   get "/admin" => redirect("/admin/contest")
 
   root to: 'welcome#index'
