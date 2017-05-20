@@ -11,6 +11,26 @@ module Admin
       end
     end
 
+    def edit
+      @contest     = Contest.instance
+      @problem     = Problem.find_by_id(params[:id])
+      @attachments = @problem.attachments
+    end
+
+    def update
+      @problem = Problem.find_by_id(params[:id])
+
+      @problem.update_attributes(problem_parameters)
+
+      if params[:problem][:attachment]
+        ATTACHMENT_TYPES.each do |type|
+          add_attachment(params[:problem][:attachment][type], type)
+        end
+      end
+
+      redirect_to @problem, notice: 'Problem updated'
+    end
+
     def create
       @contest = Contest.instance
       @problem = @contest.problems.build problem_parameters
@@ -22,18 +42,24 @@ module Admin
           end
         end
 
-        redirect_to admin_problem_path @problem
+        redirect_to problem_path @problem
       else
         render action: 'new'
       end
     end
 
-    def show
-      @contest = Contest.instance
-      @problem = @contest.problems.find(params[:id])
+    def destroy
+      problem = Problem.find_by_id(params[:id])
+
+      if problem
+        problem.destroy
+        redirect_to(problems_path, notice: 'Problem removed.')
+      else
+        redirect_to(problems_path, status: 404, notice: 'Not found')
+      end
     end
 
-  private
+    private
 
     def add_attachment(io, label)
       return unless io
@@ -50,7 +76,13 @@ module Admin
     end
 
     def problem_parameters
-      params.require(:problem).permit(:name, :description)
+      params.require(:problem).permit(:name,
+                                      :description,
+                                      :timeout,
+                                      :has_input,
+                                      :auto_judge,
+                                      :ignore_case,
+                                      :whitespace_rule)
     end
   end
 end
