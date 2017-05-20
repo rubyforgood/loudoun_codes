@@ -6,16 +6,22 @@ RSpec.describe "Admin::Teams", type: :request do
 
   describe "GET /admin/teams" do
 
-    it "works! (now write some real specs)" do
+    before do
       # I hate this so much.  Request specs should be able to test _a single
       # request_ in isolation.  Without access to the session, we are forced
       # to treat these as full integrations, with multiple page posts
       post login_path params: {
         session: { username: admin.username, password: admin.password }
       }
+   end
 
-      get admin_teams_path
-      expect(response).to have_http_status(200)
+    it "creates a user with an authentication token" do
+      post admin_teams_path, params: {
+        team: { name: "Slow and Steady", username: "tortise" }
+      }
+
+      expect(Team.find_by(username: "tortise").password).to be_present
     end
+
   end
 end

@@ -12,7 +12,7 @@ module Admin
 
     def create
       @contest  = Contest.instance
-      @team     = @contest.teams.build team_params
+      @team     = @contest.teams.build team_params.merge(password: TokenPhrase.generate)
 
       if @team.save
         redirect_to admin_teams_path
