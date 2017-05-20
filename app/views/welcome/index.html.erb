@@ -5,14 +5,12 @@
 <% end %>
 
 <%= @current_admin %>
-<%= form_for(:session, url: admin_login_path) do |f| %>
-  <%= f.label :username %>
-  <%= f.text_field :username, class: 'form-control' %>
+<%= simple_form_for :session, url: admin_login_path do |f| %>
+  <%= f.input :username, :required =>false, :label => 'Username',:placeholder => 'Username' %>
+  <%= f.input :password, :required =>false, :label => 'Password',:placeholder => 'Password' %>
 
-  <%= f.label :password %>
-  <%= f.password_field :password, class: 'form-control' %>
 
-  <%= f.submit "Log in", class: "btn btn-primary" %>
+  <%= f.button :submit, "Log in", class: "btn btn-primary" %>
 <% end %>
 
 <%= link_to('Logout', admin_logout_path, :method => :delete, class: "btn btn-primary")%>
