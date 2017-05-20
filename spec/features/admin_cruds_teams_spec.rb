@@ -24,7 +24,7 @@ RSpec.feature 'administrator can create teams', type: :feature do
       click_on "Create Team"
     end
 
-    expect(@contest.teams.count).to eq 3
+    expect(Contest.instance.teams.count).to eq 3
 
     teams.each do |t|
       expect(page).to have_content t[:name]

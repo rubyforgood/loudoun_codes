@@ -9,5 +9,22 @@ module Admin
       @contest  = Contest.instance
       @team     = @contest.teams.build
     end
+
+    def create
+      @contest  = Contest.instance
+      @team     = @contest.teams.build team_params
+
+      if @team.save
+        redirect_to admin_teams_path
+      else
+        render action: 'new'
+      end
+    end
+
+  private
+
+    def team_params
+      params.require(:team).permit(:name, :username)
+    end
   end
 end
