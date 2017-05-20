@@ -1,5 +1,5 @@
 module Admin
-  class ContestsController < ApplicationController
+  class ContestsController < AdminController
     def show
       @contest = Contest.instance
     end
