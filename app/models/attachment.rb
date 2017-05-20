@@ -2,7 +2,7 @@ class Attachment < ApplicationRecord
   belongs_to :attachable, polymorphic: true
 
   validates :original_filename, presence: true
-  validates :attachable_id,     presence: true
+  validates :attachment_type,   inclusion: { in: %w(sample_in sample_out solution handout) }
 
   def path
     dir = attachable && attachable.uploaded_files_dir
@@ -30,4 +30,5 @@ end
 #  attachable_type   :string
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
+#  attachment_type   :string
 #

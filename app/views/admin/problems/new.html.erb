@@ -2,10 +2,20 @@
   <div class="form-controls">
     <%= form.input :name %>
     <%= form.input :description, type: :text %>
-    <%= form.association(:attachments, 
-                         as: :file, 
-                         label: 'Attachment', 
-                         input_html: { name: 'problem[attachment]' }) %>
+    <%= form.association(:attachments,
+                         as: :file,
+                         label: 'Handout',
+                         input_html: { name: 'problem[handout]' }) %>
+
+    <%= form.association(:attachments,
+                         as: :file,
+                         label: 'Sample Input',
+                         input_html: { name: 'problem[sample_in]' }) %>
+
+    <%= form.association(:attachments,
+                         as: :file,
+                         label: 'Sample Output',
+                         input_html: { name: 'problem[sample_out]' }) %>
   </div>
 
   <div class="form-actions">
