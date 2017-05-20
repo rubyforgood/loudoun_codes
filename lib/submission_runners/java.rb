@@ -22,7 +22,7 @@ module SubmissionRunners
         "--name #{build_container}",
         "--volume #{submission_dir}:/workspace",
         "--workdir /workspace",
-        "--user nobody",
+        "--user #{container_user}",
         "--rm",
       ].join(" ")
 
@@ -36,7 +36,7 @@ module SubmissionRunners
         "--name #{run_container}",
         "--volume #{submission_dir}:/workspace",
         "--workdir /workspace",
-        "--user nobody",
+        "--user #{container_user}",
         "--rm",
         "--attach STDIN",
         "--attach STDOUT",
@@ -52,6 +52,10 @@ module SubmissionRunners
         chdir: submission_dir,
         in: input.tap(&:rewind),
       )
+    end
+
+    def container_user
+      "nobody"
     end
 
     def source_file
