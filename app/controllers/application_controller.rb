@@ -15,5 +15,4 @@ class ApplicationController < ActionController::Base
     Rails.logger.info("Deprecated current_admin method called from #{caller[1]}")
     current_account
   end
-
 end
