@@ -6,14 +6,13 @@ module Admin
     end
 
     def create
-      @contest = Contest.instance
-      @problem = @contest.problems.create problem_parameters
-
+      @contest    = Contest.instance
+      @problem    = @contest.problems.create problem_parameters
       uploaded_io = params[:problem][:attachment_ids]
 
       if uploaded_io
         attachment = @problem.attachments.create(original_filename: uploaded_io.original_filename,
-                                                  content_type:      uploaded_io.content_type)
+                                                 content_type:      uploaded_io.content_type)
 
         attachment.with_file('w') do |file|
           file.write(uploaded_io.read)
