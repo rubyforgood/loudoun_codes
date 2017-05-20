@@ -1,4 +1,7 @@
 class Administrator < ApplicationRecord
+  def self.authenticate(username, token)
+    Administrator.find_by(username: username, password: token)
+  end
 end
 
 # == Schema Information
