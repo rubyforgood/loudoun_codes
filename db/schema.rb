@@ -10,13 +10,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170519181738) do
+ActiveRecord::Schema.define(version: 20170519202331) do
 
   create_table "administrators", force: :cascade do |t|
     t.string "username"
     t.string "password"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "attachments", force: :cascade do |t|
+    t.string "original_filename"
+    t.string "content_type"
+    t.integer "attachable_id"
+    t.string "attachable_type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["attachable_type", "attachable_id"], name: "index_attachments_on_attachable_type_and_attachable_id"
   end
 
   create_table "contests", force: :cascade do |t|
@@ -31,6 +41,11 @@ ActiveRecord::Schema.define(version: 20170519181738) do
     t.integer "contest_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "timeout"
+    t.boolean "has_input"
+    t.boolean "auto_judge"
+    t.boolean "ignore_case"
+    t.string "whitespace_rule", default: "plain diff"
     t.index ["contest_id"], name: "index_problems_on_contest_id"
   end
 

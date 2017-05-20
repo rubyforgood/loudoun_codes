@@ -11,5 +11,11 @@ Rails.application.routes.draw do
     delete 'admin/logout',  to: 'sessions#destroy'
   end
 
+  namespace 'admin' do
+    get 'contest' => 'contests#show'
+
+    resources :problems
+  end
+
   root to: 'welcome#index'
 end

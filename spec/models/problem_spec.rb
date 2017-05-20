@@ -18,10 +18,15 @@ end
 #
 # Table name: problems
 #
-#  id          :integer          not null, primary key
-#  name        :string
-#  description :text
-#  contest_id  :integer
-#  created_at  :datetime         not null
-#  updated_at  :datetime         not null
+#  id              :integer          not null, primary key
+#  name            :string
+#  description     :text
+#  contest_id      :integer
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#  timeout         :integer
+#  has_input       :boolean
+#  auto_judge      :boolean
+#  ignore_case     :boolean
+#  whitespace_rule :string
 #
