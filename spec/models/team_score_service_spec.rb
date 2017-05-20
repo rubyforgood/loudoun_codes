@@ -6,16 +6,16 @@ RSpec.describe TeamScoreService, type: :model do
 
   describe '#call' do
     context 'without submissions' do
-      it { expect(TeamScoreService.new(contest: contest, team: team).call).to eq(0) }
+      it { expect(TeamScoreService.new(contest: contest).call(team: team)).to eq(0) }
     end
 
     context 'with correct submissions' do
       it 'returns the number of correct submissions' do
         problem = Problem.create!(contest: contest)
 
-        4.times { Submission.create!(problem: problem, team: team, passed: true) }
+        4.times { Submission.create!(problem: problem, team: team, status: 'passed') }
 
-        expect(TeamScoreService.new(contest: contest, team: team).call).to eq(4)
+        expect(TeamScoreService.new(contest: contest).call(team: team)).to eq(4)
       end
     end
 
@@ -23,10 +23,10 @@ RSpec.describe TeamScoreService, type: :model do
       it 'returns the number of correct submissions' do
         problem = Problem.create!(contest: contest)
 
-        4.times {  Submission.create!(problem: problem, team: team, passed: true) }
-        4.times {  Submission.create!(problem: problem, team: team, passed: false) }
+        4.times {  Submission.create!(problem: problem, team: team, status: 'passed') }
+        4.times {  Submission.create!(problem: problem, team: team, status: 'failed') }
 
-        expect(TeamScoreService.new(contest: contest, team: team).call).to eq(4)
+        expect(TeamScoreService.new(contest: contest).call(team: team)).to eq(4)
       end
     end
 
@@ -37,10 +37,10 @@ RSpec.describe TeamScoreService, type: :model do
         problem = Problem.create!(contest: contest)
         other_problem = Problem.create!(contest: other_contest)
 
-        4.times {  Submission.create!(problem: problem, team: team, passed: true) }
-        4.times {  Submission.create!(problem: other_problem, team: team, passed: true) }
+        4.times {  Submission.create!(problem: problem, team: team, status: 'passed') }
+        4.times {  Submission.create!(problem: other_problem, team: team, status: 'failed') }
 
-        expect(TeamScoreService.new(contest: contest, team: team).call).to eq(4)
+        expect(TeamScoreService.new(contest: contest).call(team: team)).to eq(4)
       end
     end
   end
