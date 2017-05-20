@@ -7,3 +7,6 @@ script:
   - bundle exec rubocop
 notifications:
   slack: rubyforgood:Z8KxX1B7VPwG7MJFRch66746
+before_install:
+  - curl -fsSL https://get.docker.com/ | sh
+  - usermod -aG docker $(whoami)
