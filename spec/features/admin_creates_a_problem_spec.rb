@@ -2,10 +2,10 @@ require 'rails_helper'
 
 RSpec.feature 'Admin create problems', type: :feature do
   include_context "a configured contest"
-  #include_context "an authorized admin"
+  include_context "an authorized admin"
 
   scenario 'An admin can create a problem with attached inputs and solutions' do
-    visit admin_contest_path(logged_in: true)
+    visit admin_contest_path
 
     click_on "Create Problem"
     fill_in "Name", with: "Shortest Path"
