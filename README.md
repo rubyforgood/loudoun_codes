@@ -19,6 +19,7 @@ Contributors
 
 1. Install [Ruby v2.4.1](https://www.ruby-lang.org/en/downloads)
 2. Install (and start) [Redis](https://redis.io)
+3. `mkdir -p /var/lib/milton` - You *must* ensure that the user running the app has permissions in this directory.
 3. `git clone https://github.com/rubyforgood/loudoun_codes.git`
 4. `cd loudoun_codes`
 5. `bundle install`
