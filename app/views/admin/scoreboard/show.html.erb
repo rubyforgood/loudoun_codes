@@ -2,15 +2,20 @@
   <thead>
     <tr>
       <th>Team</th>
-      <% @problems.each.with_index do |problem, index| %>
+      <% @presenter.problems.each.with_index do |problem, index| %>
         <th><%= index + 1 %></th>
       <% end %>
+      <th>Score</th>
+      <th>Time + Penalty</th>
     </tr>
   </thead>
   <tbody>
-    <% @teams.each do |team| %>
+    <% @presenter.ranked_teams.each do |team| %>
       <tr>
         <td><%= team.name %></td>
+        <% @presenter.problems.each do |problem| %>
+          <td><%= @presenter.attempts(team: team, problem: problem) %></td>
+        <% end %>
       </tr>
     <% end %>
   </tbody>

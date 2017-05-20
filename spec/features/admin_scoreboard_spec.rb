@@ -63,7 +63,7 @@ RSpec.feature 'Admin scoreboard', type: :feature do
       expect(page).to have_text(/Team 2.*Team 1/)
     end
 
-    scenario 'problems are shown in the table header' do
+    scenario 'problem numbers are shown in the table header' do
       8.times { Problem.create!(contest: contest) }
 
       visit admin_contest_scoreboard_path(contest)
@@ -71,6 +71,77 @@ RSpec.feature 'Admin scoreboard', type: :feature do
       8.times do |index|
         expect(page).to have_text(index + 1)
       end
+    end
+
+    scenario 'there is a team column' do
+      visit admin_contest_scoreboard_path(contest)
+
+      expect(page).to have_text(/Team/)
+    end
+
+    scenario 'there is a score column' do
+      visit admin_contest_scoreboard_path(contest)
+
+      expect(page).to have_text(/Score/)
+    end
+
+    scenario 'there is a time + penalty column' do
+      visit admin_contest_scoreboard_path(contest)
+
+      expect(page).to have_text(/Time \+ Penalty/)
+    end
+
+    scenario 'unattempted problems show a 0 total number of submissions' do
+      team = Team.create!(contest: contest, name: 'Team 1')
+      problem = Problem.create!(contest: contest)
+
+      visit admin_contest_scoreboard_path(contest)
+
+      expect(page).to have_text('0')
+    end
+
+    scenario 'unsolved problems show the total number of submissions' do
+      team = Team.create!(contest: contest, name: 'Team 1')
+      problem = Problem.create!(contest: contest)
+
+      submission = Submission.create!(team: team, problem: problem, status: 'failed')
+      submission = Submission.create!(team: team, problem: problem, status: 'failed')
+      submission = Submission.create!(team: team, problem: problem, status: 'failed')
+      submission = Submission.create!(team: team, problem: problem, status: 'failed')
+
+      visit admin_contest_scoreboard_path(contest)
+
+      expect(page).to have_text('4')
+    end
+
+    scenario 'solved problems show the total number of submissions' do
+      team = Team.create!(contest: contest, name: 'Team 1')
+      problem = Problem.create!(contest: contest)
+
+      submission = Submission.create!(team: team, problem: problem, status: 'failed')
+      submission = Submission.create!(team: team, problem: problem, status: 'failed')
+      submission = Submission.create!(team: team, problem: problem, status: 'failed')
+      submission = Submission.create!(team: team, problem: problem, status: 'passed')
+
+      visit admin_contest_scoreboard_path(contest)
+
+      expect(page).to have_text('4')
+    end
+
+    scenario 'problems show the total number of submissions up to the first success' do
+      team = Team.create!(contest: contest, name: 'Team 1')
+      problem = Problem.create!(contest: contest)
+
+      submission = Submission.create!(team: team, problem: problem, status: 'failed')
+      submission = Submission.create!(team: team, problem: problem, status: 'failed')
+      submission = Submission.create!(team: team, problem: problem, status: 'failed')
+      submission = Submission.create!(team: team, problem: problem, status: 'passed')
+      submission = Submission.create!(team: team, problem: problem, status: 'failed')
+      submission = Submission.create!(team: team, problem: problem, status: 'passed')
+
+      visit admin_contest_scoreboard_path(contest)
+
+      expect(page).to have_text('4')
     end
   end
 end
