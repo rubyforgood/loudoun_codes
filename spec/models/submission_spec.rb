@@ -17,6 +17,16 @@ RSpec.describe Submission, type: :model do
     it 'includes the record id' do
       expect(submission.uploaded_files_dir.to_s).to include(submission.id.to_s)
     end
+
+    it 'it has many submission results' do
+      contest = Contest.create!(name: "contest")
+      problem = Problem.create!(contest: contest)
+      team = Team.create!(contest: contest)
+      submission = problem.submissions.create!(team: team)
+      submission.submission_results.create!
+      submission.submission_results.create!
+      expect(submission.submission_results.count).to be 2
+    end
   end
 end
 
