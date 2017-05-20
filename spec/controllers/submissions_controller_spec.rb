@@ -47,6 +47,8 @@ RSpec.describe SubmissionsController, type: :controller do
 
       let(:submission) { Submission.last }
 
+      after(:each) { submission.attachment.path.delete }
+
       it 'redirects to show' do
         post :create, params: valid_params
         expect(submission).to be_a Submission
