@@ -1,3 +1,5 @@
+require 'stringio'
+
 class Submission < ApplicationRecord
   has_one :attachment, as: :attachable, validate: true
   has_many :submission_results
@@ -22,11 +24,21 @@ class Submission < ApplicationRecord
     problem.name
   end
 
-  # def problem_input_file
-  # end
+  def problem_timeout
+    problem.timeout || 30.seconds
+  end
+
+  def problem_input_buffer
+    if problem.has_input?
+      Pathname.new(problem.input_file)
+    else
+      StringIO.new
+    end
+  end
 
   # Requires problem, team, and filename
-  # Can optionally take a file to be read from
+  #
+  # Can optionally take a file to be read, will open the filename if not provided
   #
   # Returns the submission, saved if it was valid
   def self.create_from_file(**options)
@@ -35,11 +47,13 @@ class Submission < ApplicationRecord
       team:    options[:team],
     )
 
+    # Get a Pathname for the filename
     path = options[:filename]
-    return submission unless path
-    path = Pathname.new path
+    return submission unless path # submission won't validate with out a file
+    path = Pathname path
 
-    file = options[:file] || path.open('rb')
+    # If not given a file, just use the Pathname
+    file = options[:file] || path
 
     attachment = Attachment.new(
       original_filename: path.basename,
@@ -49,10 +63,12 @@ class Submission < ApplicationRecord
     attachment.attachable = submission
 
     submission.transaction do
-      return false unless submission.save
+      return submission unless submission.save
+
+      # Only save the file if everything else works
+      # In the transaction so that if this fails, everything is rolled back
       attachment.with_file('wb') do |attach_file|
         attach_file.write file.read
-        file.close
       end
     end
 
@@ -65,10 +81,10 @@ end
 # Table name: submissions
 #
 #  id         :integer          not null, primary key
-#  passed     :boolean
 #  team_id    :integer
 #  problem_id :integer
 #  runtime    :integer
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  status     :string
 #
