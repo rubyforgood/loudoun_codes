@@ -19,7 +19,9 @@
       </div>
       <div class='btn-group'>
         <span class='input-group-addon'><%= Submission.count %></span>
-        <%= link_to 'Submissions', "#", class: 'btn btn-secondary disabled' %>
+        <%= link_to 'Submissions', "#",
+          disabled: !@contest.in_progress?,
+          class: "btn btn-secondary #{'disabled' unless @contest.in_progress?}" %>
       </div>
 
       <div class='input-group'>
