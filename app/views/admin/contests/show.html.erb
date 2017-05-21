@@ -1,13 +1,25 @@
 <h1>Administer Contest <%= Contest.instance.name %></h1>
 
+
+  <section class=jumbotron>
+    <% if @contest.started_at %>
+      Contest started at <%= @contest.started_at.to_s %>
+    <% else %>
+      <%= button_to "Start Contest", admin_start_contest_path, method: 'put' %>
+
+      <%= link_to "Edit Contest", edit_admin_contest_path %>
+
+      <%= link_to 'Create Problem', new_admin_problem_path %>
+
+      <%= link_to 'Manage Teams', admin_teams_path %>
+    </section>
+  <% end %>
+  </section>
+
 <ul>
   <li><%= link_to("#{@contest.teams.count} Teams", '#') %></li>
   <li><%= link_to("#{@contest.problems.count} Problems", problems_path) %></li>
   <li><%= link_to("#{Submission.count} Submissions", '#') %></li>
 </ul>
 
-<%= link_to "Edit contest", edit_admin_contest_path %>
 
-<%= link_to 'Create Problem', new_admin_problem_path %>
-
-<%= link_to 'Manage Teams', admin_teams_path %>

@@ -1,4 +1,5 @@
 require 'sidekiq/web'
+
 Rails.application.routes.draw do
   get 'sessions/new'
 
@@ -8,6 +9,7 @@ Rails.application.routes.draw do
 
   namespace 'admin' do
     resource 'contest'
+    put 'contest/start',  to: 'contests#start', as: :start_contest
 
     get 'scoreboard' => 'scoreboard#show', as: :contest_scoreboard
 

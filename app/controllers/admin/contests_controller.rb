@@ -18,6 +18,16 @@ module Admin
       end
     end
 
+    def start
+      @contest = Contest.instance
+
+      @contest.update_attributes started_at: Time.current.utc
+
+      flash[:success] = "The contest has started"
+
+      redirect_to admin_contest_path
+    end
+
   private
     def contest_params
       params.require(:contest).permit(:name)
