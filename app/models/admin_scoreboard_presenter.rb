@@ -1,10 +1,11 @@
 class AdminScoreboardPresenter
-  attr_reader :ranked_teams, :problems
+  attr_reader :ranked_teams, :problems, :page_refresh_interval
 
   def initialize
     @contest = Contest.instance
     @ranked_teams = RankedTeamsService.new(contest: @contest).call
     @problems = @contest.problems
+    @page_refresh_interval = Rails.configuration.page_refresh_interval
   end
 
   def attempts(team:, problem:)

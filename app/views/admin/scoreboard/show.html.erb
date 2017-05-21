@@ -3,10 +3,10 @@
     <tr>
       <th>Team</th>
       <% @presenter.problems.each.with_index do |problem, index| %>
-        <th><%= index + 1 %></th>
+        <th class='text-center'><%= index + 1 %></th>
       <% end %>
-      <th>Score</th>
-      <th>Time + Penalty</th>
+      <th class='text-center'>Score</th>
+      <th class='text-center'>Time + Penalty</th>
     </tr>
   </thead>
   <tbody>
@@ -14,11 +14,15 @@
       <tr>
         <td><%= team.name %></td>
         <% @presenter.problems.each do |problem| %>
-          <td bgcolor=<%= @presenter.color(team: team, problem: problem) %>><%= @presenter.attempts(team: team, problem: problem) %></td>
+          <td class='text-center' bgcolor=<%= @presenter.color(team: team, problem: problem) %>><%= @presenter.attempts(team: team, problem: problem) %></td>
         <% end %>
-        <td><%= @presenter.score(team: team) %></td>
-        <td><%= @presenter.time_plus_penalty(team: team) %></td>
+        <td class='text-center'><%= @presenter.score(team: team) %></td>
+        <td class='text-center'><%= @presenter.time_plus_penalty(team: team) %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
+
+<script type="text/javascript">
+  autoRefresh(<%= @presenter.page_refresh_interval %>);
+</script>

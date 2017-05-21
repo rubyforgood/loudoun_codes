@@ -34,5 +34,6 @@ module Milton
     end
 
     config.failed_submission_time_penalty = 20.minutes
+    config.page_refresh_interval = 5000
   end
 end
