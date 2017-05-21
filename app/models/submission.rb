@@ -24,6 +24,40 @@ class Submission < ApplicationRecord
 
   # def problem_input_file
   # end
+
+  # Requires problem, team, and filename
+  # Can optionally take a file to be read from
+  #
+  # Returns the submission, saved if it was valid
+  def self.create_from_file(**options)
+    submission = Submission.new(
+      problem: options[:problem],
+      team:    options[:team],
+    )
+
+    path = options[:filename]
+    return submission unless path
+    path = Pathname.new path
+
+    file = options[:file] || path.open('rb')
+
+    attachment = Attachment.new(
+      original_filename: path.basename,
+      attachment_type:   'solution'
+    )
+    submission.attachment = attachment
+    attachment.attachable = submission
+
+    submission.transaction do
+      return false unless submission.save
+      attachment.with_file('wb') do |attach_file|
+        attach_file.write file.read
+        file.close
+      end
+    end
+
+    submission
+  end
 end
 
 # == Schema Information
