@@ -8,6 +8,11 @@ class Problem < ApplicationRecord
   def uploaded_files_dir
     self.class.files_base.join("problems/#{id}")
   end
+
+  def input_file
+    # FIXME? does the `first` invocation here need to be fixed?
+    attachments.where(attachment_type: "sample_in").first
+  end
 end
 
 # == Schema Information

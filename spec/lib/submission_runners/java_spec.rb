@@ -1,18 +1,37 @@
 require 'rails_helper'
-require 'fixtures/submission_runners/java/submissions'
 
-RSpec.describe SubmissionRunners::Java, docker: true do
+RSpec.describe SubmissionRunners::Java, type: :docker do
   describe "#call" do
-    let(:output_fixture) do
-      Pathname.new(Rails.root).join("spec/fixtures/submission_runners/java/Output")
+    let(:contest) { Contest.create! }
+    let(:team)    { contest.teams.create! }
+    let(:problem) do
+      p = Problem.new({
+        contest:   contest,
+        has_input: true,
+        name:      problem_name
+      })
+
+      input_file = fixtures.join("Input")
+
+      p.define_singleton_method(:input_file) { input_file }
+
+      p
     end
+    let(:submission) do
+      Submission.create_from_file({
+        problem:  problem,
+        team:     team,
+        filename: fixtures.join("#{problem_name}.java"),
+      }).tap(&:validate!)
+    end
+    let(:fixtures) { Pathname.new(Rails.root).join("spec/fixtures/submission_runners/java") }
 
     subject(:runner) { described_class.new(submission) }
 
     before { runner.call }
 
     context "java code that won't generate compiler or runtime errors" do
-      let(:submission) { CompilesAndRuns }
+      let(:problem_name) { "CompilesAndRuns" }
 
       it "has no errors" do
         expect(runner.errors).to be_empty
@@ -20,7 +39,7 @@ RSpec.describe SubmissionRunners::Java, docker: true do
     end
 
     context "java code that will generate compiler errors" do
-      let(:submission) { DoesntCompile }
+      let(:problem_name) { "DoesntCompile" }
 
       it "has build errors" do
         expect(runner.errors[:build]).to_not be_nil
@@ -32,7 +51,7 @@ RSpec.describe SubmissionRunners::Java, docker: true do
     end
 
     context "java code that will generate runtime errors" do
-      let(:submission) { CompilesDoesntRun }
+      let(:problem_name) { "CompilesDoesntRun" }
 
       it "doesn't have build errors" do
         expect(runner.errors[:build]).to be_nil

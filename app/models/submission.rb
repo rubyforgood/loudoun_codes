@@ -1,3 +1,5 @@
+require 'stringio'
+
 class Submission < ApplicationRecord
   has_one :attachment, as: :attachable, validate: true
   has_many :submission_results
@@ -22,8 +24,17 @@ class Submission < ApplicationRecord
     problem.name
   end
 
-  # def problem_input_file
-  # end
+  def problem_timeout
+    problem.timeout || 30.seconds
+  end
+
+  def problem_input_buffer
+    if problem.has_input?
+      Pathname.new(problem.input_file)
+    else
+      StringIO.new
+    end
+  end
 
   # Requires problem, team, and filename
   # Can optionally take a file to be read from

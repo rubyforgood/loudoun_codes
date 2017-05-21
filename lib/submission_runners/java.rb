@@ -19,7 +19,7 @@ module SubmissionRunners
     def run
       input = StringIO.new
 
-      input.write(input_file.read)
+      input.write(input_buffer.read)
       input.rewind
 
       docker_run("java", java_class, chdir: submission_dir, in: input)
