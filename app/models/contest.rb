@@ -13,7 +13,6 @@ class Contest < ApplicationRecord
   def in_progress?
     !!started_at
   end
-
 end
 
 # == Schema Information
