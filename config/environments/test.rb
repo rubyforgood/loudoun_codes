@@ -44,5 +44,5 @@ Rails.application.configure do
   config.active_job.queue_adapter = :test
 
   # Move files into tmp
-  config.files_base = Pathname.new Dir::Tmpname.tmpdir
+  config.files_base = Pathname(__FILE__) + '../../../tmp/test_files'
 end
