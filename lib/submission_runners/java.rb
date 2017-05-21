@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-require 'stringio'
 require 'submission_runners/base'
 
 module SubmissionRunners
@@ -17,15 +16,9 @@ module SubmissionRunners
     end
 
     def run
+      java_class = submission.problem_name
+
       docker_run("java", java_class, chdir: submission_dir, in: input_buffer)
-    end
-
-    def container_user
-      "nobody"
-    end
-
-    def java_class
-      submission.problem_name
     end
   end
 end
