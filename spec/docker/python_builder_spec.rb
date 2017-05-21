@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'OmniBuilder with Python', type: :docker do
+RSpec.describe 'OmniBuilder with Python', docker: true do
   describe 'It works with docker command and barebone python image' do
     let(:dir) { Dir.pwd + '/spec/fixtures/docker/' }
 
