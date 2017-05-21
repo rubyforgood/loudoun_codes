@@ -14,4 +14,14 @@ class TeamPresenter
       ''
     end
   end
+
+  def color(problem)
+    if problem_status(problem) == 'passed'
+      return 'lightgreen'
+    elsif problem_status(problem) == 'pending'
+      return 'yellow'
+    elsif  problem_status(problem) == 'failed'
+      return 'orange'
+    end
+  end
 end
