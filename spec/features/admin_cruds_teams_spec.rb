@@ -17,7 +17,7 @@ RSpec.feature 'administrator can create teams', type: :feature do
       click_on "Add New Team"
 
       fill_in "Name", with: t[:name]
-      fill_in "Username", with: t[:user]
+      fill_in "Username", with: t[:username]
 
       click_on "Create Team"
     end

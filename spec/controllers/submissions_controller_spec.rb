@@ -9,8 +9,11 @@ RSpec.describe SubmissionsController, type: :controller do
   # GET new just displays a view.
   # Use view or request specs
 
-  let!(:contest) { @contest }
+  let(:contest) { Contest.instance }
   let!(:team)    { contest.teams.create }
+  let(:account) { Account.find_by(admin: true) }
+
+  let(:valid_session) { { current_account_id: account.id } }
 
   let(:valid_session) { { current_account_id: @account.id } }
 

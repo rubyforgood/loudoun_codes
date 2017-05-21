@@ -2,21 +2,21 @@ require 'rails_helper'
 
 RSpec.feature 'Account Authentication', type: :feature do
   scenario 'account login successfully' do
-    Account.create!(username: "account", password: "account", contest: Contest.create!)
+    Account.create!(username: "account", password: "account", contest: Contest.instance)
     visit root_path
     login("account", "account")
     expect(page).to have_content "You have successfully logged in"
   end
 
   scenario 'account login unsuccessfully' do
-    Account.create!(username: "account", password: "accountddd", contest: Contest.create!)
+    Account.create!(username: "account", password: "accountddd", contest: Contest.instance)
     visit root_path
     login("account", "account")
     expect(page).to have_content "You have entered the wrong credentials"
   end
 
   scenario 'account logout successfully' do
-    Account.create!(username: "account", password: "account", contest: Contest.create!)
+    Account.create!(username: "account", password: "account", contest: Contest.instance)
     visit root_path
     login("account", "account")
     click_link "Logout"

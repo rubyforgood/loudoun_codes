@@ -2,6 +2,17 @@ module Admin
   class ProblemsController < AdminController
     ATTACHMENT_TYPES = %w(handout sample_in sample_out)
 
+    # FIXME not testing
+    def index
+      @contest  = Contest.instance
+      @problems = @contest.problems
+    end
+
+    def show
+      @contest = Contest.instance
+      @problem = @contest.problems.find(params[:id])
+    end
+
     def new
       @contest = Contest.instance
       @problem = @contest.problems.build
