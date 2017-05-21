@@ -14,6 +14,8 @@ module SubmissionRunners
       run_phase(:build) && run_phase(:run)
     end
 
+    private
+
     def run_phase(phase)
       result = send(phase)
 
@@ -23,8 +25,6 @@ module SubmissionRunners
 
       result.success?
     end
-
-    private
 
     def docker_run(*command, **options)
       command = [
@@ -57,6 +57,14 @@ module SubmissionRunners
 
     def problem_timeout
       submission.problem_timeout || 30.seconds
+    end
+
+    def source_file
+      submission.source_file
+    end
+
+    def input_file
+      submission.problem_input_file
     end
 
     def container_user # should probably be overrideable, but this is a good default

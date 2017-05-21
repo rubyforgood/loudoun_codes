@@ -29,14 +29,6 @@ module SubmissionRunners
       "nobody"
     end
 
-    def source_file
-      submission.source_file
-    end
-
-    def input_file
-      submission.problem_input_file
-    end
-
     def java_class
       submission.problem_name
     end
