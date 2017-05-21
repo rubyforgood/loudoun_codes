@@ -1,0 +1,22 @@
+<table class='table table-striped'>
+  <thead>
+    <tr>
+      <th>Problem</th>
+      <th>Status</th>
+      <th>Attempts</th>
+      <th>Time Elapsed</th>
+      <th>Penalty Time</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @problems.each.with_index do |problem, index| %>
+      <tr>
+        <td><%= index + 1 %></td>
+        <td><%= @presenter.problem_status(problem) %></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

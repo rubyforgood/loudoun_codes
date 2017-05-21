@@ -20,6 +20,8 @@ Rails.application.routes.draw do
     resources :accounts, only: [:index, :new, :create]
   end
 
+  resources :teams, only: :show, as: :team_contest_scoreboard
+
   resources :problems, only: [:index, :show]
 
   resources :attachments, only: [:show]
