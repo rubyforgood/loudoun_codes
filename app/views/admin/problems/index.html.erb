@@ -24,7 +24,7 @@
         <td><%= problem.auto_judge %></td>
         <td><%= problem.ignore_case %></td>
         <td><%= problem.whitespace_rule %></td>
-        <td><%= link_to 'Show', problem %></td>
+        <td><%= link_to 'Show', [:admin, problem] %></td>
         <td><%= link_to 'Edit', edit_admin_problem_path(problem) %></td>
         <td><%= link_to 'Delete',
                         admin_problem_path(problem),

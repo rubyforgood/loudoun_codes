@@ -8,6 +8,11 @@ module Admin
       @problems = @contest.problems
     end
 
+    def show
+      @contest = Contest.instance
+      @problem = @contest.problems.find(params[:id])
+    end
+
     def new
       @contest = Contest.instance
       @problem = @contest.problems.build
