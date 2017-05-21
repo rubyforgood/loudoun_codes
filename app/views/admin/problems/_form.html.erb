@@ -15,7 +15,7 @@
     <h3>Upload Attachments</h3>
     <% @attachments.each do |attachment| %>
       <%= form.simple_fields_for(attachment) do |a| %>
-        <%= a.input attachment.attachment_type, as: :file, class: 'form-control-file' %>
+        <%= a.input attachment.attachment_type, as: :file %>
       <% end %>
     <% end %>
   </div>
