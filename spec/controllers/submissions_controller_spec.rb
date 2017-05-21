@@ -1,11 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe SubmissionsController, type: :controller do
-  before(:all) do
-    @contest = Contest.create
-    @account = Account.create!(contest: @contest, username: 'test', password: 'test')
-  end
-
   # GET new just displays a view.
   # Use view or request specs
 
@@ -14,8 +9,6 @@ RSpec.describe SubmissionsController, type: :controller do
   let(:account) { Account.find_by(admin: true) }
 
   let(:valid_session) { { current_account_id: account.id } }
-
-  let(:valid_session) { { current_account_id: @account.id } }
 
   describe 'POST create' do
     FIXTURE_NAME = 'Submission.java'
