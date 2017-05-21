@@ -2,6 +2,12 @@ module Admin
   class ProblemsController < ApplicationController
     ATTACHMENT_TYPES = %w(handout sample_in sample_out)
 
+    # FIXME not testing
+    def index
+      @contest  = Contest.instance
+      @problems = @contest.problems
+    end
+
     def new
       @contest = Contest.instance
       @problem = @contest.problems.build
