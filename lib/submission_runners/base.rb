@@ -23,18 +23,20 @@ module SubmissionRunners
       result = send(phase)
 
       if result.success?
-        self.output      = result.out
-        self.output_type = "success"
+        self.output        = result.out
+        self.output_type   = "success"
+        self.run_succeeded = true
       elsif result.failed?
         self.output      = result.err
         self.output_type = "#{phase}_failure"
+        self.run_succeeded = false
       end
 
       result.success?
     end
 
     def docker_run(*command, **options)
-      command = [
+      whole_command = [
         "docker", "run",
         "--name", container,
         "--volume", "#{submission_dir}:/workspace",
@@ -55,7 +57,7 @@ module SubmissionRunners
 
       TTY::Command.
         new(printer: :null).
-        run!(*command, **options)
+        run!(*whole_command, **options)
     end
 
     def submission_dir

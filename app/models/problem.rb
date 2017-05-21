@@ -14,7 +14,13 @@ class Problem < ApplicationRecord
 
   def input_file
     # FIXME? does the `first` invocation here need to be fixed?
-    attachments.where(attachment_type: "sample_in").first.path
+    attachments.find_by(attachment_type: "sample_in").path
+  end
+
+  def output
+    output_file = attachments.where(attachment_type: "sample_out").first.path
+
+    Pathname.new(output_file).read
   end
 
   def self.create_from_files!(name:, contest:, output_file:, input_file: nil, **options)
