@@ -2,12 +2,53 @@ require 'tty/command'
 
 module SubmissionRunners
   class Base
-    attr_reader :submission, :errors, :output
+    attr_reader :submission, :errors
+    attr_accessor :result
 
     def initialize(submission)
       @submission = submission
       @errors     = {}
-      @output     = ""
+    end
+
+    def call
+      run_phase(:build) && run_phase(:run)
+    end
+
+    private
+
+    def run_phase(phase)
+      result = send(phase)
+
+      if result.failed?
+        errors[phase] = result.err
+      end
+
+      result.success?
+    end
+
+    def docker_run(*command, **options)
+      command = [
+        "docker", "run",
+        "--name", container,
+        "--volume", "#{submission_dir}:/workspace",
+        "--workdir", "/workspace",
+        "--user", container_user,
+        "--rm",
+        "--attach", "STDIN",
+        "--attach", "STDOUT",
+        "--attach", "STDERR",
+        "--interactive",
+        image,
+        *command,
+      ]
+
+      options.merge!({
+        timeout: problem_timeout,
+      })
+
+      TTY::Command.
+        new(printer: :null).
+        run!(*command, **options)
     end
 
     def submission_dir
@@ -18,26 +59,20 @@ module SubmissionRunners
       submission.problem_timeout || 30.seconds
     end
 
-    def run_command(command, **options)
-      TTY::Command.
-        new(printer: :null).
-        run(command, **options)
+    def source_file
+      submission.source_file
     end
 
-    def build_container
-      "#{container_prefix}-build-#{container_suffix}"
+    def input_file
+      submission.problem_input_file
     end
 
-    def run_container
-      "#{container_prefix}-run-#{container_suffix}"
+    def container_user # should probably be overrideable, but this is a good default
+      "nobody"
     end
 
-    def container_prefix
-      self.class.name.demodulize.underscore
-    end
-
-    def container_suffix
-      submission.id.to_s
+    def container
+      "#{self.class.name.demodulize.underscore}-#{submission.id}"
     end
   end
 end
