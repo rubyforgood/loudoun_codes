@@ -19,7 +19,9 @@ module SubmissionRunners
     end
 
     def run_command(command, **options)
-      TTY::Command.new.run(command, **options)
+      TTY::Command.
+        new(printer: :null).
+        run(command, **options)
     end
 
     def build_container
