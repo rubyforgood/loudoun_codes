@@ -143,5 +143,61 @@ RSpec.feature 'Admin scoreboard', type: :feature do
 
       expect(page).to have_text('4')
     end
+
+    scenario 'score is shown for each team' do
+      team = Team.create!(contest: contest, name: 'Team 1')
+      problem_1 = Problem.create!(contest: contest)
+      problem_2 = Problem.create!(contest: contest)
+      problem_3 = Problem.create!(contest: contest)
+
+      submission = Submission.create!(team: team, problem: problem_1, status: 'failed')
+      submission = Submission.create!(team: team, problem: problem_1, status: 'failed')
+      submission = Submission.create!(team: team, problem: problem_1, status: 'failed')
+      submission = Submission.create!(team: team, problem: problem_1, status: 'passed')
+
+      submission = Submission.create!(team: team, problem: problem_2, status: 'failed')
+      submission = Submission.create!(team: team, problem: problem_2, status: 'failed')
+      submission = Submission.create!(team: team, problem: problem_2, status: 'failed')
+
+      submission = Submission.create!(team: team, problem: problem_3, status: 'passed')
+
+      visit admin_contest_scoreboard_path(contest)
+
+      within('tbody') do
+        expect(page).to have_text('2')
+      end
+    end
+
+    scenario 'time + penalty is shown for each team' do
+      team = Team.create!(contest: contest, name: 'Team 1')
+      problem_1 = Problem.create!(contest: contest)
+      problem_2 = Problem.create!(contest: contest)
+      problem_3 = Problem.create!(contest: contest)
+
+      Submission.create!(team: team, problem: problem_1, status: 'failed')
+      Submission.create!(team: team, problem: problem_1, status: 'failed')
+      Submission.create!(team: team, problem: problem_1, status: 'failed')
+      submission_1 = Submission.create!(team: team, problem: problem_1, status: 'passed')
+
+      Submission.create!(team: team, problem: problem_2, status: 'failed')
+      Submission.create!(team: team, problem: problem_2, status: 'failed')
+      Submission.create!(team: team, problem: problem_2, status: 'failed')
+
+      submission_2 = Submission.create!(team: team, problem: problem_3, status: 'passed')
+
+      submission_1.reload
+      submission_2.reload
+
+      visit admin_contest_scoreboard_path(contest)
+
+      time_plus_penalty =
+        (submission_1.created_at - Contest.instance.started_at) +
+        (submission_2.created_at - Contest.instance.started_at) +
+        Rails.configuration.failed_submission_time_penalty * 3
+
+      within('tbody') do
+        expect(page).to have_text(Time.at(time_plus_penalty).utc.strftime('%H:%M:%S'))
+      end
+    end
   end
 end
