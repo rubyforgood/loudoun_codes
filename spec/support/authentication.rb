@@ -1,5 +1,5 @@
 shared_context "an authorized admin" do
-  let(:admin) { Account.create! username: "proctor", password: 'asdf123', admin: true, contest: Contest.create! }
+  let(:admin) { Account.create! username: "proctor", password: 'asdf123', admin: true, contest: Contest.instance }
 
   before do
     visit "/login"

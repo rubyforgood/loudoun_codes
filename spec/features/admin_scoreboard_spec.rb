@@ -1,12 +1,17 @@
 require 'rails_helper'
 
 RSpec.feature 'Admin scoreboard', type: :feature do
-  let(:contest) { Contest.create!(started_at: Time.now) }
+  let(:contest) { Contest.instance }
+
+  before do
+    contest.start
+    contest.save
+  end
 
   scenario 'admin scoreboard is not accessible to participants' do
     visit admin_contest_scoreboard_path(contest)
 
-    expect(current_path).to eq(root_path)
+    expect(current_path).to eq(new_session_path)
   end
 
   context "as an admin" do
@@ -35,6 +40,7 @@ RSpec.feature 'Admin scoreboard', type: :feature do
       visit admin_contest_scoreboard_path(contest)
 
       expect(page).to have_text('Team 1')
+
     end
 
     scenario 'teams are ranked by current score' do

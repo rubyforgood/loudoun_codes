@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Submission, type: :model do
   describe "#uploaded_files_dir" do
-    let(:contest) { Contest.create! }
+    let(:contest) { Contest.instance }
     let(:submission) do
       Submission.create!({
         team: Team.create!({
@@ -19,7 +19,7 @@ RSpec.describe Submission, type: :model do
     end
 
     it 'it has many submission results' do
-      contest = Contest.create!(name: "contest")
+      contest = Contest.instance
       problem = Problem.create!(contest: contest)
       team = Team.create!(contest: contest)
       submission = problem.submissions.create!(team: team)
@@ -35,10 +35,10 @@ end
 # Table name: submissions
 #
 #  id         :integer          not null, primary key
-#  passed     :boolean
 #  team_id    :integer
 #  problem_id :integer
 #  runtime    :integer
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  status     :string
 #

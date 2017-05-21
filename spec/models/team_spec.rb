@@ -2,9 +2,9 @@ require 'rails_helper'
 
 RSpec.describe Team, type: :model do
   it 'it has many submissions' do
-    contest = Contest.create!(name: "contest")
-    problem = Problem.create!(contest: contest)
-    team = Team.create!(contest: contest)
+    contest = Contest.instance
+    problem = contest.problems.create!
+    team = contest.teams.create!
     submission = problem.submissions.create!(team: team)
     submission = problem.submissions.create!(team: team)
     expect(team.submissions.count).to be 2

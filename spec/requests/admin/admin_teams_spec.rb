@@ -10,7 +10,7 @@ RSpec.describe "Admin::Teams", type: :request do
       # I hate this so much.  Request specs should be able to test _a single
       # request_ in isolation.  Without access to the session, we are forced
       # to treat these as full integrations, with multiple page posts
-      post login_path params: {
+      post sessions_path params: {
         session: { username: admin.username, password: admin.password }
       }
     end
