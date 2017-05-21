@@ -24,4 +24,10 @@ class TeamPresenter
       return 'orange'
     end
   end
+
+
+  def attempts(problem)
+    ProblemAttemptsService.new(problem: problem, team: @team).call
+  end
+
 end
