@@ -17,6 +17,12 @@ class Problem < ApplicationRecord
     attachments.where(attachment_type: "sample_in").first.path
   end
 
+  def output
+    output_file = attachments.where(attachment_type: "sample_out").first.path
+
+    Pathname.new(output_file).read
+  end
+
   def self.create_from_files!(name:, contest:, output_file:, input_file: nil, **options)
 
     input_file  = Pathname.new(input_file)

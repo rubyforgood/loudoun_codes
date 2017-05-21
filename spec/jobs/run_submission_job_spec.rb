@@ -23,6 +23,9 @@ RSpec.describe RunSubmissionJob, type: :job do
   it 'creates a submission result' do
     RunSubmissionJob.new.perform(submission.id)
 
+    submission.reload
+
+    expect(submission.status).to eq "passed"
     expect(submission.reload.submission_results.count).to eq(1)
   end
 end

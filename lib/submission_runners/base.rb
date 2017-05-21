@@ -23,11 +23,13 @@ module SubmissionRunners
       result = send(phase)
 
       if result.success?
-        self.output      = result.out
-        self.output_type = "success"
+        self.output        = result.out
+        self.output_type   = "success"
+        self.run_succeeded = true
       elsif result.failed?
         self.output      = result.err
         self.output_type = "#{phase}_failure"
+        self.run_succeeded = false
       end
 
       result.success?
