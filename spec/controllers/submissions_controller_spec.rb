@@ -18,7 +18,6 @@ RSpec.describe SubmissionsController, type: :controller do
     let(:valid_params) { { submission: { attachment: file, problem: problem.id } } }
 
     it 'rejects submission without file' do
-      puts Submission.count
       expect {
         post(:create,
              params: { submission: { problem_id: problem.id } },

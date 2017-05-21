@@ -8,5 +8,7 @@ else
   password = Account.find_by(username: "admin", admin: true).password
 end
 
-puts "SAVE YOUR PASSWORD AND YOUR USERNAME :"
-puts "admin:#{password}"
+unless Rails.env.test?
+  puts "SAVE YOUR PASSWORD AND YOUR USERNAME :"
+  puts "admin:#{password}"
+end
