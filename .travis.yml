@@ -3,7 +3,7 @@ rvm:
   - 2.4
 script:
   - bundle exec rails db:migrate RAILS_ENV=test
-  - bundle exec ci
+  - bundle exec rake ci
 notifications:
   slack: rubyforgood:Z8KxX1B7VPwG7MJFRch66746
 services:
