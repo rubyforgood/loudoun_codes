@@ -7,7 +7,9 @@ RSpec.feature 'Admin create problems', type: :feature do
   scenario 'An admin can create a problem with attached inputs and solutions' do
     visit admin_contest_path
 
-    click_on "Create Problem"
+    click_on "Problems"
+    click_on "New Problem"
+
     fill_in "Name", with: "Shortest Path"
     fill_in "Description", with: "Find the shortest paths between the given points"
     fill_in "Timeout", with: 30
