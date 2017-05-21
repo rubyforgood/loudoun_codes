@@ -13,7 +13,7 @@ Rails.application.routes.draw do
 
     get 'scoreboard' => 'scoreboard#show', as: :contest_scoreboard
 
-    resources :problems, only: [:create, :new, :edit, :update, :destroy]
+    resources :problems
 
     resources :attachments, only: [:destroy]
 
