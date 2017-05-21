@@ -63,8 +63,8 @@ module SubmissionRunners
       submission.source_file
     end
 
-    def input_file
-      submission.problem_input_file
+    def input_buffer
+      submission.problem_input_buffer
     end
 
     def container_user # should probably be overrideable, but this is a good default
