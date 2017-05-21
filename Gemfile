@@ -32,6 +32,7 @@ gem 'token_phrase'
 gem 'simple_form'
 
 gem 'sidekiq'
+gem 'tty-command'
 
 gem 'bootstrap', '~> 4.0.0.alpha6'
 gem 'jquery-rails'

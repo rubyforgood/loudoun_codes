@@ -4,7 +4,7 @@ module Docker
   class RubyBuilder < OmniBuilder
     def initialize(workdir)
       @language_executable = '/usr/local/bin/ruby'
-      @docker_image = 'ruby'
+      @docker_image = 'ruby:2.4.1'
       super
     end
 

@@ -1,7 +1,7 @@
 require 'rails_helper'
 require 'fileutils'
 
-RSpec.describe Docker::Output, type: :docker do
+RSpec.describe Docker::Output, docker: true do
   describe 'output for entry' do
     let(:output) { Docker::Output.new(Pathname.new('ProblemA.out')) }
 

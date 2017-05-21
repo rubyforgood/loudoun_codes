@@ -1,5 +1,3 @@
-<p id="notice"><%= notice %></p>
-
 <h1>Problem <%= @problem.id %></h1>
 
 <p>
@@ -44,7 +42,7 @@
       <th scope="col">Filename</th>
       <th scope="col">Type</th>
       <th scope="col">Content Type</th>
-      <th class="actions" scope="col" colspan="3">Actions</th>
+      <th class="actions" scope="col" colspan="2">Actions</th>
     </tr>
   </thead>
 
@@ -55,8 +53,16 @@
           <td><%= attachment.attachment_type %></td>
           <td><%= attachment.content_type %></td>
           <td><%= link_to 'Download', attachment %></td>
+          <td><%= link_to 'Delete',
+                          admin_attachment_path(attachment),
+                          method: :delete,
+                          data: { confirm: 'Are you sure?' } %>
+          </td>
         </tr>
       </tbody>
     <br>
   <% end %>
 </table>
+
+<%= link_to 'Edit', edit_admin_problem_path(@problem) %> |
+<%= link_to 'Back', problems_path %>

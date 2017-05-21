@@ -1,4 +1,11 @@
-<h1>Administer contest <%= Contest.instance.name %></h1>
+<h1>Administer Contest <%= Contest.instance.name %></h1>
 
+<ul>
+  <li><%= link_to("#{@contest.teams.count} Teams", '#') %></li>
+  <li><%= link_to("#{@contest.problems.count} Problems", problems_path) %></li>
+  <li><%= link_to("#{Submission.count} Submissions", '#') %></li>
+</ul>
 
-<%= link_to "Create Problem", new_admin_problem_path %>
+<%= link_to 'Create Problem', new_admin_problem_path %>
+
+<%= link_to 'Manage Teams', admin_teams_path %>

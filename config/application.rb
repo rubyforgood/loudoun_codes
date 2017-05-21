@@ -29,9 +29,7 @@ module Milton
 
     config.active_job.queue_adapter = :sidekiq
 
-    def files_base
-      Pathname.new("/var/lib/#{self.class.parent.name.underscore}")
-    end
+    config.files_base = Pathname.new "/var/lib/#{self.class.parent.name.underscore}"
 
     config.failed_submission_time_penalty = 20.minutes
     config.page_refresh_interval = 5000

@@ -1,7 +1,8 @@
 require 'sidekiq/web'
-
 Rails.application.routes.draw do
   get 'sessions/new'
+
+  resources :submissions
 
   mount Sidekiq::Web => '/sidekiq'
 
@@ -13,12 +14,20 @@ Rails.application.routes.draw do
     post   'login',  to: 'sessions#create'
     delete 'logout', to: 'sessions#destroy'
 
-    resources :problems
+    resources :problems, only: [:create, :new, :edit, :update, :destroy]
+
+    resources :attachments, only: [:destroy]
+
+    resources :teams
   end
 
   resources :problems, only: [:index, :show]
 
   resources :attachments, only: [:show]
+
+  get    'login',  to: 'sessions#new'
+  post   'login',  to: 'sessions#create'
+  delete 'logout', to: 'sessions#destroy'
 
   get "/admin" => redirect("/admin/contest")
 

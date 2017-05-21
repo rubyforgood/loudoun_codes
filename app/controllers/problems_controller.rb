@@ -7,6 +7,6 @@ class ProblemsController < ApplicationController
 
   def show
     @contest = Contest.instance
-    @problem = @contest.problems.find(params[:id])
+    @problem = ProblemPresenter.new(@contest.problems.find(params[:id]))
   end
 end
