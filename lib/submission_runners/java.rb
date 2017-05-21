@@ -55,14 +55,16 @@ module SubmissionRunners
       ]
 
       input = StringIO.new
+
       input.write(input_file.read)
+      input.rewind
 
       run_command(
         :run,
         command_pieces,
         timeout: problem_timeout,
         chdir: submission_dir,
-        in: input.tap(&:rewind),
+        in: input,
       )
     end
 
