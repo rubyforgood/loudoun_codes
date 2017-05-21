@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
   before_action :require_account
 
   def require_account
-      redirect_to new_session_path unless current_account
+    redirect_to new_session_path unless current_account
   end
 
   def current_account
