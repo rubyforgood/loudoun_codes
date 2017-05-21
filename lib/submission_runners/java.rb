@@ -19,11 +19,12 @@ module SubmissionRunners
 
       command_pieces = [
         "docker", "run",
-        "--name", build_container,
+        "--name", container,
         "--volume", "#{submission_dir}:/workspace",
         "--workdir", "/workspace",
         "--user", container_user,
         "--rm",
+        "--attach", "STDIN",
         "--attach", "STDOUT",
         "--attach", "STDERR",
         "--interactive",
@@ -41,7 +42,7 @@ module SubmissionRunners
     def run
       command_pieces = [
         "docker", "run",
-        "--name", run_container,
+        "--name", container,
         "--volume", "#{submission_dir}:/workspace",
         "--workdir", "/workspace",
         "--user", container_user,

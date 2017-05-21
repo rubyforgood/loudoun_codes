@@ -30,20 +30,8 @@ module SubmissionRunners
       errors.empty?
     end
 
-    def build_container
-      "#{container_prefix}-build-#{container_suffix}"
-    end
-
-    def run_container
-      "#{container_prefix}-run-#{container_suffix}"
-    end
-
-    def container_prefix
-      self.class.name.demodulize.underscore
-    end
-
-    def container_suffix
-      submission.id.to_s
+    def container
+      "#{self.class.name.demodulize.underscore}-#{submission.id}"
     end
   end
 end
