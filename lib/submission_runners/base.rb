@@ -36,7 +36,7 @@ module SubmissionRunners
     end
 
     def docker_run(*command, **options)
-      command = [
+      whole_command = [
         "docker", "run",
         "--name", container,
         "--volume", "#{submission_dir}:/workspace",
@@ -57,7 +57,7 @@ module SubmissionRunners
 
       TTY::Command.
         new(printer: :null).
-        run!(*command, **options)
+        run!(*whole_command, **options)
     end
 
     def submission_dir
