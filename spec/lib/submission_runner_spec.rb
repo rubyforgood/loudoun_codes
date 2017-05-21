@@ -2,8 +2,8 @@ require 'rails_helper'
 require 'submission_runners/java'
 require 'fixtures/submission_runners/java/submissions'
 
-RSpec.describe SubmissionRunners::Java do
-  describe "#do_the_thing" do
+RSpec.describe SubmissionRunners::Java, docker: true do
+  describe "#call" do
     let(:output_fixture) do
       Pathname.new(Rails.root).join("spec/fixtures/submission_runners/java/Output")
     end
@@ -20,19 +20,27 @@ RSpec.describe SubmissionRunners::Java do
       end
     end
 
-    xcontext "java code that will generate compiler errors" do
+    context "java code that will generate compiler errors" do
       let(:submission) { DoesntCompile }
 
-      it "has errors" do
-        expect(runner.errors).to_not be_empty
+      it "has build errors" do
+        expect(runner.errors[:build]).to_not be_nil
+      end
+
+      it "doesn't have run errors" do
+        expect(runner.errors[:run]).to be_nil
       end
     end
 
-    xcontext "java code that will generate runtime errors" do
+    context "java code that will generate runtime errors" do
       let(:submission) { CompilesDoesntRun }
 
-      it "has errors" do
-        expect(runner.errors).to_not be_empty
+      it "doesn't have build errors" do
+        expect(runner.errors[:build]).to be_nil
+      end
+
+      it "has run errors" do
+        expect(runner.errors[:run]).to_not be_nil
       end
     end
   end

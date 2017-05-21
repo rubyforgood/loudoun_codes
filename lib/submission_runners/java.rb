@@ -5,8 +5,7 @@ require 'submission_runners/base'
 module SubmissionRunners
   class Java < Base
     def call
-      build
-      run
+      build && run
     end
 
     def image
@@ -16,38 +15,51 @@ module SubmissionRunners
     private
 
     def build
-      submission_dir.chmod(0777)
+      submission_dir.chmod(0777) # otherwise the nobody user doesn't have write permissions
 
-      options = [
-        "--name #{build_container}",
-        "--volume #{submission_dir}:/workspace",
-        "--workdir /workspace",
-        "--user #{container_user}",
+      command_pieces = [
+        "docker", "run",
+        "--name", build_container,
+        "--volume", "#{submission_dir}:/workspace",
+        "--workdir", "/workspace",
+        "--user", container_user,
         "--rm",
-      ].join(" ")
+        "--attach", "STDOUT",
+        "--attach", "STDERR",
+        "--interactive",
+        image,
+        "javac", source_file.basename
+      ]
 
       run_command(
-        "docker run #{options} #{image} javac #{source_file.basename}"
+        :build,
+        command_pieces,
+        timeout: problem_timeout
       )
     end
 
     def run
-      options = [
-        "--name #{run_container}",
-        "--volume #{submission_dir}:/workspace",
-        "--workdir /workspace",
-        "--user #{container_user}",
+      command_pieces = [
+        "docker", "run",
+        "--name", run_container,
+        "--volume", "#{submission_dir}:/workspace",
+        "--workdir", "/workspace",
+        "--user", container_user,
         "--rm",
-        "--attach STDIN",
-        "--attach STDOUT",
+        "--attach", "STDIN",
+        "--attach", "STDOUT",
+        "--attach", "STDERR",
         "--interactive",
-      ].join(" ")
+        image,
+        "java", java_class
+      ]
 
       input = StringIO.new
       input.write(input_file.read)
 
       run_command(
-        "docker run #{options} #{image} java #{java_class}",
+        :run,
+        command_pieces,
         timeout: problem_timeout,
         chdir: submission_dir,
         in: input.tap(&:rewind),

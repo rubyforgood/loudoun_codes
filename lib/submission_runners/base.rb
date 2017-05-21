@@ -2,12 +2,12 @@ require 'tty/command'
 
 module SubmissionRunners
   class Base
-    attr_reader :submission, :errors, :output
+    attr_reader :submission, :errors
+    attr_accessor :result
 
     def initialize(submission)
       @submission = submission
       @errors     = {}
-      @output     = ""
     end
 
     def submission_dir
@@ -18,10 +18,16 @@ module SubmissionRunners
       submission.problem_timeout || 30.seconds
     end
 
-    def run_command(command, **options)
-      TTY::Command.
-        new(printer: :null).
-        run(command, **options)
+    def run_command(phase, command_pieces, **options)
+      begin
+        self.result = TTY::Command.
+          new(printer: :null).
+          run(*command_pieces, **options)
+      rescue TTY::Command::ExitError => error
+        errors[phase] = error
+      end
+
+      errors.empty?
     end
 
     def build_container
