@@ -10,6 +10,47 @@ module SubmissionRunners
       @errors     = {}
     end
 
+    def call
+      run_phase(:build) && run_phase(:run)
+    end
+
+    def run_phase(phase)
+      result = send(phase)
+
+      if result.failed?
+        errors[phase] = result.err
+      end
+
+      result.success?
+    end
+
+    private
+
+    def docker_run(*command, **options)
+      command = [
+        "docker", "run",
+        "--name", container,
+        "--volume", "#{submission_dir}:/workspace",
+        "--workdir", "/workspace",
+        "--user", container_user,
+        "--rm",
+        "--attach", "STDIN",
+        "--attach", "STDOUT",
+        "--attach", "STDERR",
+        "--interactive",
+        image,
+        *command,
+      ]
+
+      options.merge!({
+        timeout: problem_timeout,
+      })
+
+      TTY::Command.
+        new(printer: :null).
+        run!(*command, **options)
+    end
+
     def submission_dir
       submission.uploaded_files_dir
     end
@@ -18,16 +59,8 @@ module SubmissionRunners
       submission.problem_timeout || 30.seconds
     end
 
-    def run_command(phase, command_pieces, **options)
-      begin
-        self.result = TTY::Command.
-          new(printer: :null).
-          run(*command_pieces, **options)
-      rescue TTY::Command::ExitError => error
-        errors[phase] = error
-      end
-
-      errors.empty?
+    def container_user # should probably be overrideable, but this is a good default
+      "nobody"
     end
 
     def container
