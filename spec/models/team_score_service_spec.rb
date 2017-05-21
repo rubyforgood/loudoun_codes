@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe TeamScoreService, type: :model do
-  let(:contest) { Contest.create! }
+  let(:contest) { Contest.instance }
   let(:team) { Team.create!(contest: contest) }
 
   describe '#call' do
@@ -32,7 +32,7 @@ RSpec.describe TeamScoreService, type: :model do
 
     context 'with multiple contests' do
       it 'returns the score for a specific contest' do
-        other_contest = Contest.create!
+        other_contest = Contest.instance
 
         problem = Problem.create!(contest: contest)
         other_problem = Problem.create!(contest: other_contest)

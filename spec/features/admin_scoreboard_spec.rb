@@ -1,7 +1,12 @@
 require 'rails_helper'
 
 RSpec.feature 'Admin scoreboard', type: :feature do
-  let(:contest) { Contest.create!(started_at: Time.now) }
+  let(:contest) { Contest.instance }
+
+  before do
+    contest.start
+    contest.save
+  end
 
   scenario 'admin scoreboard is not accessible to participants' do
     visit admin_contest_scoreboard_path(contest)

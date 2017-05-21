@@ -21,8 +21,9 @@ module Admin
     def start
       @contest = Contest.instance
 
-      @contest.update_attributes started_at: Time.current.utc
+      @contest.start
 
+      @contest.save
       flash[:success] = "The contest has started"
 
       redirect_to admin_contest_path

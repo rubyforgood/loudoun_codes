@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe SubmissionRunners::Java, type: :docker do
   describe "#call" do
-    let(:contest) { Contest.create! }
+    let(:contest) { Contest.instance }
     let(:team)    { contest.teams.create! }
     let(:problem) do
       p = Problem.new({

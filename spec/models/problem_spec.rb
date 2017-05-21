@@ -3,7 +3,7 @@ RSpec.describe Problem, type: :model do
   describe "#uploaded_files_dir" do
     let(:problem) do
       Problem.create!({
-        contest: Contest.create!
+        contest: Contest.instance
       })
     end
 
@@ -13,7 +13,7 @@ RSpec.describe Problem, type: :model do
   end
 
   it "has many submissions" do
-    contest = Contest.create!(name: "contest")
+    contest = Contest.instance
     problem = Problem.create!(contest: contest)
     team = Team.create!(contest: contest)
     problem.submissions.create!(team: team)
