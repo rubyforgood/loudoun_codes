@@ -7,7 +7,8 @@ Rails.application.routes.draw do
   mount Sidekiq::Web => '/sidekiq'
 
   namespace 'admin' do
-    get 'contest' => 'contests#show'
+    resource 'contest'
+
     get 'scoreboard' => 'scoreboard#show', as: :contest_scoreboard
 
     get    'login',  to: 'sessions#new'

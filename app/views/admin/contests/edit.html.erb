@@ -1,0 +1,13 @@
+<h1>Name your contest</h1>
+
+<%= simple_form_for [:admin, @contest], url: admin_contest_path do |form| %>
+
+  <div class="form-controls">
+    <%= form.input :name %>
+  </div>
+
+  <div class='form-actions'>
+    <%= form.button :submit %>
+  </div>
+
+<% end %>
