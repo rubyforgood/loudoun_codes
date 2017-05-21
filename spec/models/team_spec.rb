@@ -1,20 +1,20 @@
 require 'rails_helper'
 
-RSpec.describe Team, type: :model do
+RSpec.describe Account, type: :model do
   it 'it has many submissions' do
     contest = Contest.instance
     problem = contest.problems.create!
-    team = contest.teams.create!
-    submission = problem.submissions.create!(team: team)
-    submission = problem.submissions.create!(team: team)
-    expect(team.submissions.count).to be 2
+    account = Account.create!(contest: contest)
+    submission = problem.submissions.create!(account: account)
+    submission = problem.submissions.create!(account: account)
+    expect(account.submissions.count).to be 2
   end
 
 end
 
 # == Schema Information
 #
-# Table name: teams
+# Table name: accounts
 #
 #  id         :integer          not null, primary key
 #  name       :string
