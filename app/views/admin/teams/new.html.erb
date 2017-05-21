@@ -1,0 +1,14 @@
+<h1><%= @contest.name %>Create new team</h1>
+
+<%= simple_form_for [:admin, @team] do |form| %>
+
+  <div class='form-controls'>
+    <%= form.input :name %>
+    <%= form.input :username %>
+  </div>
+
+  <div class='form-actions'>
+    <%= form.button :submit %>
+  </div>
+
+<% end %>
