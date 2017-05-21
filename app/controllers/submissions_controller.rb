@@ -5,33 +5,19 @@ class SubmissionsController < ApplicationController
 
   def create
     submission = params.require :submission
-    @submission = Submission.new(
-      problem_id: submission[:problem],
-      team:       current_team,
+    @submission = Submission.create_from_file(
+        file:     submission[:attachment],
+        filename: submission[:attachment].try(:original_filename),
+        problem:  Problem.find_by(id: submission[:problem]),
+        team:     current_team,
     )
 
-    if submission[:attachment]
-      attachment = Attachment.new(
-        original_filename: submission[:attachment].original_filename,
-        attachment_type: 'solution'
-      )
-      @submission.attachment = attachment
-      attachment.attachable = @submission
-    end
-
-    @submission.transaction do
-      if @submission.save
-        attachment.with_file('wb') do |file|
-          file.write submission[:attachment].read
-        end
-
-        RunSubmissionJob.perform_later @submission.id
-
-        redirect_to @submission
-      else
-        flash.now.alert = 'Problem with submission, see below for details.'
-        render 'new'
-      end
+    if @submission.valid?
+      RunSubmissionJob.perform_later @submission.id
+      redirect_to @submission
+    else
+      flash.now.alert = 'Problem with submission, see below for details.'
+      render 'new'
     end
   end
 
