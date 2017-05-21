@@ -1,14 +1,10 @@
-<h1><%= @problem.name %></h1>
+<section class=jumbotron>
+  <h1><%= @problem.name %></h1>
 
-<p>
-  <strong>Description:</strong>
-  <%= @problem.description %>
-</p>
-
-<p>
-  <strong>Timeout:</strong>
-  <%= @problem.timeout %>
-</p>
+  <p class='lead'>
+    <%= @problem.description %>
+  </p>
+</section>
 
 <table class="table table-striped">
   <caption>Attachments</caption>
@@ -36,6 +32,3 @@
 
 <%= link_to "Submit Solution", new_submission_path(problem_id: @problem.id), class: 'btn btn-primary' %>
 <%= link_to 'Back', problems_path, class: 'btn btn-secondary' %>
-
-
-
