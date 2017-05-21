@@ -14,7 +14,7 @@ class Problem < ApplicationRecord
 
   def input_file
     # FIXME? does the `first` invocation here need to be fixed?
-    attachments.where(attachment_type: "sample_in").first.path
+    attachments.find_by(attachment_type: "sample_in").path
   end
 
   def output
