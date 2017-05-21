@@ -1,5 +1,5 @@
 module Admin
-  class ProblemsController < ApplicationController
+  class ProblemsController < AdminController
     ATTACHMENT_TYPES = %w(handout sample_in sample_out)
 
     def new

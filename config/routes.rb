@@ -13,10 +13,6 @@ Rails.application.routes.draw do
 
     get 'scoreboard' => 'scoreboard#show', as: :contest_scoreboard
 
-    get    'login',  to: 'sessions#new'
-    post   'login',  to: 'sessions#create'
-    delete 'logout', to: 'sessions#destroy'
-
     resources :problems, only: [:create, :new, :edit, :update, :destroy]
 
     resources :attachments, only: [:destroy]
@@ -28,11 +24,11 @@ Rails.application.routes.draw do
 
   resources :attachments, only: [:show]
 
-  get    'login',  to: 'sessions#new'
-  post   'login',  to: 'sessions#create'
-  delete 'logout', to: 'sessions#destroy'
+  resources :sessions, only: [:new, :create, :destroy]
+  get 'login',  to: 'sessions#new'
+  get 'logout', to: 'sessions#destroy'
 
   get "/admin" => redirect("/admin/contest")
 
-  root to: 'welcome#index'
+  root to: 'problems#index'
 end
