@@ -13,7 +13,7 @@ RSpec.describe "Admin::Teams", type: :request do
       post login_path params: {
         session: { username: admin.username, password: admin.password }
       }
-   end
+    end
 
     it "creates a user with an authentication token" do
       post admin_teams_path, params: {
