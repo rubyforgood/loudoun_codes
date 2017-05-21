@@ -18,7 +18,6 @@ class Problem < ApplicationRecord
   end
 
   def self.create_from_files!(name:, contest:, output_file:, input_file: nil, **options)
-
     input_file  = Pathname.new(input_file)
     output_file = Pathname.new(output_file)
 
@@ -53,7 +52,6 @@ class Problem < ApplicationRecord
 
       problem.save!
 
-      
       problem
     end
   end
