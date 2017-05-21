@@ -38,7 +38,7 @@ module SubmissionRunners
         "--attach", "STDOUT",
         "--attach", "STDERR",
         "--interactive",
-        image,
+        self.class.image,
         *command,
       ]
 

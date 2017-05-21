@@ -4,7 +4,7 @@ require 'submission_runners/base'
 
 module SubmissionRunners
   class Java < Base
-    def image
+    def self.image
       "java:8"
     end
 

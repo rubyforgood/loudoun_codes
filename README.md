@@ -21,9 +21,7 @@ Contributors
 2. Install (and start) [Redis](https://redis.io)
 3. `mkdir -p /var/lib/milton` - You *must* ensure that the user running the app has permissions in this directory.
 4. Install Docker `curl -fsSL https://get.docker.com/ | sh; sudo usermod -aG docker $(whoami)`
-5. Pull docker images
- - `docker pull ruby`
- - `docker pull python`
+5. Pull docker images `rake docker`
 6. `git clone https://github.com/rubyforgood/loudoun_codes.git`
 7. `cd loudoun_codes`
 8. `bundle install`
