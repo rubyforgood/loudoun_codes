@@ -21,7 +21,7 @@ RSpec.describe RunSubmissionJob, type: :job do
   let(:fixtures) { Pathname.new(Rails.root).join("spec/fixtures/submission_runners/java") }
 
   # FIXME: we still need a passing but incorrect
-  
+
   context "for a correct submission" do
     let(:submission_file) { fixtures.join("CompilesAndRuns.java") }
 
