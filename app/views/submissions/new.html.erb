@@ -1,8 +1,14 @@
 <%= simple_form_for @submission do |f| %>
-  <%= f.input :problem, collection: Contest.instance.problems %>
-  <%= f.input :attachment, as: :file %>
-  <% @submission.attachment.errors.full_messages.each do |message| %>
-    <%= message %><br>
-  <% end if @submission.attachment %>
-  <%= f.submit 'Submit' %>
+
+  <div class='form-controls'>
+    <%= f.input :problem, collection: Contest.instance.problems %>
+    <%= f.input :attachment, as: :file, class: 'form-control-file' %>
+    <% @submission.attachment.errors.full_messages.each do |message| %>
+      <%= message %><br>
+    <% end if @submission.attachment %>
+  </div>
+
+  <div class='form-actions'>
+    <%= f.button :submit, class: 'btn-primary' %>
+  </div>
 <% end %>
