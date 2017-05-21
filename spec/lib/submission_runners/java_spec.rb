@@ -1,5 +1,4 @@
 require 'rails_helper'
-require 'submission_runners/java'
 require 'fixtures/submission_runners/java/submissions'
 
 RSpec.describe SubmissionRunners::Java, docker: true do
