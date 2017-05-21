@@ -20,11 +20,13 @@ Contributors
 1. Install [Ruby v2.4.1](https://www.ruby-lang.org/en/downloads)
 2. Install (and start) [Redis](https://redis.io)
 3. `mkdir -p /var/lib/milton` - You *must* ensure that the user running the app has permissions in this directory.
-3. `git clone https://github.com/rubyforgood/loudoun_codes.git`
-4. `cd loudoun_codes`
-5. `bundle install`
-6. `bundle exec rake db:setup`
-7. `bundle exec foreman start`
+4. Install Docker `curl -fsSL https://get.docker.com/ | sh; sudo usermod -aG docker $(whoami)`
+5. Pull docker images `rake docker`
+6. `git clone https://github.com/rubyforgood/loudoun_codes.git`
+7. `cd loudoun_codes`
+8. `bundle install`
+9. `bundle exec rake db:setup`
+10. `bundle exec foreman start`
 
 If you are running the application for an actual competition, you probably want to use `RAILS_ENV=production bundle exec foreman start` in step 7.
 
