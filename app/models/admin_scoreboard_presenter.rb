@@ -18,4 +18,14 @@ class AdminScoreboardPresenter
   def time_plus_penalty(team:)
     Time.at(TeamTimeService.new(contest: Contest.instance).call(team: team)).utc.strftime('%H:%M:%S')
   end
+
+  def color(team:, problem:)
+    if problem.submissions.where(team: team, status: 'passed').any?
+      return 'lightgreen'
+    elsif problem.submissions.where(team: team, status: 'pending').any?
+      return 'yellow'
+    elsif problem.submissions.where(team: team, status: 'failed').any?
+      return 'orange'
+    end
+  end
 end

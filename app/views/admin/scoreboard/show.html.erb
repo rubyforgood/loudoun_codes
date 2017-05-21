@@ -14,7 +14,7 @@
       <tr>
         <td><%= team.name %></td>
         <% @presenter.problems.each do |problem| %>
-          <td><%= @presenter.attempts(team: team, problem: problem) %></td>
+          <td bgcolor=<%= @presenter.color(team: team, problem: problem) %>><%= @presenter.attempts(team: team, problem: problem) %></td>
         <% end %>
         <td><%= @presenter.score(team: team) %></td>
         <td><%= @presenter.time_plus_penalty(team: team) %></td>
