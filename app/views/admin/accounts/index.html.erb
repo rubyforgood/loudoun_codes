@@ -1,6 +1,11 @@
 <h1><%= @contest.name %> Accounts</h1>
 
-<%= link_to "Add New Account", new_admin_account_path, class: 'btn' %>
+<%= link_to "Add New Account", new_admin_account_path,
+    class: "btn btn-primary #{'disabled' if @contest.in_progress?}",
+    disabled: @contest.in_progress? %>
+
 <%= link_to "Back", admin_path, class: 'btn btn-secondary' %>
+
+<hr />
 
 <%= render @accounts, partial: 'admin/accounts/account' %>

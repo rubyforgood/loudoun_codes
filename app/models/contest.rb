@@ -9,6 +9,11 @@ class Contest < ApplicationRecord
   def start(time: Time.current.utc)
     self.started_at = time
   end
+
+  def in_progress?
+    !!started_at
+  end
+
 end
 
 # == Schema Information
