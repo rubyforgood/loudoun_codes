@@ -7,7 +7,7 @@ RSpec.feature 'administrator can create accounts', type: :feature do
   scenario "an admin can create new accounts" do
     visit admin_contest_path
 
-    click_on "Manage Accounts"
+    click_on "Accounts"
 
     accounts = [{ name: "A quick and speedy account", username: "roadrunner" },
              { name: "Move fast and break things", username: "hare" },

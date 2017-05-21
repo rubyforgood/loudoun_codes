@@ -4,7 +4,29 @@
     <hr />
 
     <% if @contest.started_at %>
-      <h2>started at <%= @contest.started_at.to_s %></h2
+      <h2>started at <%= @contest.started_at.to_s %></h2>
+
+    <div class='btn-toolbar justify-content-between'>
+      <%= link_to "Scoreboard", admin_contest_scoreboard_path, class: 'btn btn-primary' %>
+
+      <div class='btn-group'>
+        <span class='input-group-addon'><%= @contest.problems.count %></span>
+        <%= link_to 'Problems', admin_problems_path, class: 'btn btn-secondary' %>
+      </div>
+      <div class='btn-group'>
+        <span class='input-group-addon'><%= @contest.accounts.count %></span>
+        <%= link_to 'Accounts', admin_accounts_path, class: 'btn btn-secondary' %>
+      </div>
+      <div class='btn-group'>
+        <span class='input-group-addon'><%= Submission.count %></span>
+        <%= link_to 'Submissions', "#", class: 'btn btn-secondary disabled' %>
+      </div>
+
+      <div class='input-group'>
+        <%= button_to "Stop Contest", "#", method: 'put', class: 'btn btn-danger disabled' %>
+      </div>
+    </div>
+
     <% else %>
 
     <div class='btn-toolbar justify-content-between'>
@@ -16,7 +38,7 @@
       </div>
       <div class='btn-group'>
         <span class='input-group-addon'><%= @contest.accounts.count %></span>
-        <%= link_to 'Manage Accounts', admin_accounts_path, class: 'btn btn-secondary' %>
+        <%= link_to 'Accounts', admin_accounts_path, class: 'btn btn-secondary' %>
       </div>
       <div class='btn-group'>
         <span class='input-group-addon'><%= Submission.count %></span>
