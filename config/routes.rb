@@ -1,4 +1,5 @@
 require 'sidekiq/web'
+
 Rails.application.routes.draw do
   get 'sessions/new'
 
@@ -9,10 +10,6 @@ Rails.application.routes.draw do
   namespace 'admin' do
     get 'contest' => 'contests#show'
     get 'scoreboard' => 'scoreboard#show', as: :contest_scoreboard
-
-    get    'login',  to: 'sessions#new'
-    post   'login',  to: 'sessions#create'
-    delete 'logout', to: 'sessions#destroy'
 
     resources :problems, only: [:create, :new, :edit, :update, :destroy]
 
@@ -25,11 +22,11 @@ Rails.application.routes.draw do
 
   resources :attachments, only: [:show]
 
-  get    'login',  to: 'sessions#new'
-  post   'login',  to: 'sessions#create'
-  delete 'logout', to: 'sessions#destroy'
+  resources :sessions, only: [:new, :create, :destroy]
+  get 'login',  to: 'sessions#new'
+  get 'logout', to: 'sessions#destroy'
 
   get "/admin" => redirect("/admin/contest")
 
-  root to: 'welcome#index'
+  root to: 'problems#index'
 end
