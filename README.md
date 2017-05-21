@@ -6,6 +6,16 @@ This is an attempt to create an open-source, MIT-license-friendly, content runne
 
 This project was born as a project at RubyforGood 2017.
 
+Running tests
+------------
+```
+$ bundle exec rake                # all specs
+$ bundle exec rake ci             # all specs + rubocop
+$ bundle exec rake minus_docker   # non-docker specs
+$ bundle exec rake dev_specs      # non-docker specs + rubocop
+```
+
+
 Contributors
 ------------
 
