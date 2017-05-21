@@ -1,7 +1,14 @@
 require 'rubocop/rake_task'
+require 'rspec/core/rake_task'
+
+task ci: [:spec, :rubocop]
 
 task :rubocop do
   RuboCop::RakeTask.new
 end
 
-task default: :rubocop
+RSpec::Core::RakeTask.new(:minus_docker) do |t|
+  t.rspec_opts = '--tag ~docker'
+end
+
+task dev_specs: [:minus_docker, :rubocop]

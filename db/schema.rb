@@ -10,7 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170520150135) do
+ActiveRecord::Schema.define(version: 20170520201414) do
+
+  create_table "accounts", force: :cascade do |t|
+    t.string "username"
+    t.string "password"
+    t.integer "contest_id"
+    t.boolean "admin"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["contest_id"], name: "index_accounts_on_contest_id"
+  end
 
   create_table "administrators", force: :cascade do |t|
     t.string "username"
@@ -49,6 +59,15 @@ ActiveRecord::Schema.define(version: 20170520150135) do
     t.boolean "ignore_case"
     t.string "whitespace_rule", default: "plain diff"
     t.index ["contest_id"], name: "index_problems_on_contest_id"
+  end
+
+  create_table "submission_result_notifications", force: :cascade do |t|
+    t.string "runner_phase"
+    t.string "message"
+    t.integer "submission_result_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["submission_result_id"], name: "index_submission_result_notifications_on_submission_result_id"
   end
 
   create_table "submission_results", force: :cascade do |t|

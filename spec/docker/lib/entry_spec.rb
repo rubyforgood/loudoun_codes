@@ -1,7 +1,7 @@
 require 'rails_helper'
 require 'fileutils'
 
-RSpec.describe Docker::Entry, type: :docker do
+RSpec.describe Docker::Entry, docker: true do
   describe 'student entry' do
     let(:entry) { Docker::Entry.new(Pathname.new('ProblemA.rb')) }
 

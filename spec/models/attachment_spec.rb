@@ -1,17 +1,9 @@
 require 'rails_helper'
 
-# Stubs out something that quacks like Problem or Submission
-# but uses temp files so we don't pollute the filesystem.
-class TestAttachable < Problem
-  def uploaded_files_dir
-    Dir::Tmpname.tmpdir
-  end
-end
-
 RSpec.describe Attachment, type: :model do
   it 'provides a pathname for the file location' do
     filename   = 'test123.pdf'
-    attachment = described_class.new(original_filename: filename, attachable: TestAttachable.new)
+    attachment = described_class.new(original_filename: filename, attachable: Problem.new)
 
     expect(attachment.path.to_s).to match(/test123\.pdf$/)
   end
@@ -19,7 +11,7 @@ RSpec.describe Attachment, type: :model do
   it 'provides an interface for reading and writing' do
     filename   = 'test456.txt'
     text       = "abc\n123"
-    attachment = described_class.new(original_filename: filename, attachable: TestAttachable.new)
+    attachment = described_class.new(original_filename: filename, attachable: Problem.new)
     output     = ''
 
     attachment.with_file('w') do |file|

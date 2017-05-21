@@ -3,12 +3,13 @@ rvm:
   - 2.4
 script:
   - bundle exec rails db:migrate RAILS_ENV=test
-  - bundle exec rake
-  - bundle exec rubocop
+  - bundle exec rake ci
 notifications:
   slack: rubyforgood:Z8KxX1B7VPwG7MJFRch66746
 services:
   - docker
 before_install:
+before_script:
+  - chmod -R 0777 spec/fixtures/submission_runners
   - docker pull ruby:2.4.1
   - docker pull python:3.6.1
