@@ -19,9 +19,11 @@ RSpec.describe "administer a contest" do
 
     click_on "Start Contest"
 
-    expect(page).to have_content "Contest started"
+    contest = Contest.instance
 
-    expect(Contest.instance.started_at).to be_within(1).of Time.current
+    expect(page).to have_content "started at #{contest.started_at.to_s}"
+
+    expect(contest.started_at).to be_within(1).of Time.current
   end
 
 end
