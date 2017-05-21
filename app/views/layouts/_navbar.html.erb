@@ -9,6 +9,9 @@
         <%= link_to "Home", root_path, class: 'nav-link' %>
       </li>
       <li class='nav-item'>
+        <%= link_to "Problems", problems_path, class: 'nav-link' %>
+      </li>
+      <li class='nav-item'>
         <%= link_to "New Submission", new_submission_path, class: 'nav-link' %>
       </li>
       <% if current_account && current_account.admin? %>
