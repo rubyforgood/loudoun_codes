@@ -5,23 +5,18 @@ RSpec.describe SubmissionRunners::Java, type: :docker do
     let(:contest) { Contest.instance }
     let(:team)    { contest.teams.create! }
     let(:problem) do
-      p = Problem.new({
-        contest:   contest,
-        has_input: true,
-        name:      problem_name
+      Problem.create_from_files!({
+        contest:     contest,
+        name:        problem_name,
+        output_file: fixtures.join("Output"),
+        input_file:  fixtures.join("Input"),
       })
-
-      input_file = fixtures.join("Input")
-
-      p.define_singleton_method(:input_file) { input_file }
-
-      p
     end
     let(:submission) do
       Submission.create_from_file({
         problem:  problem,
         team:     team,
-        filename: fixtures.join("#{problem_name}.java"),
+        filename: fixtures.join("#{problem.name}.java"),
       }).tap(&:validate!)
     end
     let(:fixtures) { Pathname.new(Rails.root).join("spec/fixtures/submission_runners/java") }
@@ -34,31 +29,26 @@ RSpec.describe SubmissionRunners::Java, type: :docker do
       let(:problem_name) { "CompilesAndRuns" }
 
       it "has no errors" do
-        expect(runner.errors).to be_empty
+        expect(runner.output_type).to eq "success"
+        expect(runner.output).to_not be_nil
       end
     end
 
     context "java code that will generate compiler errors" do
       let(:problem_name) { "DoesntCompile" }
 
-      it "has build errors" do
-        expect(runner.errors[:build]).to_not be_nil
-      end
-
-      it "doesn't have run errors" do
-        expect(runner.errors[:run]).to be_nil
+      it "has a build failure" do
+        expect(runner.output_type).to eq "build_failure"
+        expect(runner.output).to_not be_nil
       end
     end
 
     context "java code that will generate runtime errors" do
       let(:problem_name) { "CompilesDoesntRun" }
 
-      it "doesn't have build errors" do
-        expect(runner.errors[:build]).to be_nil
-      end
-
-      it "has run errors" do
-        expect(runner.errors[:run]).to_not be_nil
+      it "has a run failure" do
+        expect(runner.output_type).to eq "run_failure"
+        expect(runner.output).to_not be_nil
       end
     end
   end

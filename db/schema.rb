@@ -63,20 +63,12 @@ ActiveRecord::Schema.define(version: 20170521150912) do
     t.index ["contest_id"], name: "index_problems_on_contest_id"
   end
 
-  create_table "submission_result_notifications", force: :cascade do |t|
-    t.string "runner_phase"
-    t.string "message"
-    t.integer "submission_result_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["submission_result_id"], name: "index_submission_result_notifications_on_submission_result_id"
-  end
-
   create_table "submission_results", force: :cascade do |t|
     t.text "output"
     t.integer "submission_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "output_type"
     t.index ["submission_id"], name: "index_submission_results_on_submission_id"
   end
 
