@@ -2,16 +2,19 @@ require 'tty/command'
 
 module SubmissionRunners
   class Base
-    attr_reader :submission, :errors
-    attr_accessor :result
+    attr_reader :submission
+    attr_accessor :output, :output_type, :run_succeeded
 
     def initialize(submission)
       @submission = submission
-      @errors     = {}
     end
 
     def call
       run_phase(:build) && run_phase(:run)
+    end
+
+    def run_succeeded?
+      !!@run_succeeded
     end
 
     private
@@ -19,15 +22,21 @@ module SubmissionRunners
     def run_phase(phase)
       result = send(phase)
 
-      if result.failed?
-        errors[phase] = result.err
+      if result.success?
+        self.output        = result.out
+        self.output_type   = "success"
+        self.run_succeeded = true
+      elsif result.failed?
+        self.output      = result.err
+        self.output_type = "#{phase}_failure"
+        self.run_succeeded = false
       end
 
       result.success?
     end
 
     def docker_run(*command, **options)
-      command = [
+      whole_command = [
         "docker", "run",
         "--name", container,
         "--volume", "#{submission_dir}:/workspace",
@@ -48,7 +57,7 @@ module SubmissionRunners
 
       TTY::Command.
         new(printer: :null).
-        run!(*command, **options)
+        run!(*whole_command, **options)
     end
 
     def submission_dir
@@ -63,8 +72,12 @@ module SubmissionRunners
       submission.source_file
     end
 
-    def input_file
-      submission.problem_input_file
+    def output_file
+      submission.problem_output_solution_file
+    end
+
+    def input_buffer
+      submission.problem_input_buffer
     end
 
     def container_user # should probably be overrideable, but this is a good default

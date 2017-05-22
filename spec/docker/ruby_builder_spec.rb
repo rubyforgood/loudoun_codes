@@ -3,6 +3,18 @@ require 'rails_helper'
 RSpec.describe 'OmniBuilder with Ruby', docker: true do
   describe 'It works with docker command and barebone ruby image' do
     let(:dir) { Dir.pwd + '/spec/fixtures/docker/' }
+    let(:submission) {
+      ->i,o,e{
+        Object.new.tap{|s|
+          s.define_singleton_method :id {0}
+          s.define_singleton_method :problem_timeout {nil}
+          s.define_singleton_method :source_file {e}
+          s.define_singleton_method :problem_input_file {i}
+          s.define_singleton_method :problem_output_solution_file {o}
+          s.define_singleton_method :uploaded_files_dir {o.to_path.rpartition('/').first}
+        }
+      }
+    }
 
     it 'good entry submission`' do
       input = Docker::Input.new(Pathname.new File.join(dir, 'ProblemA.in'))
@@ -13,12 +25,13 @@ RSpec.describe 'OmniBuilder with Ruby', docker: true do
       expect(File.exist? output.path).to be_truthy
       expect(File.exist? good_entry.path).to be_truthy
 
-      builder = Docker::RubyBuilder.new(dir)
+      runner = SubmissionRunners::Ruby.new submission.call(input, output, good_entry)
 
-      sys_exec(builder.build(good_entry, input, output))
-      expect(err).to eq('')
-      expect(out).to eq('')
-      expect(@exitstatus).to eq(0)
+      r = runner.build
+
+      expect(r.err).to eq('')
+      expect(r.out).to eq('')
+      expect(r).to_be :success?
     end
 
     it 'bad entry submission`' do
@@ -30,7 +43,7 @@ RSpec.describe 'OmniBuilder with Ruby', docker: true do
       expect(File.exist? output.path).to be_truthy
       expect(File.exist? bad_entry.path).to be_truthy
 
-      builder = Docker::RubyBuilder.new(dir)
+      builder = Docker::RubyBuilder.new
 
       sys_exec(builder.build(bad_entry, input, output))
       expect(err).to eq('')
