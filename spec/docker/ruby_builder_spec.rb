@@ -9,7 +9,7 @@ RSpec.describe 'OmniBuilder with Ruby', docker: true do
           s.define_singleton_method :id {0}
           s.define_singleton_method :problem_timeout {nil}
           s.define_singleton_method :source_file {e}
-          s.define_singleton_method :problem_input_file {i}
+          s.define_singleton_method :problem_input_buffer {i}
           s.define_singleton_method :problem_output_solution_file {o}
           s.define_singleton_method :uploaded_files_dir {o.to_path.rpartition('/').first}
         }
