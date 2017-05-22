@@ -1,14 +1,12 @@
-<tr class='team'>
-  <td class='name'>
-    <%= team.name %>
-  </td>
-  <td class='username'>
-    <%= team.username %>
-  </td>
-  <td class='token'>
-    <%= team.password %>
-  </td>
+<section class='team card'>
 
-  <td class.action>
-  </td>
-</tr>
+  <header class='card-header'>
+    <h3><%= team.name %></h3>
+  </header>
+
+  <div class=card-block>
+    <strong><%= team.username %></strong>
+  </div>
+
+  <footer class='card-footer'><span class=token><%= team.password %></span></footer>
+</section>

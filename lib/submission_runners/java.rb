@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-require 'stringio'
 require 'submission_runners/base'
 
 module SubmissionRunners
@@ -13,24 +12,18 @@ module SubmissionRunners
     def build
       submission_dir.chmod(0777) # otherwise the nobody user doesn't have write permissions
 
-      docker_run("javac", source_file.basename)
+      docker_run("javac", source_file.basename.to_s)
     end
 
     def run
-      input = StringIO.new
-
-      input.write(input_file.read)
-      input.rewind
-
-      docker_run("java", java_class, chdir: submission_dir, in: input)
-    end
-
-    def container_user
-      "nobody"
+      docker_run("java", java_class, chdir: submission_dir, in: input_buffer)
     end
 
     def java_class
-      submission.problem_name
+      source_file.basename.to_s.gsub(
+        /#{source_file.extname}$/,
+        ""
+      )
     end
   end
 end

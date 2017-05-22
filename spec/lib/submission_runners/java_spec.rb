@@ -1,45 +1,54 @@
 require 'rails_helper'
-require 'fixtures/submission_runners/java/submissions'
 
-RSpec.describe SubmissionRunners::Java, docker: true do
+RSpec.describe SubmissionRunners::Java, type: :docker do
   describe "#call" do
-    let(:output_fixture) do
-      Pathname.new(Rails.root).join("spec/fixtures/submission_runners/java/Output")
+    let(:contest) { Contest.instance }
+    let(:team)    { contest.teams.create! }
+    let(:problem) do
+      Problem.create_from_files!({
+        contest:     contest,
+        name:        problem_name,
+        output_file: fixtures.join("Output"),
+        input_file:  fixtures.join("Input"),
+      })
     end
+    let(:submission) do
+      Submission.create_from_file({
+        problem:  problem,
+        team:     team,
+        filename: fixtures.join("#{problem.name}.java"),
+      }).tap(&:validate!)
+    end
+    let(:fixtures) { Pathname.new(Rails.root).join("spec/fixtures/submission_runners/java") }
 
     subject(:runner) { described_class.new(submission) }
 
     before { runner.call }
 
     context "java code that won't generate compiler or runtime errors" do
-      let(:submission) { CompilesAndRuns }
+      let(:problem_name) { "CompilesAndRuns" }
 
       it "has no errors" do
-        expect(runner.errors).to be_empty
+        expect(runner.output_type).to eq "success"
+        expect(runner.output).to_not be_nil
       end
     end
 
     context "java code that will generate compiler errors" do
-      let(:submission) { DoesntCompile }
+      let(:problem_name) { "DoesntCompile" }
 
-      it "has build errors" do
-        expect(runner.errors[:build]).to_not be_nil
-      end
-
-      it "doesn't have run errors" do
-        expect(runner.errors[:run]).to be_nil
+      it "has a build failure" do
+        expect(runner.output_type).to eq "build_failure"
+        expect(runner.output).to_not be_nil
       end
     end
 
     context "java code that will generate runtime errors" do
-      let(:submission) { CompilesDoesntRun }
+      let(:problem_name) { "CompilesDoesntRun" }
 
-      it "doesn't have build errors" do
-        expect(runner.errors[:build]).to be_nil
-      end
-
-      it "has run errors" do
-        expect(runner.errors[:run]).to_not be_nil
+      it "has a run failure" do
+        expect(runner.output_type).to eq "run_failure"
+        expect(runner.output).to_not be_nil
       end
     end
   end

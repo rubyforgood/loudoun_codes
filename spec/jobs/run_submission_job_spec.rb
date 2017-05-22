@@ -1,14 +1,75 @@
 require 'rails_helper'
 
 RSpec.describe RunSubmissionJob, type: :job do
-  it 'creates a submission result' do
-    contest    = Contest.create
-    team       = Team.create(contest: contest)
-    problem    = Problem.create(contest: contest)
-    submission = Submission.create(problem: problem, team: team)
+  let(:contest) { Contest.create! }
+  let(:team)    { contest.teams.create! }
+  let(:problem) do
+    Problem.create_from_files!({
+      contest:     contest,
+      name:        "CompilesAndRuns",
+      output_file: fixtures.join("Output"),
+      input_file:  fixtures.join("Input"),
+    })
+  end
+  let(:submission) do
+    Submission.create_from_file({
+      problem:  problem,
+      team:     team,
+      filename: submission_file,
+    }).tap(&:validate!)
+  end
+  let(:fixtures) { Pathname.new(Rails.root).join("spec/fixtures/submission_runners/java") }
 
-    RunSubmissionJob.new.perform(submission.id)
+  # FIXME: we still need a passing but incorrect
 
-    expect(submission.reload.submission_results.count).to eq(1)
+  context "for a correct submission" do
+    let(:submission_file) { fixtures.join("CompilesAndRuns.java") }
+
+    it 'creates a submission result' do
+      RunSubmissionJob.new.perform(submission.id)
+
+      submission.reload
+
+      expect(submission.status).to eq "passed"
+      expect(submission.reload.submission_results.count).to eq(1)
+
+      submission_result = submission.submission_results.first
+
+      expect(submission_result.output_type).to eq "success"
+    end
+  end
+
+  context "for a build_failure submission" do
+    let(:submission_file) { fixtures.join("DoesntCompile.java") }
+
+    it 'creates a submission result' do
+      RunSubmissionJob.new.perform(submission.id)
+
+      submission.reload
+
+      expect(submission.status).to eq "failed"
+      expect(submission.reload.submission_results.count).to eq(1)
+
+      submission_result = submission.submission_results.first
+
+      expect(submission_result.output_type).to eq "build_failure"
+    end
+  end
+
+  context "for a run_failure submission" do
+    let(:submission_file) { fixtures.join("CompilesDoesntRun.java") }
+
+    it 'creates a submission result' do
+      RunSubmissionJob.new.perform(submission.id)
+
+      submission.reload
+
+      expect(submission.status).to eq "failed"
+      expect(submission.reload.submission_results.count).to eq(1)
+
+      submission_result = submission.submission_results.first
+
+      expect(submission_result.output_type).to eq "run_failure"
+    end
   end
 end

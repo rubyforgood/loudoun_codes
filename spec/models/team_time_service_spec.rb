@@ -1,8 +1,13 @@
 require 'rails_helper'
 
 RSpec.describe TeamTimeService, type: :model do
-  let(:contest) { Contest.create!(started_at: Time.now) }
+  let(:contest) { Contest.instance }
   let(:team) { Team.create!(contest: contest) }
+
+  before do
+    contest.start
+    contest.save!
+  end
 
   describe '#call' do
     context 'without submissions' do

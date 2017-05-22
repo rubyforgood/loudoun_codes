@@ -10,6 +10,26 @@
   <%= @problem.timeout %>
 </p>
 
+<p>
+  <strong>Has Input?</strong>
+  <%= @problem.has_input %>
+</p>
+
+<p>
+  <strong>Auto Judge?</strong>
+  <%= @problem.auto_judge %>
+</p>
+
+<p>
+  <strong>Ignore Case?</strong>
+  <%= @problem.ignore_case %>
+</p>
+
+<p>
+  <strong>Whitespace Rule:</strong>
+  <%= @problem.whitespace_rule %>
+</p>
+
 <table class="table table-striped">
   <caption>Attachments</caption>
   <thead>
@@ -28,14 +48,16 @@
           <td><%= attachment.attachment_type %></td>
           <td><%= attachment.content_type %></td>
           <td><%= link_to 'Download', attachment %></td>
+          <td><%= link_to 'Delete',
+                          admin_attachment_path(attachment),
+                          method: :delete,
+                          data: { confirm: 'Are you sure?' } %>
+          </td>
         </tr>
       </tbody>
     <br>
   <% end %>
 </table>
 
-<%= link_to "Submit Solution", new_submission_path(problem_id: @problem.id), class: 'btn btn-primary' %>
-<%= link_to 'Back', problems_path, class: 'btn btn-secondary' %>
-
-
-
+<%= link_to 'Edit', edit_admin_problem_path(@problem), class: 'btn btn-primary' %>
+<%= link_to 'Back', admin_problems_path, class: 'btn btn-secondary' %>

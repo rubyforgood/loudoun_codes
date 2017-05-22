@@ -5,6 +5,10 @@ class Contest < ApplicationRecord
   def self.instance
     order(:created_at).reverse.first
   end
+
+  def start(time: Time.current.utc)
+    self.started_at = time
+  end
 end
 
 # == Schema Information
@@ -15,4 +19,5 @@ end
 #  name       :string
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  started_at :datetime
 #

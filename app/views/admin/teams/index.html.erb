@@ -2,17 +2,4 @@
 
 <%= link_to "Add New Team", new_admin_team_path, class: 'btn' %>
 
-<table class='teams table table-striped'>
-  <thead>
-    <tr>
-      <th scope="col">Name</th>
-      <th scope="col">Username</th>
-      <th scope="col">Token</th>
-      <th class="actions" scope="col" colspan="3">Actions</th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <%= render @teams, partial: 'admin/teams/team' %>
-  </tbody>
-</table>
+<%= render @teams, partial: 'admin/teams/team' %>

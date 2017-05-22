@@ -8,16 +8,19 @@
       <li class="nav-item active">
         <%= link_to "Home", root_path, class: 'nav-link' %>
       </li>
+      <li class='nav-item'>
+        <%= link_to "New Submission", new_submission_path, class: 'nav-link' %>
+      </li>
+      <% if current_account && current_account.admin? %>
       <li class="nav-item">
         <%= link_to "Manage", admin_contest_path, class: 'nav-link' %>
       </li>
-      <li class="nav-item">
-        <a class="nav-link disabled" href="#">Disabled</a>
-      </li>
+      <% end %>
+      <% if current_account %>
+        <li class="nav-item">
+          <%= link_to "Logout", logout_path, class: 'nav-link' %>
+        </li>
+      <% end %>
     </ul>
-    <form class="form-inline mt-2 mt-md-0">
-      <input class="form-control mr-sm-2" type="text" placeholder="Search">
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-    </form>
   </div>
 </nav>

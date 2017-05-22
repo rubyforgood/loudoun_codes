@@ -4,8 +4,11 @@ RSpec.describe SubmissionsController, type: :controller do
   # GET new just displays a view.
   # Use view or request specs
 
-  let!(:contest) { Contest.create }
+  let(:contest) { Contest.instance }
   let!(:team)    { contest.teams.create }
+  let(:account) { Account.find_by(admin: true) }
+
+  let(:valid_session) { { current_account_id: account.id } }
 
   describe 'POST create' do
     FIXTURE_NAME = 'Submission.java'
@@ -15,9 +18,10 @@ RSpec.describe SubmissionsController, type: :controller do
     let(:valid_params) { { submission: { attachment: file, problem: problem.id } } }
 
     it 'rejects submission without file' do
-      puts Submission.count
       expect {
-        post :create, params: { submission: { problem_id: problem.id } }
+        post(:create,
+             params: { submission: { problem_id: problem.id } },
+             session: valid_session)
       }.not_to change(Submission, :count)
 
       expect(response).to have_http_status :ok
@@ -26,7 +30,7 @@ RSpec.describe SubmissionsController, type: :controller do
 
     it 'rejects submission without problem' do
       expect {
-        post :create, params: { submission: { file: file } }
+        post :create, params: { submission: { file: file } }, session: valid_session
       }.not_to change(Submission, :count)
 
       expect(response).to have_http_status :ok
@@ -41,7 +45,7 @@ RSpec.describe SubmissionsController, type: :controller do
 
       it 'creates the Submission' do
         expect {
-          post :create, params: valid_params
+          post :create, params: valid_params, session: valid_session
         }.to change(Submission, :count).by(1)
       end
 
@@ -50,18 +54,18 @@ RSpec.describe SubmissionsController, type: :controller do
       after(:each) { submission.attachment.path.delete }
 
       it 'redirects to show' do
-        post :create, params: valid_params
+        post :create, params: valid_params, session: valid_session
         expect(submission).to be_a Submission
         expect(response).to redirect_to submission_url(submission)
       end
 
       it 'submits to correct problem' do
-        post :create, params: valid_params
+        post :create, params: valid_params, session: valid_session
         expect(submission.problem).to eq problem
       end
 
       it 'saves submission file to FS' do
-        post :create, params: valid_params
+        post :create, params: valid_params, session: valid_session
 
         attachment = submission.attachment
         fixture = file_fixture FIXTURE_NAME
@@ -74,7 +78,7 @@ RSpec.describe SubmissionsController, type: :controller do
 
       it 'queues submission to be run' do
         expect {
-          post :create, params: valid_params
+          post :create, params: valid_params, session: valid_session
         }.to have_enqueued_job(RunSubmissionJob)
       end
 
