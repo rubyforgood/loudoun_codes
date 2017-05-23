@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe SubmissionRunners::Java, type: :docker do
   describe "#call" do
     let(:contest) { Contest.instance }
-    let(:team)    { contest.teams.create! }
+    let(:account) { contest.accounts.create! }
     let(:problem) do
       Problem.create_from_files!({
         contest:     contest,
@@ -15,8 +15,8 @@ RSpec.describe SubmissionRunners::Java, type: :docker do
     let(:submission) do
       Submission.create_from_file({
         problem:  problem,
-        team:     team,
-        filename: fixtures.join("#{problem.name}.java"),
+        account:  account,
+        filename: fixtures.join("#{problem_name}.java"),
       }).tap(&:validate!)
     end
     let(:fixtures) { Pathname.new(Rails.root).join("spec/fixtures/submission_runners/java") }
