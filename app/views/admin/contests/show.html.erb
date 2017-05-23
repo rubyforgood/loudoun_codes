@@ -1,17 +1,50 @@
-  <section class=jumbotron>
-    <h1><%= @contest.name %></h1>
+<section class=jumbotron>
+  <h1><%= @contest.name %></h1>
 
-    <hr />
+  <hr />
 
-    <% if @contest.started_at %>
-      <h2>started at <%= @contest.started_at.to_s %></h2
-    <% else %>
+  <% if @contest.started_at %>
+    <h2>started at <%= @contest.started_at.to_s %></h2>
 
     <div class='btn-toolbar justify-content-between'>
+      <%= link_to "Scoreboard", admin_contest_scoreboard_path, class: 'btn btn-primary' %>
+
       <div class='btn-group'>
-        <%= link_to "Edit Contest", edit_admin_contest_path, class: 'btn btn-secondary' %>
-        <%= link_to 'Create Problem', new_admin_problem_path, class: 'btn btn-secondary' %>
-        <%= link_to 'Manage Accounts', admin_accounts_path, class: 'btn btn-secondary' %>
+        <span class='input-group-addon'><%= @contest.problems.count %></span>
+        <%= link_to 'Problems', admin_problems_path, class: 'btn btn-secondary' %>
+      </div>
+      <div class='btn-group'>
+        <span class='input-group-addon'><%= @contest.accounts.count %></span>
+        <%= link_to 'Accounts', admin_accounts_path, class: 'btn btn-secondary' %>
+      </div>
+      <div class='btn-group'>
+        <span class='input-group-addon'><%= Submission.count %></span>
+        <%= link_to 'Submissions', "#",
+          disabled: !@contest.in_progress?,
+          class: "btn btn-secondary #{'disabled' unless @contest.in_progress?}" %>
+      </div>
+
+      <div class='input-group'>
+        <%= button_to "Stop Contest", "#", method: 'put', class: 'btn btn-danger disabled' %>
+      </div>
+    </div>
+
+  <% else %>
+
+    <div class='btn-toolbar justify-content-between'>
+      <%= link_to "Edit Contest", edit_admin_contest_path, class: 'btn btn-secondary' %>
+
+      <div class='btn-group'>
+        <span class='input-group-addon'><%= @contest.problems.count %></span>
+        <%= link_to 'Problems', admin_problems_path, class: 'btn btn-secondary' %>
+      </div>
+      <div class='btn-group'>
+        <span class='input-group-addon'><%= @contest.accounts.count %></span>
+        <%= link_to 'Accounts', admin_accounts_path, class: 'btn btn-secondary' %>
+      </div>
+      <div class='btn-group'>
+        <span class='input-group-addon'><%= Submission.count %></span>
+        <%= link_to 'Submissions', "#", class: 'btn btn-secondary disabled' %>
       </div>
 
       <div class='input-group'>
@@ -19,10 +52,4 @@
       </div>
     </div>
   <% end %>
-  </section>
-
-<ul>
-  <li><%= link_to("#{@contest.accounts.count} Accounts", '#') %></li>
-  <li><%= link_to("#{@contest.problems.count} Problems", admin_problems_path) %></li>
-  <li><%= link_to("#{Submission.count} Submissions", '#') %></li>
-</ul>
+</section>

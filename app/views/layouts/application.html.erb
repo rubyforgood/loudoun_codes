@@ -12,12 +12,12 @@
     <%= render 'layouts/navbar' %>
 
 
-    <section class=container>
+    <main class=container>
       <% flash.each do |key, value| -%>
         <%= content_tag :div, value, class: "alert alert-#{flash_category(key)}" %>
       <% end -%>
 
       <%= yield %>
-    </section>
+    </main>
   </body>
 </html>
