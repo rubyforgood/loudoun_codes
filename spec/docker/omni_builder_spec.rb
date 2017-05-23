@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Docker::OmniBuilder, docker: true do
+RSpec.describe Docker::OmniBuilder, type: 'docker' do
   describe "Builder Protocol" do
     let(:runner) { Docker::OmniBuilder.new('/') }
     it "it exists" do
