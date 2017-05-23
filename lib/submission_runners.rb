@@ -9,6 +9,8 @@ module SubmissionRunners
   def self.language_extension_map
     {
       '.java' => Java,
+      '.py'   => Python,
+      '.rb'   => Ruby,
     }
   end
 end

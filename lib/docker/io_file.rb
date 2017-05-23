@@ -9,16 +9,19 @@ module Docker
       new Pathname.new(abs_path_file)
     end
 
-    attr_reader :basename, :dirname
+    attr_reader :path, :extname, :basename
     def initialize(path)
+      raise "path cannot be nil" unless path
       path = Pathname.new path
-      @basename = path.basename(path.extname).to_path
-      @dirname = path.dirname.to_path
-      @path = path.to_path
+      @extname = path.extname.to_s
+      @basename = path.basename(path.extname).to_s
+      @path = path.to_s
     end
+    alias :to_path :path
+    alias :to_s :path
 
-    def path
-      @path
+    def read
+      File.open(path) { |f| f.read }
     end
   end
 end

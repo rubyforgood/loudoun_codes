@@ -1,5 +1,5 @@
 require_relative('io_file')
 module Docker
-  class Entry < IOFile
+  class InputFile < IOFile
   end
 end
