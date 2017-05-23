@@ -33,7 +33,7 @@ require_relative '../db/seeds'
 
 RSpec.configure do |config|
   # Support modules
-  config.include Support::SysExec
+  config.include Support::TempFileBlock
 
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_path = "#{::Rails.root}/spec/fixtures"

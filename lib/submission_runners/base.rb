@@ -25,8 +25,8 @@ module SubmissionRunners
         self.output_type   = "success"
         self.run_succeeded = true
       elsif result.failed?
-        self.output      = result.err
-        self.output_type = "#{phase}_failure"
+        self.output        = result.err
+        self.output_type   = "#{phase}_failure"
         self.run_succeeded = false
       end
 
@@ -68,10 +68,6 @@ module SubmissionRunners
 
     def source_file
       submission.source_file
-    end
-
-    def output_file
-      submission.problem_output_solution_file
     end
 
     def input_buffer

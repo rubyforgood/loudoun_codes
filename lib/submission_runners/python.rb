@@ -2,17 +2,17 @@
 require 'submission_runners/base'
 
 module SubmissionRunners
-  class Ruby < Base
+  class Python < Base
     def self.image
-      'ruby:2.4.1'
+      'python:3.6.1'
     end
 
     def initialize(*args)
-      @ruby_builder = Docker::RubyBuilder.new(self)
+      @python_builder = Docker::PythonBuilder.new(self)
       super
     end
 
-    delegate :run, to: :@ruby_builder
+    delegate :run, to: :@python_builder
 
     def build
       MockResult.new

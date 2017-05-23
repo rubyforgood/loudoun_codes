@@ -2,14 +2,9 @@ require_relative 'omni_builder'
 
 module Docker
   class PythonBuilder < OmniBuilder
-    def initialize(workdir, debug = false)
+    def initialize(*args)
       @language_executable = '/usr/local/bin/python'
-      @docker_image = 'python:3.6.1'
       super
-    end
-
-    def docker_image
-      @docker_image
     end
 
     def language_executable
