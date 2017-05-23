@@ -12,21 +12,10 @@ module SubmissionRunners
       super
     end
 
-    delegate :run, to: :@python_builder
-
-    def build
-      MockResult.new
-    end
+    delegate :build, :run, to: :@python_builder
 
     def container_user
       "root"
-    end
-
-    class MockResult
-      def success?; true end
-      def failure?; false end
-      def out; '' end
-      def err; '' end
     end
   end
 end

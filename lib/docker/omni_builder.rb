@@ -21,6 +21,17 @@ module Docker
       raise "#{self} - #{__method__} not implemented"
     end
 
+    def build
+      MockResult.new
+    end
+
+    class MockResult
+      def success?; true end
+      def failure?; false end
+      def out; '' end
+      def err; '' end
+    end
+
     private def filename(io_file)
       io_file.path.rpartition('/').last
     end
