@@ -7,12 +7,12 @@ RSpec.describe 'OmniBuilder with Ruby', docker: true do
     let(:dir) { Dir.pwd + '/spec/fixtures/docker/' }
 
     let(:submission) {
-      ->i,o,e{
-        Object.new.tap{ |s|
-          s.define_singleton_method :id {0}
-          s.define_singleton_method :problem_timeout {nil}
-          s.define_singleton_method :source_file {e} if e
-          s.define_singleton_method :problem_input_buffer {i} if i
+      ->i, o, e {
+        Object.new.tap { |s|
+          s.define_singleton_method :id { 0 }
+          s.define_singleton_method :problem_timeout { nil }
+          s.define_singleton_method :source_file { e } if e
+          s.define_singleton_method :problem_input_buffer { i } if i
           s.define_singleton_method :uploaded_files_dir { o.to_path.rpartition('/').first if o }
         }
       }
