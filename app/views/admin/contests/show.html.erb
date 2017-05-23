@@ -1,10 +1,10 @@
-  <section class=jumbotron>
-    <h1><%= @contest.name %></h1>
+<section class=jumbotron>
+  <h1><%= @contest.name %></h1>
 
-    <hr />
+  <hr />
 
-    <% if @contest.started_at %>
-      <h2>started at <%= @contest.started_at.to_s %></h2>
+  <% if @contest.started_at %>
+    <h2>started at <%= @contest.started_at.to_s %></h2>
 
     <div class='btn-toolbar justify-content-between'>
       <%= link_to "Scoreboard", admin_contest_scoreboard_path, class: 'btn btn-primary' %>
@@ -29,7 +29,7 @@
       </div>
     </div>
 
-    <% else %>
+  <% else %>
 
     <div class='btn-toolbar justify-content-between'>
       <%= link_to "Edit Contest", edit_admin_contest_path, class: 'btn btn-secondary' %>
