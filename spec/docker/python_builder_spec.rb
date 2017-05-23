@@ -11,9 +11,9 @@ RSpec.describe 'OmniBuilder with Python', docker: true do
         Object.new.tap { |s|
           s.define_singleton_method :id { 0 }
           s.define_singleton_method :problem_timeout { nil }
-          s.define_singleton_method :source_file { e } if e
-          s.define_singleton_method :problem_input_buffer { i } if i
-          s.define_singleton_method :uploaded_files_dir { o.to_path.rpartition('/').first if o }
+          s.define_singleton_method :source_file { e }
+          s.define_singleton_method :problem_input_buffer { i }
+          s.define_singleton_method :uploaded_files_dir { o.to_path.rpartition('/').first }
         }
       }
     }
