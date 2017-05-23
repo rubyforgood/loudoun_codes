@@ -1,7 +1,7 @@
 require 'rails_helper'
 require 'fileutils'
 
-RSpec.describe Docker::Input, docker: true do
+RSpec.describe Docker::Input, type: 'docker' do
   describe 'input for entry' do
     let(:input) { Docker::Input.new(Pathname.new('ProblemA.in')) }
 
