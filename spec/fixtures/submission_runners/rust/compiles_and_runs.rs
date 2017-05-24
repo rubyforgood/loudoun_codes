@@ -1,12 +1,16 @@
-#include <iostream>
-#include <string>
+use std::io::{self};
+use std::io::prelude::*;
 
-using namespace std;
-
-int main(){
-  for (string line; getline(cin, line);) {
-    string start = line.substr(0,1);
-    cout << line.substr(1, string::npos) << start << "ay" << endl;
+fn main() {
+  let stdin = io::stdin();
+  loop {
+    match stdin.lock().lines().map(|x| x.unwrap()).next() {
+      Some(x) => {
+        let mut c = x.chars();
+        let first = c.next().unwrap();
+        println!("{}{}ay", c.as_str(), first);
+      },
+      None => {break},
+    }
   }
-  return 0;
 }

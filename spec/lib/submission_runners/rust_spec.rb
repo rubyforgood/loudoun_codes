@@ -2,16 +2,16 @@ require 'rails_helper'
 require_relative '../../../lib/docker/helpers'
 include Docker::Helpers
 
-RSpec.describe SubmissionRunners::Cpp, type: 'docker' do
-  describe 'docker command and barebone C++ image' do
-    let(:dir) { Dir.pwd + '/spec/fixtures/submission_runners/cpp/' }
+RSpec.describe SubmissionRunners::Rust, type: 'docker' do
+  describe 'docker command and barebone Rust image' do
+    let(:dir) { Dir.pwd + '/spec/fixtures/submission_runners/rust/' }
 
     before { @keep_files = Dir.entries(dir) }
 
     after {
       compiled = Dir.entries(dir) - @keep_files
       compiled.each do |file|
-        FileUtils.rm File.join(dir, file)
+        FileUtils.rm_rf File.join(dir, file)
       end
     }
 
@@ -30,9 +30,9 @@ RSpec.describe SubmissionRunners::Cpp, type: 'docker' do
     it 'good entry submission' do
       input = InputFile(File.join(dir, 'ProblemA.in'))
       output = OutputFile(File.join(dir, 'ProblemA.out'))
-      good_entry = EntryFile(File.join(dir, 'compiles_and_runs.cc'))
+      good_entry = EntryFile(File.join(dir, 'compiles_and_runs.rs'))
 
-      runner = SubmissionRunners::Cpp.new submission.call(input, output, good_entry)
+      runner = SubmissionRunners::Rust.new submission.call(input, output, good_entry)
 
       # Build
       b = runner.build
@@ -58,9 +58,9 @@ RSpec.describe SubmissionRunners::Cpp, type: 'docker' do
     it 'failing entry submission' do
       input = InputFile(File.join(dir, 'ProblemA.in'))
       output = OutputFile(File.join(dir, 'ProblemA.out'))
-      bad_entry = EntryFile(File.join(dir, 'compiles_and_runs_wrong_answer.cc'))
+      bad_entry = EntryFile(File.join(dir, 'compiles_and_runs_wrong_answer.rs'))
 
-      runner = SubmissionRunners::Cpp.new submission.call(input, output, bad_entry)
+      runner = SubmissionRunners::Rust.new submission.call(input, output, bad_entry)
 
       # Build
       b = runner.build
@@ -86,9 +86,9 @@ RSpec.describe SubmissionRunners::Cpp, type: 'docker' do
     it 'compiles and doesn\'t run entry submission' do
       input = InputFile(File.join(dir, 'ProblemA.in'))
       output = OutputFile(File.join(dir, 'ProblemA.out'))
-      bad_entry = EntryFile(File.join(dir, 'compiles_and_doesnt_run.cc'))
+      bad_entry = EntryFile(File.join(dir, 'compiles_and_doesnt_run.rs'))
 
-      runner = SubmissionRunners::Cpp.new submission.call(input, output, bad_entry)
+      runner = SubmissionRunners::Rust.new submission.call(input, output, bad_entry)
 
       # Build
       b = runner.build
@@ -114,9 +114,9 @@ RSpec.describe SubmissionRunners::Cpp, type: 'docker' do
     it 'doesn\'t compile entry submission' do
       input = InputFile(File.join(dir, 'ProblemA.in'))
       output = OutputFile(File.join(dir, 'ProblemA.out'))
-      bad_entry = EntryFile(File.join(dir, 'doesnt_compile.cc'))
+      bad_entry = EntryFile(File.join(dir, 'doesnt_compile.rs'))
 
-      runner = SubmissionRunners::Cpp.new submission.call(input, output, bad_entry)
+      runner = SubmissionRunners::Rust.new submission.call(input, output, bad_entry)
 
       # Build
       b = runner.build

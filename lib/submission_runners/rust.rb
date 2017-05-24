@@ -2,7 +2,6 @@
 require 'submission_runners/base'
 require 'fileutils'
 require_relative '../../lib/docker/helpers'
-require_relative '../support/temp_file_block'
 
 module SubmissionRunners
   class Rust < Base
@@ -17,7 +16,7 @@ module SubmissionRunners
       FileUtils.chmod 0777, submission_dir
 
       @entry = EntryFile(source_file)
-      docker_run("cargo", "build", "--bin", entry.basename, entry.filename, chdir: submission_dir)
+      docker_run("rustc", entry.filename, chdir: submission_dir)
     end
 
     def run

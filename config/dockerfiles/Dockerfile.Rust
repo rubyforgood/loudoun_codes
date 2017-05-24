@@ -1,5 +1,6 @@
 FROM debian:jessie
-MAINTAINER Daniel P. Clark <6ftdan@gmail.com>
+LABEL DockerImage="Rust" \
+      Maintainer="Daniel P. Clark <6ftdan@gmail.com>"
 
 ENV USER root
 ENV RUST_VERSION=1.17.0
