@@ -5,6 +5,12 @@ require_relative 'config/application'
 
 Rails.application.load_tasks
 
+desc 'Build Custom Docker Images'
+task 'dockerbuild' do
+  desc 'Rust'
+  rust_version = `cat config/dockerfiles/Dockerfile.Rust | grep -Po "(?<=ENV RUST_VERSION=)\d+.\d+.\d+"`
+end
+
 desc 'Pull Docker Images'
 task :docker do
   require_relative 'lib/submission_runners'
