@@ -10,20 +10,15 @@ module SubmissionRunners
     private
 
     def build
-      submission_dir.chmod(0777) # otherwise the nobody user doesn't have write permissions
-
-      docker_run("javac", source_file.basename.to_s)
+      docker_run("javac", source_file)
     end
 
     def run
-      docker_run("java", java_class, chdir: submission_dir, in: input_buffer)
+      docker_run("java", java_class)
     end
 
     def java_class
-      source_file.basename.to_s.gsub(
-        /#{source_file.extname}$/,
-        ""
-      )
+      source_file.basename(source_file.extname)
     end
   end
 end

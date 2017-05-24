@@ -1,5 +1,7 @@
 require 'tty/command'
 
+require 'submission_runners/fake_build_phase_result'
+
 module SubmissionRunners
   class Base
     attr_reader :submission
@@ -10,6 +12,8 @@ module SubmissionRunners
     end
 
     def call
+      submission_dir.chmod(0777) # otherwise the nobody user doesn't have write permissions
+
       run_phase(:build) && run_phase(:run)
     end
 
@@ -19,7 +23,11 @@ module SubmissionRunners
 
     private
 
+    attr_accessor :current_phase
+
     def run_phase(phase)
+      self.current_phase = phase.to_sym
+
       result = send(phase)
 
       if result.success?
@@ -35,6 +43,10 @@ module SubmissionRunners
       result.success?
     end
 
+    def build
+      FakeBuildPhaseResult.new
+    end
+
     def docker_run(*command, **options)
       whole_command = [
         "docker", "run",
@@ -48,16 +60,26 @@ module SubmissionRunners
         "--attach", "STDERR",
         "--interactive",
         self.class.image,
-        *command,
+        *command.map(&:to_s),
       ]
 
-      options.merge!({
-        timeout: problem_timeout,
-      })
+      command_options = current_default_docker_run_options.
+        merge(options).
+        merge(timeout: problem_timeout)
 
       TTY::Command.
         new(printer: :null).
-        run!(*whole_command, **options)
+        run!(*whole_command, **command_options)
+    end
+
+    def current_default_docker_run_options
+      {
+        build: {},
+        run:   {
+          chdir: submission_dir,
+          in:    input_buffer,
+        },
+      }[current_phase]
     end
 
     def submission_dir
@@ -69,7 +91,7 @@ module SubmissionRunners
     end
 
     def source_file
-      submission.source_file
+      submission.source_file.basename
     end
 
     def input_buffer
