@@ -10,14 +10,14 @@ module SubmissionRunners
     include Docker::Helpers
 
     def self.image
-      ""
+      "rust:1.17.0"
     end
 
     def build
       FileUtils.chmod 0777, submission_dir
 
       @entry = EntryFile(source_file)
-      docker_run("cargo", "build", "-o", entry.basename, entry.filename, chdir: submission_dir)
+      docker_run("cargo", "build", "--bin", entry.basename, entry.filename, chdir: submission_dir)
     end
 
     def run
