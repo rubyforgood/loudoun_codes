@@ -8,7 +8,7 @@ class TeamsController < ApplicationController
   private
 
   def team
-    Team.find(scoreboard_params[:id])
+    Account.find(scoreboard_params[:id])
   end
 
   def scoreboard_params

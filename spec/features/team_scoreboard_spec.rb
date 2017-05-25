@@ -21,7 +21,7 @@ RSpec.feature 'Team scoreboard', type: :feature do
 
   scenario 'team scoreboard shows the problem status for pending submissions' do
     problem = Problem.create!(contest: Contest.instance)
-    Submission.create!(problem: problem, team: team, status: 'pending')
+    Submission.create!(problem: problem, account: team, status: 'pending')
 
     visit team_contest_scoreboard_path(team)
 
@@ -32,7 +32,7 @@ RSpec.feature 'Team scoreboard', type: :feature do
 
   scenario 'team scoreboard shows the problem status for failed submissions' do
     problem = Problem.create!(contest: Contest.instance)
-    Submission.create!(problem: problem, team: team, status: 'failed')
+    Submission.create!(problem: problem, account: team, status: 'failed')
 
     visit team_contest_scoreboard_path(team)
 
@@ -43,7 +43,7 @@ RSpec.feature 'Team scoreboard', type: :feature do
 
   scenario 'team scoreboard shows the problem status for passed submissions' do
     problem = Problem.create!(contest: Contest.instance)
-    Submission.create!(problem: problem, team: team, status: 'passed')
+    Submission.create!(problem: problem, account: team, status: 'passed')
 
     visit team_contest_scoreboard_path(team)
 
@@ -57,15 +57,15 @@ RSpec.feature 'Team scoreboard', type: :feature do
     problem_2 = Problem.create!(contest: Contest.instance)
     problem_3 = Problem.create!(contest: Contest.instance)
 
-    4.times { Submission.create!(problem: problem_1, team: team, status: 'failed') }
+    4.times { Submission.create!(problem: problem_1, account: team, status: 'failed') }
 
-    5.times { Submission.create!(problem: problem_2, team: team, status: 'failed') }
-    Submission.create!(problem: problem_2, team: team, status: 'passed')
-    Submission.create!(problem: problem_2, team: team, status: 'passed')
+    5.times { Submission.create!(problem: problem_2, account: team, status: 'failed') }
+    Submission.create!(problem: problem_2, account: team, status: 'passed')
+    Submission.create!(problem: problem_2, account: team, status: 'passed')
 
-    6.times { Submission.create!(problem: problem_3, team: team, status: 'failed') }
-    Submission.create!(problem: problem_3, team: team, status: 'passed')
-    6.times { Submission.create!(problem: problem_3, team: team, status: 'failed') }
+    6.times { Submission.create!(problem: problem_3, account: team, status: 'failed') }
+    Submission.create!(problem: problem_3, account: team, status: 'passed')
+    6.times { Submission.create!(problem: problem_3, account: team, status: 'failed') }
 
     visit team_contest_scoreboard_path(team)
 
