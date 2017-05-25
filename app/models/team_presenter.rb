@@ -54,5 +54,4 @@ class TeamPresenter
   def first_passed_submission(problem)
     passed_submissions(problem).first
   end
-
 end

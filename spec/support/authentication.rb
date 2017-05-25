@@ -12,8 +12,9 @@ shared_context "an authorized admin" do
 end
 
 shared_context "an authorized team" do
-  let(:team) { Account.create!(username: "team", password: 'asdf123', admin: false, contest: Contest.instance, name: 'Team 1') }
-
+  let(:team) do
+    Account.create!(username: "team", password: 'asdf123', admin: false, contest: Contest.instance, name: 'Team 1')
+  end
 
   before do
     visit "/login"
