@@ -17,7 +17,7 @@ module SubmissionRunners
       FileUtils.chmod 0777, submission_dir
 
       @entry = EntryFile(source_file)
-      docker_run('./stderr-wrapper.sh', 'crystal', 'build', '-o', entry.basename, entry.filename, chdir: submission_dir)
+      docker_run('crystal', 'build', '-o', entry.basename, entry.filename, chdir: submission_dir)
     end
 
     def run
