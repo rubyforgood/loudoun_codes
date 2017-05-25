@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.feature 'Team scoreboard', type: :feature do
   include_context "an authorized team"
 
-  # let(:contest) { Contest.create!(started_at: Time.now) }
+  before { Contest.instance.start }
 
   scenario 'team scoreboard is accessible to team' do
     visit team_contest_scoreboard_path(team)

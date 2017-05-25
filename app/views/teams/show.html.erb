@@ -14,7 +14,7 @@
         <td class='text-center' ><%= index + 1 %></td>
         <td class='text-center' bgcolor="<%= @presenter.color(problem) %>"><%= @presenter.problem_status(problem) %></td>
         <td><%= @presenter.attempts(problem) %></td>
-        <td></td>
+        <td><%= @presenter.time_elapsed(problem) %></td>
         <td></td>
       </tr>
     <% end %>
