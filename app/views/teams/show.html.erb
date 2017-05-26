@@ -1,0 +1,22 @@
+<table class='table table-striped'>
+  <thead>
+    <tr>
+      <th class='text-center' >Problem</th>
+      <th class='text-center' >Status</th>
+      <th class='text-center' >Attempts</th>
+      <th class='text-center' >Time Elapsed</th>
+      <th class='text-center' >Penalty Time</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @problems.each.with_index do |problem, index| %>
+      <tr>
+        <td class='text-center' ><%= index + 1 %></td>
+        <td class='text-center' bgcolor="<%= @presenter.color(problem) %>"><%= @presenter.problem_status(problem) %></td>
+        <td><%= @presenter.attempts(problem) %></td>
+        <td><%= @presenter.time_elapsed(problem) %></td>
+        <td></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
