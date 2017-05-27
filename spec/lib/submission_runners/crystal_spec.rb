@@ -2,20 +2,7 @@ require 'rails_helper'
 
 RSpec.describe SubmissionRunners::Crystal, type: 'docker' do
   describe 'docker command and barebone Crystal image' do
-    let(:fixtures) do
-      Pathname.new(Rails.root).
-      join('spec/fixtures/submission_runners/crystal')
-    end
-
-    before { @keep_files = Dir.entries(fixtures) }
-
-    after do
-      compiled = Dir.entries(fixtures) - @keep_files
-      compiled.each do |file|
-        FileUtils.rm_rf File.join(fixtures, file)
-      end
-    end
-
+    let(:fixtures) { Pathname.new(Rails.root).join('spec/fixtures/submission_runners/crystal') }
     let(:contest) { Contest.instance }
     let(:account) { contest.accounts.create! }
 
