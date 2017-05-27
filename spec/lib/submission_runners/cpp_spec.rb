@@ -41,7 +41,7 @@ RSpec.describe SubmissionRunners::Cpp, type: 'docker' do
       let(:problem_name) { 'compiles_and_doesnt_run' }
 
       it 'builds and runs with call' do
-        expect(runner.output).to_not eq(problem.output)
+        expect(runner.output).to be_a String
         expect(runner.output_type).to eq('run_failure')
         expect(runner.run_succeeded).to be_falsey
       end
@@ -51,7 +51,7 @@ RSpec.describe SubmissionRunners::Cpp, type: 'docker' do
       let(:problem_name) { 'doesnt_compile' }
 
       it 'builds and runs with call' do
-        expect(runner.output).to_not eq(problem.output)
+        expect(runner.output).to be_a String
         expect(runner.output_type).to eq('build_failure')
         expect(runner.run_succeeded).to be_falsey
       end

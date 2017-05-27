@@ -41,6 +41,7 @@ RSpec.describe SubmissionRunners::Python, type: 'docker' do
       let(:problem_name) { 'corrupt_code' }
 
       it "fails run via call" do
+        expect(runner.output).to be_a String
         expect(runner.output_type).to eq("run_failure")
         expect(runner.run_succeeded).to be_falsey
       end
