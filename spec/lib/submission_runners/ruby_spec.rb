@@ -39,15 +39,6 @@ RSpec.describe SubmissionRunners::Ruby, type: 'docker' do
     context 'invalid syntax entry submission' do
       let(:problem_name) { 'corrupt_code' }
 
-      it "fails run via run" do
-        runner.build
-        r = runner.run
-        expect(r.out).to_not eq(problem.output)
-        expect(r.err).to_not eq('')
-        expect(r.exitstatus).to_not eq(0)
-        expect(r.success?).to be_falsey
-      end
-
       it "fails run via call" do
         runner.call
         expect(runner.output_type).to eq("run_failure")
