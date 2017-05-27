@@ -31,7 +31,7 @@ RSpec.describe SubmissionRunners::Java, type: 'docker' do
       it "has no errors" do
         expect(runner.output).to be_a String
         expect(runner.output_type).to eq "success"
-        expect(runner.run_succeeded).to eq true
+        expect(runner.run_succeeded?).to eq true
       end
     end
 
@@ -41,7 +41,7 @@ RSpec.describe SubmissionRunners::Java, type: 'docker' do
       it "has a build failure" do
         expect(runner.output).to be_a String
         expect(runner.output_type).to eq "build_failure"
-        expect(runner.run_succeeded).to eq false
+        expect(runner.run_succeeded?).to eq false
       end
     end
 
@@ -51,7 +51,7 @@ RSpec.describe SubmissionRunners::Java, type: 'docker' do
       it "has a run failure" do
         expect(runner.output).to be_a String
         expect(runner.output_type).to eq "run_failure"
-        expect(runner.run_succeeded).to eq false
+        expect(runner.run_succeeded?).to eq false
       end
     end
   end

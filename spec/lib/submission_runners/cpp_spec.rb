@@ -33,7 +33,7 @@ RSpec.describe SubmissionRunners::Cpp, type: 'docker' do
       it 'builds and runs with call' do
         expect(runner.output).to eq(problem.output)
         expect(runner.output_type).to eq('success')
-        expect(runner.run_succeeded).to be_truthy
+        expect(runner.run_succeeded?).to eq true
       end
     end
 
@@ -43,7 +43,7 @@ RSpec.describe SubmissionRunners::Cpp, type: 'docker' do
       it 'builds and runs with call' do
         expect(runner.output).to be_a String
         expect(runner.output_type).to eq('run_failure')
-        expect(runner.run_succeeded).to be_falsey
+        expect(runner.run_succeeded?).to eq false
       end
     end
 
@@ -53,7 +53,7 @@ RSpec.describe SubmissionRunners::Cpp, type: 'docker' do
       it 'builds and runs with call' do
         expect(runner.output).to be_a String
         expect(runner.output_type).to eq('build_failure')
-        expect(runner.run_succeeded).to be_falsey
+        expect(runner.run_succeeded?).to eq false
       end
     end
   end

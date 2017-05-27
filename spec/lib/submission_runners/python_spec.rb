@@ -33,7 +33,7 @@ RSpec.describe SubmissionRunners::Python, type: 'docker' do
       it "runs via call" do
         expect(runner.output).to eq(problem.output)
         expect(runner.output_type).to eq("success")
-        expect(runner.run_succeeded).to be_truthy
+        expect(runner.run_succeeded?).to eq true
       end
     end
 
@@ -43,7 +43,7 @@ RSpec.describe SubmissionRunners::Python, type: 'docker' do
       it "fails run via call" do
         expect(runner.output).to be_a String
         expect(runner.output_type).to eq("run_failure")
-        expect(runner.run_succeeded).to be_falsey
+        expect(runner.run_succeeded?).to eq false
       end
     end
   end
