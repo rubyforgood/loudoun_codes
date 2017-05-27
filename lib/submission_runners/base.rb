@@ -5,8 +5,7 @@ require 'submission_runners/fake_build_phase_result'
 
 module SubmissionRunners
   class Base
-    attr_reader :submission
-    attr_accessor :output, :output_type, :run_succeeded
+    attr_reader :submission, :output, :output_type
 
     def initialize(submission)
       @submission = submission
@@ -19,26 +18,26 @@ module SubmissionRunners
     end
 
     def run_succeeded?
-      !!@run_succeeded
+      !!run_succeeded
     end
 
     private
 
-    attr_accessor :current_phase
+    attr_reader :current_phase, :run_succeeded
 
     def run_phase(phase)
-      self.current_phase = phase.to_sym
+      @current_phase = phase.to_sym
 
       result = send(phase)
 
       if result.success?
-        self.output        = result.out
-        self.output_type   = "success"
-        self.run_succeeded = true
+        @output        = result.out
+        @output_type   = "success"
+        @run_succeeded = true
       elsif result.failed?
-        self.output        = result.err
-        self.output_type   = "#{phase}_failure"
-        self.run_succeeded = false
+        @output        = result.err
+        @output_type   = "#{phase}_failure"
+        @run_succeeded = false
       end
 
       result.success?
