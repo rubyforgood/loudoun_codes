@@ -17,7 +17,7 @@ module SubmissionRunners
     end
 
     def run
-      docker_run("./#{entry.basename}", chdir: submission_dir, in: input_buffer)
+      docker_run("./#{entry.basename}")
     end
   end
 end
