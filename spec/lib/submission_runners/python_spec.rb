@@ -25,11 +25,12 @@ RSpec.describe SubmissionRunners::Python, type: 'docker' do
 
     subject(:runner) { described_class.new submission }
 
+    before { runner.call }
+
     context 'good entry submission' do
       let(:problem_name) { 'good_run' }
 
       it "runs via call" do
-        runner.call
         expect(runner.output).to eq(problem.output)
         expect(runner.output_type).to eq("success")
         expect(runner.run_succeeded).to be_truthy
@@ -40,7 +41,6 @@ RSpec.describe SubmissionRunners::Python, type: 'docker' do
       let(:problem_name) { 'corrupt_code' }
 
       it "fails run via call" do
-        runner.call
         expect(runner.output_type).to eq("run_failure")
         expect(runner.run_succeeded).to be_falsey
       end

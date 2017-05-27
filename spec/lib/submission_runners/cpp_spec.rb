@@ -25,11 +25,12 @@ RSpec.describe SubmissionRunners::Cpp, type: 'docker' do
 
     subject(:runner) { described_class.new submission }
 
+    before { runner.call }
+
     context 'good entry submission' do
       let(:problem_name) { 'compiles_and_runs' }
 
       it 'builds and runs with call' do
-        runner.call
         expect(runner.output).to eq(problem.output)
         expect(runner.output_type).to eq('success')
         expect(runner.run_succeeded).to be_truthy
@@ -40,7 +41,6 @@ RSpec.describe SubmissionRunners::Cpp, type: 'docker' do
       let(:problem_name) { 'compiles_and_doesnt_run' }
 
       it 'builds and runs with call' do
-        runner.call
         expect(runner.output).to_not eq(problem.output)
         expect(runner.output_type).to eq('run_failure')
         expect(runner.run_succeeded).to be_falsey
@@ -51,7 +51,6 @@ RSpec.describe SubmissionRunners::Cpp, type: 'docker' do
       let(:problem_name) { 'doesnt_compile' }
 
       it 'builds and runs with call' do
-        runner.call
         expect(runner.output).to_not eq(problem.output)
         expect(runner.output_type).to eq('build_failure')
         expect(runner.run_succeeded).to be_falsey
