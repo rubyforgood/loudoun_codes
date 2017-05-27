@@ -2,20 +2,7 @@ require 'rails_helper'
 
 RSpec.describe SubmissionRunners::Rust, type: 'docker' do
   describe 'docker command and barebone Rust image' do
-    let(:fixtures) do
-      Pathname.new(Rails.root).
-      join('spec/fixtures/submission_runners/rust')
-    end
-
-    before { @keep_files = Dir.entries(fixtures) }
-
-    after do
-      compiled = Dir.entries(fixtures) - @keep_files
-      compiled.each do |file|
-        FileUtils.rm_rf File.join(dir, file)
-      end
-    end
-
+    let(:fixtures) { Pathname.new(Rails.root).join('spec/fixtures/submission_runners/rust') }
     let(:contest) { Contest.instance }
     let(:account) { contest.accounts.create! }
 
