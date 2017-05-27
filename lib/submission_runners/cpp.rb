@@ -7,12 +7,18 @@ module SubmissionRunners
       "gcc:7.1"
     end
 
+    private
+
     def build
-      docker_run("g++", "-o", source_file.without_extension, source_file, chdir: submission_dir)
+      docker_run("g++", "-o", executable, source_file, chdir: submission_dir)
     end
 
     def run
-      docker_run("./#{source_file.without_extension}")
+      docker_run("./#{executable}")
+    end
+
+    def executable
+      source_file.without_extension
     end
   end
 end
