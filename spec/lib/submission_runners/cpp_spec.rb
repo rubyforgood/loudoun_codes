@@ -51,32 +51,6 @@ RSpec.describe SubmissionRunners::Cpp, type: 'docker' do
       end
     end
 
-    context 'failing entry submission' do
-      let(:problem_name) { 'compiles_and_runs_wrong_answer' }
-
-      it 'builds' do
-        b = runner.build
-        expect(b.err).to eq('')
-        expect(b.out).to_not eq(problem.output)
-        expect(b.success?).to be_truthy
-      end
-
-      it 'runs' do
-        runner.build
-        r = runner.run
-        expect(r.err).to eq('')
-        expect(r.out).to_not eq(problem.output)
-        expect(r.success?).to be_truthy
-      end
-
-      it 'builds and runs with call' do
-        runner.call
-        expect(runner.output).to_not eq(problem.output)
-        expect(runner.output_type).to eq('success')
-        expect(runner.run_succeeded).to be_truthy
-      end
-    end
-
     context 'compiles and doesn\'t run entry submission' do
       let(:problem_name) { 'compiles_and_doesnt_run' }
 
