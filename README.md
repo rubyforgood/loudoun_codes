@@ -33,7 +33,11 @@ Acceptable inputs might look like:
 docker_run('java', 'Foobar')
 ```
 
-If you're language doesn't need a build step (the vast majority of interpreted languages don't, for example), then you can omit a `#build` method for your runner.
+### \`source_file\`
+The `#source_file` method returns a `SubmissionRunners::SourceFile` (`Pathname` subclass) instance bound to the `basename` of the participant-submitted source code file for this run. It responds to `#without_extension`, which returns an extension-less instance (helpful for compiler targets), as well as the entire `Pathname` "interface".
+
+
+If your language doesn't need a build step (the vast majority of interpreted languages don't, for example), then you can omit a `#build` method for your runner.
 
 Running tests
 ------------
