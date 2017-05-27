@@ -10,3 +10,18 @@ shared_context "an authorized admin" do
   end
 
 end
+
+shared_context "an authorized team" do
+  let(:team) do
+    Account.create!(username: "team", password: 'asdf123', admin: false, contest: Contest.instance, name: 'Team 1')
+  end
+
+  before do
+    visit "/login"
+    fill_in "Username", with: team.username
+    fill_in "Password", with: team.password
+
+    click_on "Log in"
+  end
+
+end

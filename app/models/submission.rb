@@ -6,6 +6,13 @@ class Submission < ApplicationRecord
   belongs_to :account
   belongs_to :problem
 
+  validates :status, inclusion: { in: %w(pending passed failed) }
+  after_initialize :init
+
+  def init
+    self.status ||= 'pending'
+  end
+
   validate do
     if attachment && attachment.attachment_type != 'solution'
       errors.add :attachment, 'Must be a solution'
