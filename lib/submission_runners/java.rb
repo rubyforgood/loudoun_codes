@@ -14,11 +14,9 @@ module SubmissionRunners
     end
 
     def run
-      docker_run("java", java_class)
-    end
+      java_class = source_file.without_extension
 
-    def java_class
-      source_file.basename(source_file.extname)
+      docker_run("java", java_class)
     end
   end
 end
