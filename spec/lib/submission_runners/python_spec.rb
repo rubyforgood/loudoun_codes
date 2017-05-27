@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe SubmissionRunners::Python, type: 'docker' do
-  describe 'docker command and barebone Python image' do
+  describe '#call' do
     let(:fixtures) { Pathname.new(Rails.root).join('spec/fixtures/submission_runners/python/') }
     let(:contest) { Contest.instance }
     let(:account) { contest.accounts.create! }

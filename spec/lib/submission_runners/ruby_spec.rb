@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe SubmissionRunners::Ruby, type: 'docker' do
-  describe 'docker command and barebone Ruby image' do
+  describe '#call' do
     let(:fixtures) { Pathname.new(Rails.root).join('spec/fixtures/submission_runners/ruby/') }
     let(:contest) { Contest.instance }
     let(:account) { contest.accounts.create! }
