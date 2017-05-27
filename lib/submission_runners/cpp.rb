@@ -10,7 +10,7 @@ module SubmissionRunners
     private
 
     def build
-      docker_run("g++", "-o", executable, source_file, chdir: submission_dir)
+      docker_run("g++", "-o", executable, source_file)
     end
 
     def run
