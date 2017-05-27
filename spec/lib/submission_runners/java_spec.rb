@@ -25,17 +25,17 @@ RSpec.describe SubmissionRunners::Java, type: 'docker' do
 
     before { runner.call }
 
-    context "java code that won't generate compiler or runtime errors" do
+    context "code that compiles and runs" do
       let(:problem_name) { "CompilesAndRuns" }
 
-      it "has no errors" do
+      it "has no failures" do
         expect(runner.output).to be_a String
         expect(runner.output_type).to eq "success"
         expect(runner.run_succeeded?).to eq true
       end
     end
 
-    context "java code that will generate compiler errors" do
+    context "code that doesn't compile" do
       let(:problem_name) { "DoesntCompile" }
 
       it "has a build failure" do
@@ -45,7 +45,7 @@ RSpec.describe SubmissionRunners::Java, type: 'docker' do
       end
     end
 
-    context "java code that will generate runtime errors" do
+    context "code that compiles but doesn't run" do
       let(:problem_name) { "CompilesDoesntRun" }
 
       it "has a run failure" do
