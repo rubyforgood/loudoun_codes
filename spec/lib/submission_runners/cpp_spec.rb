@@ -36,7 +36,7 @@ RSpec.describe SubmissionRunners::Cpp, type: 'docker' do
       end
     end
 
-    context 'compiles and doesn\'t run entry submission' do
+    context "compiles and doesn't run entry submission" do
       let(:problem_name) { 'compiles_and_doesnt_run' }
 
       it 'builds and runs with call' do
@@ -47,7 +47,7 @@ RSpec.describe SubmissionRunners::Cpp, type: 'docker' do
       end
     end
 
-    context 'doesn\'t compile entry submission' do
+    context "doesn't compile entry submission" do
       let(:problem_name) { 'doesnt_compile' }
 
       it 'builds and runs with call' do
