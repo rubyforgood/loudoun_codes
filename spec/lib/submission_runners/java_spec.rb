@@ -29,8 +29,9 @@ RSpec.describe SubmissionRunners::Java, type: 'docker' do
       let(:problem_name) { "CompilesAndRuns" }
 
       it "has no errors" do
-        expect(runner.output_type).to eq "success"
         expect(runner.output).to_not be_nil
+        expect(runner.output_type).to eq "success"
+        expect(runner.run_succeeded).to eq true
       end
     end
 
@@ -38,8 +39,9 @@ RSpec.describe SubmissionRunners::Java, type: 'docker' do
       let(:problem_name) { "DoesntCompile" }
 
       it "has a build failure" do
-        expect(runner.output_type).to eq "build_failure"
         expect(runner.output).to_not be_nil
+        expect(runner.output_type).to eq "build_failure"
+        expect(runner.run_succeeded).to eq false
       end
     end
 
@@ -47,8 +49,9 @@ RSpec.describe SubmissionRunners::Java, type: 'docker' do
       let(:problem_name) { "CompilesDoesntRun" }
 
       it "has a run failure" do
-        expect(runner.output_type).to eq "run_failure"
         expect(runner.output).to_not be_nil
+        expect(runner.output_type).to eq "run_failure"
+        expect(runner.run_succeeded).to eq false
       end
     end
   end
