@@ -107,7 +107,6 @@ RSpec.describe SubmissionRunners::Crystal, type: 'docker' do
       let(:problem_name) { 'doesnt_compile' }
 
       it 'builds' do
-        skip 'Crystal doesn\'t write to STDERR when compilation fails'
         b = runner.build
         expect(b.err).to_not eq('')
         expect(b.out).to_not eq(problem.output)
