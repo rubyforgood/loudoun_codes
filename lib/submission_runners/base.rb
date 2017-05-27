@@ -1,5 +1,6 @@
 require 'tty/command'
 
+require 'submission_runners/source_file'
 require 'submission_runners/fake_build_phase_result'
 
 module SubmissionRunners
@@ -91,7 +92,7 @@ module SubmissionRunners
     end
 
     def source_file
-      submission.source_file.basename
+      SourceFile.new(submission.source_file.basename)
     end
 
     def input_buffer
