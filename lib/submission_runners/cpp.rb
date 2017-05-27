@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 require 'submission_runners/base'
 require_relative '../../lib/docker/helpers'
-require_relative '../support/temp_file_block'
 
 module SubmissionRunners
   class Cpp < Base
