@@ -31,10 +31,10 @@ module SubmissionRunners
         @result_object = result_object
       end
 
-      def out
-        return @result_object.out if exit_status.zero?
-        @result_object.err
-      end
+      # def out
+      #   return @result_object.out if exit_status.zero?
+      #   @result_object.err
+      # end
 
       def err
         return @result_object.err if exit_status.zero?
