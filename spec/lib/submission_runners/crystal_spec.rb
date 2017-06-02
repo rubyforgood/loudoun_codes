@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe SubmissionRunners::Crystal, type: 'docker' do
-  describe 'docker command and barebone Crystal image' do
+  describe '#call' do
     let(:fixtures) { Pathname.new(Rails.root).join('spec/fixtures/submission_runners/crystal') }
     let(:contest) { Contest.instance }
     let(:account) { contest.accounts.create! }
@@ -27,32 +27,32 @@ RSpec.describe SubmissionRunners::Crystal, type: 'docker' do
 
     before { runner.call }
 
-    context 'good entry submission' do
+    context 'code that compiles and runs' do
       let(:problem_name) { 'compiles_and_runs' }
 
-      it 'builds and runs with call' do
+      it 'has no failures' do
         expect(runner.output).to eq(problem.output)
         expect(runner.output_type).to eq('success')
         expect(runner.run_succeeded?).to eq true
       end
     end
 
-    context "compiles and doesn't run entry submission" do
-      let(:problem_name) { 'compiles_and_doesnt_run' }
+    context "code that doesn't compile" do
+      let(:problem_name) { 'doesnt_compile' }
 
-      it 'builds and runs with call' do
+      it 'has a build failure' do
         expect(runner.output).to_not eq(problem.output)
-        expect(runner.output_type).to eq('run_failure')
+        expect(runner.output_type).to eq('build_failure')
         expect(runner.run_succeeded?).to eq false
       end
     end
 
-    context "doesn't compile entry submission" do
-      let(:problem_name) { 'doesnt_compile' }
+    context "code that compiles but doesn't run" do
+      let(:problem_name) { 'compiles_and_doesnt_run' }
 
-      it 'builds and runs with call' do
+      it 'has a run failure' do
         expect(runner.output).to_not eq(problem.output)
-        expect(runner.output_type).to eq('build_failure')
+        expect(runner.output_type).to eq('run_failure')
         expect(runner.run_succeeded?).to eq false
       end
     end
