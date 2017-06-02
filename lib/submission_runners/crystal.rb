@@ -8,8 +8,9 @@ module SubmissionRunners
     end
 
     def build
-      CrystalBuildResponse.new \
-        docker_run('crystal', 'build', '-o', executable, source_file)
+      result = docker_run('crystal', 'build', '-o', executable, source_file)
+
+      CrystalBuildResponse.new(result)
     end
 
     def run
