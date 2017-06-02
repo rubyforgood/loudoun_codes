@@ -1,14 +1,8 @@
 # -*- coding: utf-8 -*-
 require 'submission_runners/base'
-require 'fileutils'
-require_relative '../../lib/docker/helpers'
-require_relative '../support/temp_file_block'
 
 module SubmissionRunners
   class Crystal < Base
-    attr_reader :entry
-    include Docker::Helpers
-
     def self.image
       'crystallang/crystal:0.22.0'
     end
