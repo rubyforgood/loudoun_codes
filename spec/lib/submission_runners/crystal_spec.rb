@@ -37,16 +37,6 @@ RSpec.describe SubmissionRunners::Crystal, type: 'docker' do
       end
     end
 
-    context 'failing entry submission' do
-      let(:problem_name) { 'compiles_and_runs_wrong_answer' }
-
-      it 'builds and runs with call' do
-        expect(runner.output).to_not eq(problem.output)
-        expect(runner.output_type).to eq('success')
-        expect(runner.run_succeeded?).to eq true
-      end
-    end
-
     context 'compiles and doesn\'t run entry submission' do
       let(:problem_name) { 'compiles_and_doesnt_run' }
 
