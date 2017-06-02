@@ -14,13 +14,16 @@ module SubmissionRunners
     end
 
     def build
-      @entry = EntryFile(source_file)
       CrystalBuildResponse.new \
-        docker_run('crystal', 'build', '-o', entry.basename, entry.filename, chdir: submission_dir)
+        docker_run('crystal', 'build', '-o', executable, source_file, chdir: submission_dir)
     end
 
     def run
-      docker_run("./#{entry.basename}")
+      docker_run("./#{executable}")
+    end
+
+    def executable
+      source_file.without_extension
     end
 
     class CrystalBuildResponse
