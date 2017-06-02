@@ -28,21 +28,6 @@ RSpec.describe SubmissionRunners::Crystal, type: 'docker' do
     context 'good entry submission' do
       let(:problem_name) { 'compiles_and_runs' }
 
-      it 'builds' do
-        b = runner.build
-        expect(b.err).to eq('')
-        expect(b.out).to_not eq(problem.output)
-        expect(b.success?).to be_truthy
-      end
-
-      it 'runs' do
-        runner.build
-        r = runner.run
-        expect(r.err).to eq('')
-        expect(r.out).to eq(problem.output)
-        expect(r.success?).to be_truthy
-      end
-
       it 'builds and runs with call' do
         runner.call
         expect(runner.output).to eq(problem.output)
@@ -53,21 +38,6 @@ RSpec.describe SubmissionRunners::Crystal, type: 'docker' do
 
     context 'failing entry submission' do
       let(:problem_name) { 'compiles_and_runs_wrong_answer' }
-
-      it 'builds' do
-        b = runner.build
-        expect(b.err).to eq('')
-        expect(b.out).to_not eq(problem.output)
-        expect(b.success?).to be_truthy
-      end
-
-      it 'runs' do
-        runner.build
-        r = runner.run
-        expect(r.err).to eq('')
-        expect(r.out).to_not eq(problem.output)
-        expect(r.success?).to be_truthy
-      end
 
       it 'builds and runs with call' do
         runner.call
@@ -80,21 +50,6 @@ RSpec.describe SubmissionRunners::Crystal, type: 'docker' do
     context 'compiles and doesn\'t run entry submission' do
       let(:problem_name) { 'compiles_and_doesnt_run' }
 
-      it 'builds' do
-        b = runner.build
-        expect(b.err).to eq('')
-        expect(b.out).to_not eq(problem.output)
-        expect(b.success?).to be_truthy
-      end
-
-      it 'runs' do
-        runner.build
-        r = runner.run
-        expect(r.err).to_not eq('')
-        expect(r.out).to_not eq(problem.output)
-        expect(r.success?).to be_falsey
-      end
-
       it 'builds and runs with call' do
         runner.call
         expect(runner.output).to_not eq(problem.output)
@@ -105,21 +60,6 @@ RSpec.describe SubmissionRunners::Crystal, type: 'docker' do
 
     context 'doesn\'t compile entry submission' do
       let(:problem_name) { 'doesnt_compile' }
-
-      it 'builds' do
-        b = runner.build
-        expect(b.err).to_not eq('')
-        expect(b.out).to_not eq(problem.output)
-        expect(b.success?).to be_falsey
-      end
-
-      it 'runs' do
-        runner.build
-        r = runner.run
-        expect(r.err).to_not eq('')
-        expect(r.out).to_not eq(problem.output)
-        expect(r.success?).to be_falsey
-      end
 
       it 'builds and runs with call' do
         runner.call
