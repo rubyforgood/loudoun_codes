@@ -15,7 +15,7 @@ module SubmissionRunners
 
     def build
       CrystalBuildResponse.new \
-        docker_run('crystal', 'build', '-o', executable, source_file, chdir: submission_dir)
+        docker_run('crystal', 'build', '-o', executable, source_file)
     end
 
     def run
