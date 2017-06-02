@@ -14,8 +14,6 @@ module SubmissionRunners
     end
 
     def build
-      FileUtils.chmod 0777, submission_dir
-
       @entry = EntryFile(source_file)
       CrystalBuildResponse.new \
         docker_run('crystal', 'build', '-o', entry.basename, entry.filename, chdir: submission_dir)
