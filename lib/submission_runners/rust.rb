@@ -9,7 +9,7 @@ module SubmissionRunners
     include Docker::Helpers
 
     def self.image
-      "rust:1.17.0"
+      "rust:1.18.0"
     end
 
     def build

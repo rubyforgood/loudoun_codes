@@ -19,6 +19,6 @@ task docker: [:dockerbuild] do
   Dir['lib/submission_runners/*'].each do |f| require_relative f end
   include SubmissionRunners
   Set.new(SubmissionRunners.language_extension_map.values).each do |language|
-    system(*%W[docker pull #{language.image}])
+    system(*%W[docker pull #{language.image}]) if `docker images -q #{language.image}`.empty?
   end
 end
