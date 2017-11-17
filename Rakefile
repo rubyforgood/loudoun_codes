@@ -5,15 +5,8 @@ require_relative 'config/application'
 
 Rails.application.load_tasks
 
-desc 'Build Custom Docker Images'
-task 'dockerbuild' do
-  desc 'Rust'
-  rust_version = File.read('config/dockerfiles/Dockerfile.Rust')[/(?<=ENV RUST_VERSION=)\d+.\d+.\d+/]
-  system(*%W[docker build -f config/dockerfiles/Dockerfile.Rust -t rust:#{rust_version} config/dockerfiles])
-end
-
 desc 'Pull Docker Images'
-task docker: [:dockerbuild] do
+task :docker do
   require_relative 'lib/submission_runners'
   require 'set'
   Dir['lib/submission_runners/*'].each do |f| require_relative f end
