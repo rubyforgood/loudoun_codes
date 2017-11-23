@@ -14,6 +14,8 @@ module SubmissionRunners
       ".C"    => Cpp,
       ".cxx"  => Cpp,
       ".cr"   => Crystal,
+      '.hs'   => Haskell,
+      '.lhs'  => Haskell,
       '.java' => Java,
       '.py'   => Python,
       '.rb'   => Ruby,
