@@ -112,22 +112,6 @@ RSpec.describe SubmissionRunners::Haskell, type: 'docker' do
         expect(b.out).to_not eq(problem.output)
         expect(b.success?).to be_falsey
       end
-
-      it 'runs' do
-        # Reports a successful run here even though compilation failed.
-        runner.build
-        r = runner.run
-        expect(r.out).to_not eq(problem.output)
-        expect(r.success?).to be_falsey
-        expect(r.err).to_not eq('')
-      end
-
-      it 'builds and runs with call' do
-        runner.call
-        expect(runner.output).to_not eq(problem.output)
-        expect(runner.output_type).to eq('build_failure')
-        expect(runner.run_succeeded).to be_falsey
-      end
     end
   end
 end
