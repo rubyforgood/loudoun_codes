@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe SubmissionRunners::Crystal, type: 'docker' do
-  describe 'docker command and barebone Crystal image' do
+  describe '#call' do
     let(:fixtures) { Pathname.new(Rails.root).join('spec/fixtures/submission_runners/crystal') }
     let(:contest) { Contest.instance }
     let(:account) { contest.accounts.create! }
@@ -25,107 +25,35 @@ RSpec.describe SubmissionRunners::Crystal, type: 'docker' do
 
     subject(:runner) { described_class.new submission }
 
-    context 'good entry submission' do
+    before { runner.call }
+
+    context 'code that compiles and runs' do
       let(:problem_name) { 'compiles_and_runs' }
 
-      it 'builds' do
-        b = runner.build
-        expect(b.err).to eq('')
-        expect(b.out).to_not eq(problem.output)
-        expect(b.success?).to be_truthy
-      end
-
-      it 'runs' do
-        runner.build
-        r = runner.run
-        expect(r.err).to eq('')
-        expect(r.out).to eq(problem.output)
-        expect(r.success?).to be_truthy
-      end
-
-      it 'builds and runs with call' do
-        runner.call
+      it 'has no failures' do
         expect(runner.output).to eq(problem.output)
         expect(runner.output_type).to eq('success')
-        expect(runner.run_succeeded).to be_truthy
+        expect(runner.run_succeeded?).to eq true
       end
     end
 
-    context 'failing entry submission' do
-      let(:problem_name) { 'compiles_and_runs_wrong_answer' }
-
-      it 'builds' do
-        b = runner.build
-        expect(b.err).to eq('')
-        expect(b.out).to_not eq(problem.output)
-        expect(b.success?).to be_truthy
-      end
-
-      it 'runs' do
-        runner.build
-        r = runner.run
-        expect(r.err).to eq('')
-        expect(r.out).to_not eq(problem.output)
-        expect(r.success?).to be_truthy
-      end
-
-      it 'builds and runs with call' do
-        runner.call
-        expect(runner.output).to_not eq(problem.output)
-        expect(runner.output_type).to eq('success')
-        expect(runner.run_succeeded).to be_truthy
-      end
-    end
-
-    context 'compiles and doesn\'t run entry submission' do
-      let(:problem_name) { 'compiles_and_doesnt_run' }
-
-      it 'builds' do
-        b = runner.build
-        expect(b.err).to eq('')
-        expect(b.out).to_not eq(problem.output)
-        expect(b.success?).to be_truthy
-      end
-
-      it 'runs' do
-        runner.build
-        r = runner.run
-        expect(r.err).to_not eq('')
-        expect(r.out).to_not eq(problem.output)
-        expect(r.success?).to be_falsey
-      end
-
-      it 'builds and runs with call' do
-        runner.call
-        expect(runner.output).to_not eq(problem.output)
-        expect(runner.output_type).to eq('run_failure')
-        expect(runner.run_succeeded).to be_falsey
-      end
-    end
-
-    context 'doesn\'t compile entry submission' do
+    context "code that doesn't compile" do
       let(:problem_name) { 'doesnt_compile' }
 
-      it 'builds' do
-        b = runner.build
-        expect(b.err).to_not eq('')
-        expect(b.out).to_not eq(problem.output)
-        expect(b.success?).to be_falsey
-      end
-
-      it 'runs' do
-        runner.build
-        r = runner.run
-        expect(r.err).to_not eq('')
-        expect(r.out).to_not eq(problem.output)
-        expect(r.success?).to be_falsey
-      end
-
-      it 'builds and runs with call' do
-        runner.call
+      it 'has a build failure' do
         expect(runner.output).to_not eq(problem.output)
         expect(runner.output_type).to eq('build_failure')
-        expect(runner.run_succeeded).to be_falsey
+        expect(runner.run_succeeded?).to eq false
+      end
+    end
+
+    context "code that compiles but doesn't run" do
+      let(:problem_name) { 'compiles_and_doesnt_run' }
+
+      it 'has a run failure' do
+        expect(runner.output).to_not eq(problem.output)
+        expect(runner.output_type).to eq('run_failure')
+        expect(runner.run_succeeded?).to eq false
       end
     end
   end
