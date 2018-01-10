@@ -1,38 +1,50 @@
 require 'tty/command'
 
+require 'submission_runners/source_file'
+require 'submission_runners/fake_build_phase_result'
+
 module SubmissionRunners
   class Base
-    attr_reader :submission
-    attr_accessor :output, :output_type, :run_succeeded
+    attr_reader :submission, :output, :output_type
 
     def initialize(submission)
       @submission = submission
     end
 
     def call
+      submission_dir.chmod(0777) # otherwise the nobody user doesn't have write permissions
+
       run_phase(:build) && run_phase(:run)
     end
 
     def run_succeeded?
-      !!@run_succeeded
+      !!run_succeeded
     end
 
     private
 
+    attr_reader :current_phase, :run_succeeded
+
     def run_phase(phase)
+      @current_phase = phase.to_sym
+
       result = send(phase)
 
       if result.success?
-        self.output        = result.out
-        self.output_type   = "success"
-        self.run_succeeded = true
+        @output        = result.out
+        @output_type   = "success"
+        @run_succeeded = true
       elsif result.failed?
-        self.output        = result.err
-        self.output_type   = "#{phase}_failure"
-        self.run_succeeded = false
+        @output        = result.err
+        @output_type   = "#{phase}_failure"
+        @run_succeeded = false
       end
 
       result.success?
+    end
+
+    def build
+      FakeBuildPhaseResult.new
     end
 
     def docker_run(*command, **options)
@@ -48,16 +60,26 @@ module SubmissionRunners
         "--attach", "STDERR",
         "--interactive",
         self.class.image,
-        *command,
+        *command.map(&:to_s),
       ]
 
-      options.merge!({
-        timeout: problem_timeout,
-      })
+      command_options = current_default_docker_run_options.
+        merge(options).
+        merge(timeout: problem_timeout)
 
       TTY::Command.
         new(printer: :null).
-        run!(*whole_command, **options)
+        run!(*whole_command, **command_options)
+    end
+
+    def current_default_docker_run_options
+      {
+        build: {},
+        run:   {
+          chdir: submission_dir,
+          in:    input_buffer,
+        },
+      }[current_phase]
     end
 
     def submission_dir
@@ -69,7 +91,7 @@ module SubmissionRunners
     end
 
     def source_file
-      submission.source_file
+      SourceFile.new(submission.source_file.basename)
     end
 
     def input_buffer

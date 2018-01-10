@@ -16,7 +16,7 @@ We are using [TTY::Command](https://github.com/piotrmurach/tty-command) to inter
 For example, a program `Foobar` is compiled via
 ```
 $ javac Foobar.java
-````
+```
 
 Acceptable inputs to `docker_run` might look like:
 ```
@@ -28,10 +28,16 @@ After compilation, running a class `Foobar` is accomplished with
 $ java Foobar
 ```
 
-Acceptable inputs might look like (where `submission_dir` and `input` are provided by `Base`):
+Acceptable inputs might look like:
 ```
-docker_run('java', 'FooBar', chdir: submission_dir, in: input)
+docker_run('java', 'Foobar')
 ```
+
+### \`source_file\`
+The `#source_file` method returns a `SubmissionRunners::SourceFile` (`Pathname` subclass) instance bound to the `basename` of the participant-submitted source code file for this run. It responds to `#without_extension`, which returns an extension-less instance (helpful for compiler targets), as well as the entire `Pathname` "interface".
+
+
+If your language doesn't need a build step (the vast majority of interpreted languages don't, for example), then you can omit a `#build` method for your runner.
 
 Running tests
 ------------

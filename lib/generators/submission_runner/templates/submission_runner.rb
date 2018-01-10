@@ -8,14 +8,12 @@ module SubmissionRunners
 
     private
 
-    def build
-      submission_dir.chmod(0777) # otherwise the nobody user doesn't have write permissions
-
-      #docker_run
-    end
+    # def build
+    #   docker_run
+    # end
 
     def run
-      #docker_run
+      docker_run("placeholder.language_name", source_file)
     end
   end
 end
