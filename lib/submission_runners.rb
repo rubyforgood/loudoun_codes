@@ -17,6 +17,7 @@ module SubmissionRunners
       '.java' => Java,
       '.py'   => Python,
       '.rb'   => Ruby,
+      '.rs'   => Rust,
     }
   end
 end
