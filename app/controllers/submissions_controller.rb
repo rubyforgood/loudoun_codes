@@ -6,10 +6,10 @@ class SubmissionsController < ApplicationController
   def create
     submission = params.require :submission
     @submission = Submission.create_from_file(
-        file:     submission[:attachment],
-        filename: submission[:attachment].try(:original_filename),
-        problem:  Problem.find_by(id: submission[:problem]),
-        account:  current_account
+      file:     submission[:attachment],
+      filename: submission[:attachment].try(:original_filename),
+      problem:  Problem.find_by(id: submission[:problem]),
+      account:  current_account
     )
 
     if @submission.valid?
