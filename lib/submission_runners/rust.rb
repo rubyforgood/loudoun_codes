@@ -5,7 +5,7 @@ require 'fileutils'
 module SubmissionRunners
   class Rust < Base
     def self.image
-      "rust:1.23.0"
+      "rust:1.26.0"
     end
 
     private
